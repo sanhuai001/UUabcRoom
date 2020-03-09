@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">UUabc</string>
+
+    <!-- common -->
+    <string name="common_btn_reload">重新加载</string>
+    <string name="common_network_connect_fail">网络连接失败，请检查您的网络连接！</string>
+    <string name="common_network_connect_notwifi">当前为非wifi环境，会消耗流量哦！</string>
+    <string name="common_server_error">找不到小U了，快联系督导/顾问试试吧</string>
+    <string name="common_ss_server_error">(%1$s)找不到小U了，快联系督导/顾问试试吧</string>
+    <string name="common_token_overdue">当前会话已过期，请重新登录</string>
+    <string name="common_submit">提交</string>
+    <string name="common_current_network_wifi">当前为WIFI环境~</string>
+    <string name="common_current_network_not_wifi">当前为非wifi环境，会消耗流量哦~</string>
+    <string name="common_current_network_connect_fail">当前无网络连接, 请检查网络~</string>
+    <string name="common_is_first_page">已经是第一页了</string>
+    <string name="common_is_last_page">已经是最后一页了</string>
+    <string name="common_course_id">课程编号:%d</string>
+    <string name="common_course_autostart">开始自动播放</string>
+    <string name="common_course_no_audio">该页没有录制音频</string>
+    <string name="common_id">ID：%s</string>
+    <string name="class_time">上课时间：%s</string>
+
+    <!--dialog-->
+    <string name="dialog_cancel_str">取消</string>
+    <string name="dialog_title_tips_str">提示信息</string>
+    <string name="dialog_refresh_str">刷新</string>
+    <string name="dialog_msg_exit_str">退出教室\n课程还没上完,你确定要退出教室吗?</string>
+    <string name="dialog_msg_offline_str">下线提醒\n您已在%1$s上登录</string>
+    <string name="dialog_msg_offline_ss_str">下线提醒\n您已在其他设备上登录</string>
+    <string name="dialog_msg_refresh_str">刷新教室\n刷新教室会重新进教室噢~</string>
+    <string name="dialog_msg_no_courseware_str">课件不知道跑到哪里去了~ \n请联系你的督导/顾问或联系我们客服电话</string>
+    <string name="dialog_msg_support_str">遇到任何问题请及时与我们联系噢~\n课程编号:%1$s</string>
+    <string name="dialog_msg_overclass_str">下课啦,你今天的表现真棒</string>
+    <string name="dialog_btn_do_homework_str">完成作业</string>
+    <string name="dialog_room_in_msg_str">"跟 %1$s 老师一起学习课程\n 《%2$s》 \n多说多读，争取获得更多钻石和U币噢！</string>
+    <string name="dialog_room_in_ss_msg_str">"跟 %1$s 老师一起学习课程\n 《%2$s》 \n多说多读，争取获得更多钻石噢！</string>
+    <string name="dialog_room_in_ss_1v4_msg_str">"跟 %1$s 老师一起学习课程\n 《%2$s》 \n多说多读，好好表现自我，去获取更多钻石吧~</string>
+
+    <string name="dialog_live_over_class_msg_str">下课啦!本次直播课已结束,你答对了%1$d题</string>
+    <string name="dialog_live_over_class_msg_ss_str">下课啦!本次直播课已结束</string>
+    <string name="dialog_rank_null_tips_str">这节课无人答题\n下次要多参与答题领取更多U币噢!</string>
+    <!--class room-->
+    <string name="activity_main_duration_str">课时长:%d分</string>
+    <string name="todo">TODO</string>
+    <string name="dialog_know_str">知道了</string>
+
+    <string name="fragment_check_exit_str">退出</string>
+    <!--推送-->
+    <string name="dialog_clock_tips_one_str">还有%s分钟就上课了\n快进入教室吧~</string>
+    <string name="dialog_clock_tips_two_str">还有1分钟就上课了\n要迟到了~</string>
+    <string name="dialog_clock_tips_three_str">课程已经开始了\n快进入教室吧～</string>
+    <string name="dialog_just_enter_str">立即进入</string>
+    <string name="dialog_clock_class_type_one_to_one_str">一对一</string>
+    <string name="dialog_clock_class_type_one_to_four_str">一对四</string>
+    <string name="dialog_clock_class_type_live_str">直播课</string>
+    <!--课前提醒-->
+    <string name="dialog_course_id">编号:%d</string>
+    <string name="dialog_room_tips_str">跟<Data><![CDATA[ <font color="#ffec51"> %1$s </font>老师一起学习<font color="#ffec51" >%2$s </font>课程!<br></br>多说多读,好好表现自我,去获取更多钻石吧～]]> </Data></string>
+    <string name="dialog_room_tips_name_str">hi %s</string>
+    <string name="activity_rank_over_class_str">下课啦!</string>
+    <string name="activity_rank_over_class_str2">下课啦</string>
+    <string name="activity_over_class_diamond_str">获得了<Data><![CDATA[<font color="#D93730">%1$d</font>颗钻石]]></Data></string>
+    <string name="activity_over_class_comment_btn_str">做作业啦</string>
+    <string name="activity_over_class_no_comment_btn_str">稍后再做</string>
+    <string name="view_group_name_str">%1$s\nx%2$d</string>
+    <string name="dialog_exit_content_str">你确定要退出教室吗？</string>
+    <string name="dialog_refresh_content_str">刷新教室会重进教室页面噢～</string>
+    <string name="dialog_exit_title_str">退出教室</string>
+    <string name="dialog_refresh_title_str">刷新教室</string>
+    <string name="dialog_good_tips_str">你今天表现真棒</string>
+    <string name="dialog_room_tips_offline_str">您已在%s设备上登录</string>
+    <string name="one_to_four_over_class_rank_over_tips_str">记得回去多多复习哦~</string>
+    <!--直播课-->
+    <string name="fragment_seat_list_title_str">按答题排行榜实时刷新</string>
+    <string name="fragment_seat_list_count_str">共:%1$d人</string>
+    <string name="live_class_room_send_star_str">送星星(%1$d)</string>
+    <string name="live_class_room_send_star_over_str">星已送完</string>
+    <string name="live_class_room_send_star_tips_str">%1$s送颗星星</string>
+    <string name="fragment_class_in_tips_str"><Data><![CDATA[ <font color="#fe830c"> %1$s </font>]]> </Data>进入了教室</string>
+    <string name="dialog_answer_title_rank_str">答题排行榜</string>
+    <string name="dialog_answer_num_str">答对%1$s题</string>
+    <string name="live_class_room_answer_notasked_str">放弃答题!<Data><![CDATA[<br><font color="#333333">没有获得U币</font></br>]]></Data></string>
+    <string name="live_class_room_answer_error_str">很遗憾你答错了<Data><![CDATA[<br><font color="#333333">没有获得U币</font></br>]]></Data></string>
+    <string name="live_class_room_answer_correct_str">恭喜你答对了<Data><![CDATA[<br><font color="#000000">用时</font><font color="#ea0012">%1$d</font><font color="#000000">秒，超过了</font><font color="#ff9900">%2$s</font><font color="#000000">的同学! </font></br>]]></Data></string>
+    <string name="live_class_room_answer_progress"><Data><![CDATA[<font color="#17bc4b">%1$d</font>]]></Data>/%2$d人</string>
+    <string name="live_class_room_answer_choise_question_str">请选择答案</string>
+    <string name="dialog_live_class_over_str">本次直播课已经结束，你答对了%1$d道题。</string>
+    <string name="activity_live_over_class_comment_tips_str">“学而时习之，不亦悦乎，我们来愉快地完成作业吧!”</string>
+    <string name="dialog_live_over_class_get_dia_str">获得了%1$d颗钻石</string>
+    <string name="dialog_live_over_class_get_ub_str">获得了%1$d枚金币</string>
+    <string name="dialog_live_room_in_tips_str">课前提醒</string>
+    <string name="dialog_room_in_tips_check_str">请调试好设备,准备上课啦!</string>
+    <string name="dialog_no_rank_tips_str">这节课老师没有出题\n多多复习争取下次取得好成绩</string>
+    <string name="live_class_clear">清除屏幕</string>
+    <string name="live_class_room_answer_result_ub_str">获得%1$dU币</string>
+
+    <string name="network_connect_fail_title_tips_str">网络连接失败,请检查网络设置</string>
+    <string name="socket_ice_connect_fail_title_tips_str">检查到您的设备有回声，临时关闭麦克风，正在自动调整…</string>
+    <string name="socket_connect_fail_title_tips_str">网速慢?画笔、课件等不同步了?尝试重连中…</string>
+    <string name="socket_connect_fail_title_tips_str_1">与服务器断开连接，正在重连…</string>
+    <string name="network_connect_fail_title_tips_info_str">建议按照以下方法检测网络连接\n
+        1、打开pad\"设置\"并把\"WLAN\"开关保持开启状态\n
+        2、打开pad\"设置\"并把\"移动网络\"开关保持开启状态\n
+        3、如果仍无法连接网络,请检查手机接入的\"WLAN\"是否已接入互联网或者咨询网络运营商</string>
+    <string name="classroom_loading_course_str">UU哥正努力研发课件内容\n稍等一下下…</string>
+    <string name="classroom_load_course_fail_str">很抱歉,课件加载失败!</string>
+    <string name="classroom_evaluate_course_str">评价老师</string>
+    <string name="adjust_volume_json">"{\"che.audio.playout.uid.volume\": {\"uid\":%1$s,\"volume\":%2$d}}"</string>
+</resources>

@@ -1,0 +1,49 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.3.50'
+    repositories {
+        google()
+        jcenter()
+        maven { url "http://nexus2.tingyun.com/nexus/content/repositories/snapshots/" }
+        maven { url 'https://dl.bintray.com/zouyuhan/maven' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        //jpush
+        maven { url 'https://dl.bintray.com/android/android-tools' }
+    }
+    dependencies {
+        classpath 'com.tencent.bugly:symtabfileuploader:2.1.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+        classpath 'com.apollographql.apollo:apollo-gradle-plugin:1.0.0'
+        //JitPack插件
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://www.jitpack.io' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
+        maven { url "http://nexus2.tingyun.com/nexus/content/repositories/snapshots/" }
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://dl.bintray.com/zouyuhan/maven' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'file://D://WorkSpace/myaar/repository/' }
+        //jpush
+        maven { url 'http://developer.huawei.com/repo/' }
+
+        maven {
+            url 'file://D://WorkSpace/myaar/repository/'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

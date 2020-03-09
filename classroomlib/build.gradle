@@ -1,0 +1,132 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'com.github.dcendents.android-maven'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        qa {
+        }
+        uat {
+        }
+        dev {
+        }
+        debug {
+        }
+    }
+
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    greendao {
+        schemaVersion 2
+        targetGenDir 'src/main/java'
+    }
+
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    //https://github.com/lassana/continuous-audiorecorder
+    implementation 'com.googlecode.mp4parser:isoparser:1.0.2'
+    implementation 'com.github.lassana:continuous-audiorecorder:1.3.2'
+    implementation 'org.whispersystems:webrtc-android:M67'
+    implementation 'com.neovisionaries:nv-websocket-client:2.3'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2'
+
+    api 'me.jessyan:autosize:1.1.2'
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    //https://github.com/JakeWharton/RxBinding
+    api 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+    //https://github.com/Othershe/RecyclerViewAdapter
+    api 'com.github.SheHuan:RecyclerViewAdapter:1.2.9'
+    api 'com.alibaba:fastjson:1.2.37'
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:converter-gson:2.5.0'
+    api 'com.squareup.retrofit2:converter-scalars:2.5.0'
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    api 'org.greenrobot:eventbus:3.1.1'
+    api('io.socket:socket.io-client:1.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    api 'de.hdodenhof:circleimageview:3.0.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.cardview:cardview:1.0.0'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    api 'com.tencent.bugly:nativecrashreport:3.6.0'
+    api 'com.tencent.bugly:crashreport_upgrade:1.4.1'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    api 'com.umeng.sdk:common:1.5.3'
+    api 'com.umeng.sdk:analytics:7.5.3'
+    api 'q.rorbin:badgeview:1.1.3'
+    api 'pl.droidsonroids.gif:android-gif-drawable:1.2.14'
+    //https://github.com/yale8848/CacheWebView
+    api 'ren.yale.android:cachewebviewlib:1.4.0'
+    //https://github.com/GcsSloop/rclayout
+    api 'com.gcssloop.widget:rclayout:1.8.1'
+    api 'com.airbnb.android:lottie:3.3.0'
+    api files('libs/pldroid-player-2.1.7.jar')
+    //https://github.com/lingochamp/okdownload
+    api 'com.liulishuo.okdownload:okdownload:1.0.5'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.romandanylyk:pageindicatorview:1.0.3'
+}
+
+uploadArchives {
+    repositories {
+        apply plugin: 'maven'
+        mavenDeployer {
+//            repository(url: "http://10.63.3.235:8082/repository/android/") {
+//                authentication(userName: "admin", password: "admin123")
+//            }
+            repository(url:"file://D://WorkSpace/myaar/repository/")
+            pom.groupId = "com.uuabc.lib"
+            pom.artifactId = "classroomlib"
+            pom.version = "1.0.0"
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}

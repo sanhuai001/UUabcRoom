@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#367ADE</color>
+    <color name="colorPrimaryDark">#367ADE</color>
+    <color name="colorAccent">#367ADE</color>
+    <!--半透明主题色-->
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="translucent">#b3000000</color>
+    <color name="light_translucent">#99000000</color>
+    <color name="shadow_translucent">#99666666</color>
+
+    <color name="transparent">@android:color/transparent</color>
+
+    <!--浅灰-->
+    <color name="red">#ff0000</color>
+    <color name="green">#1ECB68</color>
+    <color name="line_grey">#cccccc</color>
+
+
+    <!-- 标题文字 -->
+    <color name="color_title_text">#666666</color>
+
+    <!--临时用的颜色-->
+    <color name="bold_title">#2A3342</color>
+    <color name="gray_activity_color">#6D88A8</color>
+
+    <color name="color_class_room_bg">#002853</color>
+    <color name="color_group_green">#22ba23</color>
+    <color name="color_group_orange">#fe830c</color>
+
+    <color name="color_exit_title_blue">#43b8ea</color>
+    <color name="color_seat_list_orange">#ffa853</color>
+    <color name="color_live_room_in_tips_str">#ffec51</color>
+
+    <color name="color_network_tips_red">#ed1928</color>
+    <color name="color_socket_tips_orange">#ff9024</color>
+
+    <color name="color_tips_room_in">#ffff071a</color>
+    <color name="color_live_chart_line">#175699</color>
+    <color name="color_live_chart_count">#aaffffff</color>
+
+    <color name="color_class_room_duration_blue">#1EABF8</color>
+    <color name="color_class_room_duration_orange">#FF9900</color>
+
+    <color name="color_rank_dialog_yellow">#FFD9B0</color>
+    <color name="color_class_room_answer_red">#EA0012</color>
+    <color name="color_class_room_answer_green">#17BC4B</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_333333">#333333</color>
+
+</resources>

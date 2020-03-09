@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_room_sdk_one_to_four_rank_bg">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.84" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.035" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lav_bell"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_fileName="bell.json"
+        app:lottie_imageAssetsFolder="images/"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/tv_tips_over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/activity_rank_over_class_str"
+        android:textColor="@color/black"
+        android:textSize="@dimen/common_text_size_x_large"
+        app:layout_constraintStart_toEndOf="@id/lav_bell"
+        app:layout_constraintTop_toTopOf="@id/lav_bell" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/one_to_four_over_class_rank_over_tips_str"
+        android:textColor="@color/color_title_text"
+        android:textSize="@dimen/common_text_size_x_large"
+        app:layout_constraintStart_toEndOf="@id/lav_bell"
+        app:layout_constraintTop_toBottomOf="@id/tv_tips_over" />
+
+    <TextView
+        android:id="@+id/tv_diamond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableTop="@drawable/ic_room_sdk_diamond_blue_small"
+        android:textColor="@color/color_title_text"
+        android:textSize="@dimen/common_text_size_large"
+        app:layout_constraintRight_toLeftOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@id/guideline9" />
+
+    <Button
+        android:id="@+id/btn_do_homework"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/max_x_gap_margin"
+        android:background="@drawable/room_sdk_selector_dialog_button_blue"
+        android:text="@string/activity_over_class_comment_btn_str"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_text_size_xxx_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="W,131:54"
+        app:layout_constraintStart_toEndOf="@id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/guideline6" />
+
+    <Button
+        android:id="@+id/btn_no_do"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/max_x_gap_margin"
+        android:background="@drawable/room_sdk_selector_dialog_button_red"
+        android:text="@string/activity_over_class_no_comment_btn_str"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_text_size_xxx_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="W,131:54"
+        app:layout_constraintRight_toLeftOf="@id/guideline7"
+        app:layout_constraintTop_toTopOf="@id/guideline6" />
+
+    <com.uuabc.classroomlib.widget.GroupDiamondRankView
+        android:id="@+id/rv_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1" />
+
+    <com.uuabc.classroomlib.widget.ClassRoomDiamondRankView
+        android:id="@+id/rv_normal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1" />
+
+    <ImageView
+        android:id="@+id/iv_no_diamond"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_room_sdk_no_diamond_rank"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        app:layout_constraintDimensionRatio="W,783:804"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

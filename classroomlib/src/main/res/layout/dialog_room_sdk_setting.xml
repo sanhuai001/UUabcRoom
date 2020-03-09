@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintDimensionRatio="400:293"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintHeight_percent="0.7"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:ignore="HardcodedText,MissingConstraints"
+    android:background="@drawable/room_sdk_shape_white">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUserList"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ivCancel"
+        app:layout_constraintWidth_percent="0.919"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/ivCancel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="取消"
+        android:textSize="20sp"
+        android:background="@drawable/shape_red"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintWidth_percent="0.225"
+        app:layout_constraintDimensionRatio="140:53"
+        app:layout_constraintTop_toBottomOf="@+id/rvUserList"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.30" />
+
+    <TextView
+        android:id="@+id/ivConfirm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="确定"
+        android:textSize="20sp"
+        android:background="@drawable/shape_blue_bottom"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintWidth_percent="0.225"
+        app:layout_constraintDimensionRatio="140:53"
+        app:layout_constraintTop_toBottomOf="@+id/rvUserList"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.70" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

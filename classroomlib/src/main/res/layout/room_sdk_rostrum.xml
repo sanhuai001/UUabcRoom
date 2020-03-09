@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_stu_rostrum"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/room_sdk_shape_stage_bg"
+    android:padding="@dimen/min_gap_margin">
+
+    <FrameLayout
+        android:id="@+id/fl_stu_rostrum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_stu_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/room_sdk_shape_left_bottom_translucent"
+        android:ellipsize="end"
+        android:maxEms="5"
+        android:paddingLeft="@dimen/max_gap_margin"
+        android:paddingTop="@dimen/min_x_gap_margin"
+        android:paddingRight="@dimen/max_gap_margin"
+        android:paddingBottom="@dimen/min_x_gap_margin"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:background="@drawable/room_sdk_shape_right_top_translucent"
+        android:paddingStart="@dimen/max_gap_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@+id/iv_signal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/max_gap_margin"
+            android:src="@drawable/ic_room_sdk_wifi_three"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/iv_tv"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/iv_tv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_room_sdk_tv_type"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_stu_diamond_count"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_stu_diamond_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_room_sdk_diamond_blue"
+            android:drawablePadding="@dimen/mid_gap_margin"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/max_gap_margin"
+            android:paddingTop="@dimen/min_x_gap_margin"
+            android:paddingRight="@dimen/max_gap_margin"
+            android:paddingBottom="@dimen/min_x_gap_margin"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_no_camera"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/icon_no_camera"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/iv_volume"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/icon_volume_level_0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="W,12:118"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="ContentDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

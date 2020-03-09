@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_left"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.uuabc.classroomlib.main.TopRankView
+                android:id="@+id/rl_avatar_bg"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:layout_above="@id/rl_avatar_bg"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-10dp"
+                android:background="@drawable/ic_room_sdk_crown_live_one"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:weightSum="3"
+                android:layout_below="@id/rl_avatar_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_diamond_left_one"
+                    android:visibility="invisible"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_room_sdk_diamond_blue"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/iv_diamond_left_two"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_room_sdk_diamond_blue"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/iv_diamond_left_three"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/ic_room_sdk_diamond_blue"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_mid"
+        android:visibility="visible"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <com.uuabc.classroomlib.main.TopRankView
+            android:id="@+id/rl_avatar_bg2"
+            android:layout_width="150dp"
+            android:layout_height="190dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_above="@id/rl_avatar_bg2"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-10dp"
+            android:background="@drawable/ic_room_sdk_crown_live_two"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:weightSum="2"
+            android:layout_below="@id/rl_avatar_bg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_diamond_mid_one"
+                android:visibility="invisible"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_room_sdk_diamond_blue"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_diamond_mid_two"
+                android:visibility="invisible"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_room_sdk_diamond_blue"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_mid_null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/rl_avatar_bg2_black"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:background="@drawable/ic_room_sdk_rank_view_no_answer_two"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:layout_above="@id/rl_avatar_bg2_black"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-10dp"
+                android:background="@drawable/ic_room_sdk_gray_crown" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:weightSum="2"
+                android:layout_below="@id/rl_avatar_bg2_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_room_sdk_diamond_gray"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_room_sdk_diamond_gray"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_right"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.uuabc.classroomlib.main.TopRankView
+                android:id="@+id/rl_avatar_bg3"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:layout_above="@id/rl_avatar_bg3"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-10dp"
+                android:background="@drawable/ic_room_sdk_crown_live_three" />
+
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:visibility="invisible"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/rl_avatar_bg3"
+                android:id="@+id/iv_diamond_right_one"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_room_sdk_diamond_blue" />
+
+            <RelativeLayout
+                android:id="@+id/rl_right_null"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/rl_avatar_bg3_black"
+                    android:layout_width="150dp"
+                    android:layout_height="190dp"
+                    android:background="@drawable/ic_room_sdk_rank_view_no_answer_three"
+                    android:layout_centerInParent="true" />
+
+                <ImageView
+                    android:layout_above="@id/rl_avatar_bg3_black"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-10dp"
+                    android:background="@drawable/ic_room_sdk_gray_crown" />
+
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:visibility="invisible"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/rl_avatar_bg3_black"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_room_sdk_diamond_gray" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

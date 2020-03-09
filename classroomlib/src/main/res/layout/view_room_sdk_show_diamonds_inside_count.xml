@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_diamond_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/view_diamonds_num"
+        android:textColor="#0168B9"
+        android:textSize="@dimen/common_text_size_middle" />
+
+    <View
+        android:id="@+id/view_diamonds_num"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/min_gap_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/room_sdk_shape_blue" />
+
+</RelativeLayout>

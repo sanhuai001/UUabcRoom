@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.uuabc.classroomlib.widget.CustomCircleImageView
+        android:id="@+id/iv_user_head"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/min_gap_margin"
+        android:layout_marginStart="@dimen/mid_gap_margin"
+        android:layout_marginTop="@dimen/min_gap_margin"
+        app:srcCompat="@drawable/ic_room_sdk_girl_head" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/min_gap_margin"
+        android:layout_marginEnd="@dimen/mid_gap_margin"
+        android:layout_marginStart="@dimen/mid_gap_margin"
+        android:layout_marginTop="@dimen/min_gap_margin"
+        android:layout_toEndOf="@+id/iv_user_head"
+        android:background="@drawable/room_sdk_shape_white_translucent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <TextView
+            android:id="@+id/tv_rank_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="168"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_middle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_student_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userName"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_middle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_middle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_answer_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="答对20题"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_middle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_mine"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/mid_gap_margin"
+            android:src="@drawable/ic_room_sdk_tag_mine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="W,63:72"
+            app:layout_constraintEnd_toEndOf="@+id/tv_answer_num"
+            app:layout_constraintStart_toStartOf="@id/tv_time"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

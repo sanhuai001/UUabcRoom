@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.uuabc.classroomlib.widget.BitmapBoardView
+        android:id="@+id/bv_stu3_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+    <com.uuabc.classroomlib.widget.DrawTextImageView
+        android:id="@+id/iv_stu3_mouse"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:visibility="gone" />
+
+    <com.uuabc.classroomlib.widget.BitmapBoardView
+        android:id="@+id/bv_stu2_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+    <com.uuabc.classroomlib.widget.DrawTextImageView
+        android:id="@+id/iv_stu2_mouse"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:visibility="gone" />
+
+    <com.uuabc.classroomlib.widget.BitmapBoardView
+        android:id="@+id/bv_stu1_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+    <com.uuabc.classroomlib.widget.DrawTextImageView
+        android:id="@+id/iv_stu1_mouse"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:visibility="gone" />
+
+    <com.uuabc.classroomlib.widget.BitmapBoardView
+        android:id="@+id/bv_teacher_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+    <com.uuabc.classroomlib.widget.DrawTextImageView
+        android:id="@+id/iv_teacher_mouse"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:visibility="gone" />
+
+    <com.uuabc.classroomlib.widget.BitmapBoardView
+        android:id="@+id/bv_my_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+    <com.uuabc.classroomlib.widget.DrawTextImageView
+        android:id="@+id/iv_my_mouse"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:visibility="gone" />
+</FrameLayout>

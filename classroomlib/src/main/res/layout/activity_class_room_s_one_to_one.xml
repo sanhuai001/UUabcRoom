@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.uuabc.classroomlib.classroom.SOneToOneClassRoomHelper" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/room_sdk_room_bg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_room_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/room_sdk_room_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.09" />
+
+            <com.uuabc.classroomlib.widget.FilterImageView
+                android:id="@+id/iv_close"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/mid_gap_margin"
+                android:src="@drawable/ic_room_sdk_back"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline4"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintHeight_percent="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/max_x_gap_margin"
+                android:background="@drawable/ic_room_sdk_logo_s"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline4"
+                app:layout_constraintDimensionRatio="348:117"
+                app:layout_constraintHeight_percent="0.06"
+                app:layout_constraintStart_toEndOf="@+id/iv_close"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_diamond"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/max_x_gap_margin"
+                android:background="@drawable/room_sdk_shape_white_translucent_two"
+                android:drawableStart="@drawable/ic_room_sdk_diamond_gray_small"
+                android:drawablePadding="@dimen/mid_gap_margin"
+                android:gravity="center"
+                android:paddingStart="@dimen/max_x_gap_margin"
+                android:paddingEnd="@dimen/max_x_gap_margin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_xx_large"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline4"
+                app:layout_constraintHeight_percent="0.05"
+                app:layout_constraintStart_toEndOf="@+id/iv_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.uuabc.classroomlib.widget.FilterImageView
+                android:id="@+id/iv_refresh"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mid_gap_margin"
+                android:background="@drawable/ic_room_sdk_refresh"
+                android:contentDescription="@string/todo"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline4"
+                app:layout_constraintDimensionRatio="W,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.06"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlHardcoded" />
+
+            <com.uuabc.classroomlib.widget.FilterImageView
+                android:id="@+id/ib_technical_support"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/max_x_gap_margin"
+                android:background="@drawable/ic_room_sdk_s_technical_support"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_refresh"
+                app:layout_constraintDimensionRatio="W,1:1"
+                app:layout_constraintEnd_toStartOf="@+id/iv_refresh"
+                app:layout_constraintHeight_percent="0.06"
+                app:layout_constraintTop_toTopOf="@+id/iv_refresh" />
+
+            <LinearLayout
+                android:id="@+id/ll_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/room_sdk_shape_white_translucent_two"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/max_gap_margin"
+                android:paddingEnd="@dimen/max_gap_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/ib_technical_support"
+                app:layout_constraintHeight_percent="0.04"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_room_sdk_wifi_three"
+                    tools:ignore="ContentDescription" />
+
+                <Chronometer
+                    android:id="@+id/tv_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/mid_gap_margin"
+                    android:drawablePadding="@dimen/mid_gap_margin"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_text_size_x_large"
+                    tools:ignore="RtlHardcoded" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_course_number"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/max_x_gap_margin"
+                android:background="@drawable/room_sdk_shape_white_translucent_two"
+                android:gravity="center"
+                android:paddingStart="@dimen/max_gap_margin"
+                android:paddingEnd="@dimen/max_gap_margin"
+                android:text="@string/common_course_id"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_large"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/ll_duration"
+                app:layout_constraintEnd_toStartOf="@+id/ll_duration"
+                app:layout_constraintHeight_percent="0.04"
+                app:layout_constraintTop_toTopOf="@+id/ll_duration" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.207" />
+
+            <FrameLayout
+                android:id="@+id/fl_teacher"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/mid_gap_margin"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_room_sdk_class_room_teacher_default_s"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNet"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/room_sdk_shape_left_bottom_translucent"
+                android:visibility="gone"
+                app:layout_constraintDimensionRatio="H,2:1"
+                app:layout_constraintRight_toRightOf="@id/fl_teacher"
+                app:layout_constraintTop_toTopOf="@id/fl_teacher"
+                app:layout_constraintWidth_percent="0.0416">
+
+                <ImageView
+                    android:id="@+id/iv_signal"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/ivVolumeTea"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/max_gap_margin"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/icon_volume_level_0"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/fl_teacher"
+                app:layout_constraintDimensionRatio="W,5:57"
+                app:layout_constraintEnd_toEndOf="@id/fl_teacher"
+                app:layout_constraintHeight_percent="0.1" />
+
+            <TextView
+                android:id="@+id/tv_teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/room_sdk_shape_left_bottom_translucent"
+                android:ellipsize="end"
+                android:maxEms="5"
+                android:paddingLeft="@dimen/max_gap_margin"
+                android:paddingTop="@dimen/mid_gap_margin"
+                android:paddingRight="@dimen/max_gap_margin"
+                android:paddingBottom="@dimen/mid_gap_margin"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/fl_teacher"
+                app:layout_constraintStart_toStartOf="@+id/fl_teacher" />
+
+            <FrameLayout
+                android:id="@+id/fl_student"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/mid_gap_margin"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_teacher">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_room_sdk_class_room_loading_s"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/ivNoCamera"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/icon_no_camera"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/fl_student"
+                app:layout_constraintLeft_toLeftOf="@id/fl_student"
+                app:layout_constraintRight_toRightOf="@id/fl_student"
+                app:layout_constraintTop_toTopOf="@id/fl_student"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_mine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/room_sdk_shape_left_bottom_translucent"
+                android:ellipsize="end"
+                android:maxEms="5"
+                android:paddingLeft="@dimen/max_gap_margin"
+                android:paddingTop="@dimen/mid_gap_margin"
+                android:paddingRight="@dimen/max_gap_margin"
+                android:paddingBottom="@dimen/mid_gap_margin"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/fl_student"
+                app:layout_constraintStart_toStartOf="@+id/fl_student" />
+
+            <ImageView
+                android:id="@+id/ivVolume"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/max_gap_margin"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/icon_volume_level_0"
+                app:layout_constraintBottom_toBottomOf="@id/fl_student"
+                app:layout_constraintDimensionRatio="W,5:57"
+                app:layout_constraintEnd_toEndOf="@id/fl_student"
+                app:layout_constraintHeight_percent="0.1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_chat_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/mid_gap_margin"
+                android:background="@drawable/room_sdk_shape_blue_chart_s"
+                android:padding="@dimen/mid_gap_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/guideline1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_student" />
+
+            <ImageView
+                android:id="@+id/iv_chat_nodata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:src="@drawable/ic_room_sdk_no_chart_data"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_student"
+                tools:ignore="ContentDescription" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_courseware_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/mid_gap_margin"
+                android:layout_marginTop="@dimen/mid_gap_margin"
+                android:layout_marginEnd="@dimen/mid_gap_margin"
+                app:layout_constraintBottom_toTopOf="@+id/guideline7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+                <com.uuabc.classroomlib.widget.ProgressWebView
+                    android:id="@+id/wv_courseware"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.uuabc.classroomlib.widget.BoardViewLayout
+                    android:id="@+id/boardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.uuabc.classroomlib.widget.FilterImageView
+                    android:id="@+id/iv_pre_page"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/max_x_gap_margin"
+                    android:src="@drawable/ic_room_sdk_course_pre_page"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintHeight_percent="0.08"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.uuabc.classroomlib.widget.FilterImageView
+                    android:id="@+id/iv_next_page"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/max_x_gap_margin"
+                    android:src="@drawable/ic_room_sdk_course_next_page"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.08"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_page_num"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/max_x_gap_margin"
+                    android:layout_marginBottom="@dimen/max_x_gap_margin"
+                    android:background="@drawable/ic_room_sdk_page_bg"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_text_size_xx_large"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="127:59"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <com.uuabc.classroomlib.classroom.NetworkTipsView
+                    android:id="@+id/view_network_tips"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.88" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_paint"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/room_sdk_shape_white_translucent_two"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="390:45"
+                app:layout_constraintLeft_toRightOf="@+id/rv_chat_list"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline7"
+                app:layout_constraintWidth_percent="0.45">
+
+                <RadioGroup
+                    android:id="@+id/rg_color"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_purple"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/max_x_gap_margin"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_color_check_purple"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_orange"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_color_check_orange"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_green"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_color_check_green"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_blue"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_color_check_blue"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_yellow"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_color_check_yellow"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_red"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableStart="@drawable/room_sdk_selector_color_check_red"
+                        android:gravity="center" />
+                </RadioGroup>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/mid_gap_margin"
+                    android:layout_marginTop="@dimen/max_gap_margin"
+                    android:layout_marginBottom="@dimen/max_gap_margin"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/rg_color" />
+
+                <RadioGroup
+                    android:id="@+id/rg_size"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.35">
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_size5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/max_x_gap_margin"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_size_check_level_three"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_size3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@drawable/room_sdk_selector_size_check_level_two"
+                        android:gravity="center" />
+
+                    <com.uuabc.classroomlib.widget.CustomRadioButton
+                        android:id="@+id/rb_size1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/max_x_gap_margin"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableStart="@drawable/room_sdk_selector_size_check_level_one"
+                        android:gravity="center" />
+                </RadioGroup>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/iv_active"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/max_x_gap_margin"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9"
+                app:layout_constraintWidth_percent="0.2"
+                app:lottie_fileName="active.json" />
+
+            <com.uuabc.classroomlib.classroom.AnimationImageView
+                android:id="@+id/iv_gif"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/mid_gap_margin"
+                android:layout_marginTop="@dimen/mid_gap_margin"
+                android:layout_marginEnd="@dimen/mid_gap_margin"
+                android:background="@color/translucent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/guideline7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+            <RelativeLayout
+                android:id="@+id/rl_flower"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

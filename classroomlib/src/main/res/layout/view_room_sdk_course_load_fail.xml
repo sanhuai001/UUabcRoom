@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_load_fail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_room_sdk_course_load_fail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_loading_fail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/max_gap_margin"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/min_gap_margin"
+        android:text="@string/classroom_load_course_fail_str"
+        android:textColor="#0168B9"
+        android:textSize="@dimen/common_text_size_xx_large"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_load_fail" />
+
+    <Button
+        android:id="@+id/btn_reload_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/max_gap_margin"
+        android:background="@drawable/ic_room_sdk_common_btn_blue_bg"
+        android:text="@string/common_btn_reload"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_text_size_xx_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_loading_fail" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

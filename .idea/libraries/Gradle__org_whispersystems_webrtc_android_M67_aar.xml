@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.whispersystems:webrtc-android:M67@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5578b071be0355bf5ce10e75fc8115bc/webrtc-android-M67/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5578b071be0355bf5ce10e75fc8115bc/webrtc-android-M67/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5578b071be0355bf5ce10e75fc8115bc/webrtc-android-M67/jars/libs/libwebrtc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

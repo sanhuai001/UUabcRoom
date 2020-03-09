@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/room_sdk_shape_dot_bg">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.26" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30" />
+
+    <TextView
+        android:id="@+id/tv_index"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/guideline1"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="@dimen/common_text_size_large"
+        android:layout_width="35dp"
+        android:layout_height="39dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rl_avatar_bg"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/room_sdk_shape_circle_orange"
+        app:layout_constraintDimensionRatio="W,40:40"
+        app:layout_constraintLeft_toRightOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.uuabc.classroomlib.widget.CustomCircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_me"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_room_sdk_me"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,20:20"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/rl_avatar_bg"
+        app:layout_constraintLeft_toRightOf="@id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:textColor="@color/color_title_text"
+            android:textSize="@dimen/common_text_size_middle"
+            android:text="dfasdfsaf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/green"
+            android:textSize="@dimen/common_text_size_middle"
+            android:text="dfasfaaa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_crown"
+        android:layout_width="25dp"
+        android:layout_height="17dp"
+        android:background="@drawable/ic_room_sdk_crown"
+        app:layout_constraintBottom_toTopOf="@id/guideline4"
+        app:layout_constraintDimensionRatio="W,50:34"
+        app:layout_constraintLeft_toLeftOf="@id/rl_avatar_bg"
+        app:layout_constraintRight_toRightOf="@id/rl_avatar_bg" />
+</androidx.constraintlayout.widget.ConstraintLayout>

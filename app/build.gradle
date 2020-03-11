@@ -2,12 +2,21 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-def versionNameSuf = ".1"
+apply plugin: 'bugly'
 
 android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+    }
+
+    signingConfigs {
+        config {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
+        }
     }
 
     compileSdkVersion 28
@@ -52,32 +61,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
 
             buildConfigField("String", "ONLINE_SS_COURSE_HOST", "\"https://classroom.uuabc.com/api/\"")
+            buildConfigField("String", "GRAPHQL_URL", "\"https://svc.uuabc.com/api/graphql\"")
             buildConfigField("String", "WEBRTC_SOCKET", "\"wss://webrtc.uuabc.com:443/openvidu\"")
             buildConfigField("String", "WEBRTC_SECRET", "\"I_Love#Webrtc_zaq12wsx\"")
-        }
-
-        qa {
-            minifyEnabled false
-            debuggable true
-            versionNameSuffix versionNameSuf
-
-            buildConfigField("String", "ONLINE_SS_COURSE_HOST", "\"https://qa-classroom.uuabc.com/api/\"")
-            buildConfigField("String", "WEBRTC_SOCKET", "\"wss://webrtc.uuabc.com:443/openvidu\"")
-            buildConfigField("String", "WEBRTC_SECRET", "\"I_Love#Webrtc_zaq12wsx\"")
-        }
-
-        debug {
-            minifyEnabled false
-            versionNameSuffix versionNameSuf
-            debuggable true
-            buildConfigField("String", "ONLINE_SS_COURSE_HOST", "\"https://classroom.uuabc.com/api/\"")
-
-            buildConfigField("String", "WEBRTC_SOCKET", "\"wss://uat-rtc.51uuabc.com:443/openvidu\"")
-            buildConfigField("String", "WEBRTC_SECRET", "\"openvidu_secret_uat\"")
         }
     }
+}
+
+bugly {
+    debug = true
+    appId = '3d4f9b1453' // 注册时分配的App ID
+    appKey = 'cf7518b5-0c52-43f1-917f-ac5d9e7613a0' // 注册时分配的App Key
 }
 
 dependencies {

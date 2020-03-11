@@ -3,6 +3,8 @@
 #if defined _WIN32 || defined __CYGWIN__
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
+typedef __int32 int32_t;
+typedef unsigned __int32 uint32_t;
 #else
 #include <stdint.h>
 #endif
@@ -46,6 +48,11 @@ public:
   enum VIDEO_FRAME_TYPE {
     FRAME_TYPE_YUV420 = 0,  //YUV 420 format
   };
+  enum VIDEO_OBSERVER_POSITION {
+    POSITION_POST_CAPTURER = 1 << 0,
+    POSITION_PRE_RENDERER = 1 << 1,
+    POSITION_PRE_ENCODER = 1 << 2,
+  };
   struct VideoFrame {
     VIDEO_FRAME_TYPE type;
     int width;  //width of video frame
@@ -62,7 +69,10 @@ public:
   };
 public:
   virtual bool onCaptureVideoFrame(VideoFrame& videoFrame) = 0;
+  virtual bool onPreEncodeVideoFrame(VideoFrame& videoFrame) { return true; }
   virtual bool onRenderVideoFrame(unsigned int uid, VideoFrame& videoFrame) = 0;
+  virtual bool getRotationApplied() { return false; }
+  virtual uint32_t getObservedFramePosition() { return POSITION_POST_CAPTURER | POSITION_PRE_RENDERER; }
 };
 
 class IVideoFrame

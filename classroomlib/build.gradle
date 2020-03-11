@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.apollographql.android'
 
 android {
     compileSdkVersion 28
@@ -18,14 +18,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        qa {
-        }
-        uat {
-        }
-        dev {
-        }
-        debug {
         }
     }
 
@@ -58,7 +50,6 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -111,6 +102,10 @@ dependencies {
     api 'com.liulishuo.okdownload:okdownload:1.0.5'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'com.romandanylyk:pageindicatorview:1.0.3'
+
+    api 'com.apollographql.apollo:apollo-runtime:1.0.0'
+    api 'com.apollographql.apollo:apollo-android-support:1.0.0'
+    api 'com.apollographql.apollo:apollo-rx2-support:1.0.0'
 }
 
 uploadArchives {
@@ -120,7 +115,7 @@ uploadArchives {
 //            repository(url: "http://10.63.3.235:8082/repository/android/") {
 //                authentication(userName: "admin", password: "admin123")
 //            }
-            repository(url:"file://D://WorkSpace/myaar/repository/")
+            repository(url: "file://D://WorkSpace/myaar/repository/")
             pom.groupId = "com.uuabc.lib"
             pom.artifactId = "classroomlib"
             pom.version = "1.0.0"

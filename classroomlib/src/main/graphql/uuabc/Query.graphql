@@ -1,0 +1,12 @@
+query getEmoticons {
+    emoticons : uLiveEmoticons {
+        groupName
+        baseUrl
+        zipUrl
+        emoticon{
+            code
+            name
+        }
+        updated_at
+    }
+}

@@ -1,7 +1,6 @@
 package com.uuabc.classroomlib.classroom;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.view.animation.AnimationUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.google.android.material.tabs.TabLayout;
 import com.google.gson.JsonSyntaxException;
 import com.uuabc.classroomlib.R;
 import com.uuabc.classroomlib.RoomApplication;
@@ -82,13 +80,13 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     private void initView() {
         mBinding.flowView.setOnClickListener(v -> showAnswerRankDialog(topRank));
 
-        mBinding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-        mBinding.tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
-        mBinding.tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
-        mBinding.tabLayout.setSelectedTabIndicatorHeight(5);
+//        mBinding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
+//        mBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+//        mBinding.tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+//        mBinding.tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
+//        mBinding.tabLayout.setSelectedTabIndicatorHeight(5);
 //        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText("座位表"));
-        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText("聊天室"));
+//        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText("聊天室"));
 //        mBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override
 //            public void onTabSelected(TabLayout.Tab tab) {

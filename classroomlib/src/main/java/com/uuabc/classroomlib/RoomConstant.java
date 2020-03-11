@@ -165,6 +165,7 @@ public class RoomConstant {
     /************************SP_HOST_KEY***********************/
     public static final String ONLINE_CLASS_HOST = "onLineClassHost";
     public static final String ONLINE_SS_COURSE_HOST = "onLineSSCourseHost";
+    public static final String GRAPHQL_URL = "graphqlUrl";
     /************************数据录制，保存上课过程中各项数据***********************/
     public static final int RECORD_ENTER = 1;//进入
     public static final int RECORD_EXIT = 2;//退出
@@ -186,4 +187,6 @@ public class RoomConstant {
     public static final String LOAD_REPLY_URL = "https://sit-classroom.uuabc.com/loading.html";//非桥接文件直接加载引导文件
 
     public static final String ENTER_DESTORY_AROTE_VIEW = "eventFinishAgoreView";
+
+    public static final String SP_EMOTICON_UPDATED_TIME = "spEmoticonUpdatedTime";
 }

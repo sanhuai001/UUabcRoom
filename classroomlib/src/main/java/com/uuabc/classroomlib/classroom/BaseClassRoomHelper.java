@@ -17,9 +17,6 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.ViewDataBinding;
-
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -52,6 +49,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.ViewDataBinding;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifDrawable;
@@ -63,7 +62,6 @@ public class BaseClassRoomHelper<T extends ViewDataBinding> {
     Context mContext;
     float mScale; //课件与画板的比例
     public int roomId;
-    public String classId;
     private GifDrawable gifFromAssets;
     int mCurrentCoursewarePage = 1;
     int totlePage;
@@ -183,7 +181,7 @@ public class BaseClassRoomHelper<T extends ViewDataBinding> {
      */
     void showNewSupportDialog() {
         clickMediaPlayer.resetToPlay(mContext, R.raw.click_sing);
-        SConfirmDialogUtils.show(mContext, R.drawable.ic_room_sdk_dialog_confirm_support, mContext.getString(R.string.dialog_msg_support_str, String.valueOf(skuId)), mContext.getString(R.string.dialog_know_str),
+        SConfirmDialogUtils.showPhone(mContext, R.drawable.ic_room_sdk_dialog_confirm_support, mContext.getString(R.string.dialog_msg_support_str, String.valueOf(skuId)), mContext.getString(R.string.dialog_know_str),
                 (dialog, which) -> dialog.dismiss());
     }
 

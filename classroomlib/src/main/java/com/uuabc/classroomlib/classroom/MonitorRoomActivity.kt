@@ -7,7 +7,6 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.bumptech.glide.Glide
 import com.uuabc.classroomlib.R
 import com.uuabc.classroomlib.RoomApplication
 import com.uuabc.classroomlib.RoomConstant
@@ -98,7 +97,7 @@ class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.Volume
             rlTitle.visibility = if (rlTitle.isShown) View.GONE else View.VISIBLE
         }
 
-        Glide.with(this).asGif().load(R.drawable.gif_loading).into(ivLoading!!)
+        ivLoading.imageAssetsFolder = "images/"
     }
 
     private fun interval() {

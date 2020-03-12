@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.ObjectUtils;
 import com.uuabc.classroomlib.R;
 import com.uuabc.classroomlib.RoomApplication;
 import com.uuabc.classroomlib.widget.CaptainDialog;
-import com.uuabc.classroomlib.widget.GradeView;
 
 public class SConfirmDialog extends BaseDialog {
     private TextView tvTitle;
@@ -19,9 +18,8 @@ public class SConfirmDialog extends BaseDialog {
     private TextView btnConfirm;
     private TextView btnCancel;
     private ImageView ivIcon;
-    private GradeView gvDiamond;
     private TextView tvDia;
-    private TextView tvUb;
+    private TextView tvPhone;
 
     public SConfirmDialog(Context context) {
         super(context);
@@ -40,9 +38,8 @@ public class SConfirmDialog extends BaseDialog {
         btnCancel = (TextView) builder.getView(R.id.btn_cancel);
         tvTitle = (TextView) builder.getView(R.id.tv_title);
         ivIcon = (ImageView) builder.getView(R.id.iv_icon);
-        gvDiamond = (GradeView) builder.getView(R.id.gv_diamond);
         tvDia = (TextView) builder.getView(R.id.tv_dia);
-        tvUb = (TextView) builder.getView(R.id.tv_ub);
+        tvPhone = (TextView) builder.getView(R.id.tv_phone);
     }
 
     public SConfirmDialog setIcon(int drawable) {
@@ -58,6 +55,11 @@ public class SConfirmDialog extends BaseDialog {
             tvTitle.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
+        return this;
+    }
+
+    public SConfirmDialog setPhoneVisible() {
+        tvPhone.setVisibility(View.VISIBLE);
         return this;
     }
 

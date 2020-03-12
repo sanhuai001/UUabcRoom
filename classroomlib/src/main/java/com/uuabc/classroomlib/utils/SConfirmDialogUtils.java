@@ -39,6 +39,14 @@ public class SConfirmDialogUtils {
         return dialog;
     }
 
+    public static SConfirmDialog showPhone(Context context, int drawable, String msg, String confirmText, DialogInterface.OnClickListener leftListener) {
+        SConfirmDialog dialog = new SConfirmDialog(context);
+        dialog.setIcon(drawable);
+        dialog.setPhoneVisible();
+        dialog.setMsg(msg).setConfirmButton(confirmText, leftListener).show();
+        return dialog;
+    }
+
     public static SConfirmDialog otherShow(Context context, int drawable, String msg, String confirmText, DialogInterface.OnClickListener leftListener) {
         SConfirmDialog dialog = new SConfirmDialog(context);
         dialog.setIcon(drawable);

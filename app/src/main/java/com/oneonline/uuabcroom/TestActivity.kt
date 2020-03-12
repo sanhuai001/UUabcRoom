@@ -23,6 +23,7 @@ class TestActivity : AppCompatActivity() {
             currentId = p1
         }
 
+        etToken.setText("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.IjNlY2JjMmJhLWIyYjMtNDI1Yy05ZWM0LWM4ODk3ZmYxNWRjYyI.CTJK0CpqVcZ04okZkgdsVXBZkPa-6fmYK6LfXqrM3Ok")
         RxView.clicks(btnInter).throttleFirst(3, TimeUnit.SECONDS).subscribe {
             val roomToken = etToken.text.toString()
             if (TextUtils.isEmpty(roomToken)) {

@@ -112,9 +112,6 @@ uploadArchives {
     repositories {
         apply plugin: 'maven'
         mavenDeployer {
-//            repository(url: "http://10.63.3.235:8082/repository/android/") {
-//                authentication(userName: "admin", password: "admin123")
-//            }
             repository(url: "file://D://WorkSpace/myaar/repository/")
             pom.groupId = "com.uuabc.lib"
             pom.artifactId = "classroomlib"

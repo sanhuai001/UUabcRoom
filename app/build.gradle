@@ -63,8 +63,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
 
-            buildConfigField("String", "ONLINE_SS_COURSE_HOST", "\"https://classroom.uuabc.com/api/\"")
-            buildConfigField("String", "GRAPHQL_URL", "\"https://svc.uuabc.com/api/graphql\"")
+//            buildConfigField("String", "ONLINE_SS_COURSE_HOST", "\"https://classroom.uuabc.com/api/\"")
+//            buildConfigField("String", "GRAPHQL_URL", "\"https://svc.uuabc.com/api/graphql\"")
+//            buildConfigField("String", "WEBRTC_SOCKET", "\"wss://webrtc.uuabc.com:443/openvidu\"")
+//            buildConfigField("String", "WEBRTC_SECRET", "\"I_Love#Webrtc_zaq12wsx\"")
+
+            buildConfigField("String", "ONLINE_SS_COURSE_HOST", "\"https://qa-classroom.uuabc.com/api/\"")
+            buildConfigField("String", "GRAPHQL_URL", "\"https://qasvc.uuabc.com/api/graphql\"")
             buildConfigField("String", "WEBRTC_SOCKET", "\"wss://webrtc.uuabc.com:443/openvidu\"")
             buildConfigField("String", "WEBRTC_SECRET", "\"I_Love#Webrtc_zaq12wsx\"")
         }

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.uuabc.classroomlib.BuildConstant;
 import com.uuabc.classroomlib.RoomApplication;
 import com.uuabc.classroomlib.model.FlowerCountModel;
 import com.uuabc.classroomlib.model.RCommonResult;
@@ -16,6 +15,7 @@ import com.uuabc.classroomlib.model.SRCommonResult;
 import com.uuabc.classroomlib.model.SUserModel;
 import com.uuabc.classroomlib.model.SaveQuestionResult;
 import com.uuabc.classroomlib.model.StateToolResult;
+import com.uuabc.classroomlib.utils.ObjectUtil;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -36,7 +36,7 @@ public class ApiRetrofit extends BaseRetrofitApi {
         Gson gson = new GsonBuilder().setLenient().create();
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(BuildConstant.ONLINE_SS_COURSE_HOST)
+                .baseUrl(ObjectUtil.getString(RoomApplication.getInstance().ONLINE_SS_COURSE_HOST))
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());

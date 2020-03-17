@@ -41,7 +41,7 @@ public class ApolloApp extends RoomApplication {
                 }).build();
 
         apolloClient = ApolloClient.builder()
-                .serverUrl(SPUtils.getInstance().getString(RoomConstant.GRAPHQL_URL))
+                .serverUrl(RoomApplication.getInstance().GRAPHQL_URL)
                 .okHttpClient(okHttpClient)
                 .build();
     }

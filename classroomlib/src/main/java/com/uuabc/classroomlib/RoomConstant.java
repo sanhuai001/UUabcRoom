@@ -162,10 +162,8 @@ public class RoomConstant {
     public static final int WIFI_LEVEL_MID = 2;
     public static final int WIFI_LEVEL_WEEK = 3;
     public static final int WIFI_LEVEL_NULL = 0;
-    /************************SP_HOST_KEY***********************/
+    /************************URL_KEY***********************/
     public static final String ONLINE_CLASS_HOST = "onLineClassHost";
-    public static final String ONLINE_SS_COURSE_HOST = "onLineSSCourseHost";
-    public static final String GRAPHQL_URL = "graphqlUrl";
     /************************数据录制，保存上课过程中各项数据***********************/
     public static final int RECORD_ENTER = 1;//进入
     public static final int RECORD_EXIT = 2;//退出

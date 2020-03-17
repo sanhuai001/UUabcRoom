@@ -8,10 +8,6 @@ import android.net.Network;
 import android.net.NetworkRequest;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.multidex.MultiDexApplication;
-
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.DeviceUtils;
@@ -59,6 +55,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.multidex.MultiDexApplication;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -97,6 +96,10 @@ public class RoomApplication extends MultiDexApplication {
     public String openviduSocketUrl;
     public String secret;
     public String roomId;
+
+    public String GRAPHQL_URL;
+    public String ONLINE_SS_COURSE_HOST;
+
     public List<String> iceServers = new ArrayList<>();
     public boolean isTable;
     public boolean isFirstInterOneToOne = true;

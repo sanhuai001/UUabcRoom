@@ -70,7 +70,7 @@ dependencies {
     api 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     //https://github.com/Othershe/RecyclerViewAdapter
     api 'com.github.SheHuan:RecyclerViewAdapter:1.2.9'
-    api 'com.alibaba:fastjson:1.2.37'
+    api 'com.alibaba:fastjson:1.2.48'
     api 'com.squareup.retrofit2:retrofit:2.5.0'
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
     api 'com.squareup.retrofit2:converter-scalars:2.5.0'
@@ -112,9 +112,13 @@ uploadArchives {
     repositories {
         apply plugin: 'maven'
         mavenDeployer {
-            repository(url: "file://D://WorkSpace/myaar/repository/")
-            pom.groupId = "com.uuabc.lib"
-            pom.artifactId = "classroomlib"
+//            repository(url: "http://127.0.0.1:8081/nexus/content/repositories/thirdparty") {
+//                authentication(userName: "admin", password: "admin123")
+//            }
+
+            repository(url: "file://D://myaar/repository/")
+            pom.groupId = "com.oneonline.lib"
+            pom.artifactId = "uuroomlib"
             pom.version = "1.0.0"
         }
     }

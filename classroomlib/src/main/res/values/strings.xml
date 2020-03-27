@@ -5,8 +5,8 @@
     <string name="common_btn_reload">重新加载</string>
     <string name="common_network_connect_fail">网络连接失败，请检查您的网络连接！</string>
     <string name="common_network_connect_notwifi">当前为非wifi环境，会消耗流量哦！</string>
-    <string name="common_server_error">找不到小U了，快联系督导/顾问试试吧</string>
-    <string name="common_ss_server_error">(%1$s)找不到小U了，快联系督导/顾问试试吧</string>
+    <string name="common_server_error">加载失败，快联系督导/顾问试试吧</string>
+    <string name="common_ss_server_error">(%1$s)加载失败，快联系督导/顾问试试吧</string>
     <string name="common_token_overdue">当前会话已过期，请重新登录</string>
     <string name="common_submit">提交</string>
     <string name="common_current_network_wifi">当前为WIFI环境~</string>
@@ -103,7 +103,7 @@
         1、打开pad\"设置\"并把\"WLAN\"开关保持开启状态\n
         2、打开pad\"设置\"并把\"移动网络\"开关保持开启状态\n
         3、如果仍无法连接网络,请检查手机接入的\"WLAN\"是否已接入互联网或者咨询网络运营商</string>
-    <string name="classroom_loading_course_str">UU哥正努力研发课件内容\n稍等一下下…</string>
+    <string name="classroom_loading_course_str">正努力研发课件内容\n稍等一下下…</string>
     <string name="classroom_load_course_fail_str">很抱歉,课件加载失败!</string>
     <string name="classroom_evaluate_course_str">评价老师</string>
     <string name="adjust_volume_json">"{\"che.audio.playout.uid.volume\": {\"uid\":%1$s,\"volume\":%2$d}}"</string>

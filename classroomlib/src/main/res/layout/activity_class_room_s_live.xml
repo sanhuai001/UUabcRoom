@@ -44,13 +44,12 @@
 
             <ImageView
                 android:id="@+id/iv_logo"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/max_x_gap_margin"
-                android:background="@drawable/ic_room_sdk_logo_s"
+                android:src="@drawable/ic_room_sdk_logo_s"
                 app:layout_constraintBottom_toBottomOf="@+id/guideline4"
-                app:layout_constraintDimensionRatio="348:117"
-                app:layout_constraintHeight_percent="0.06"
+                app:layout_constraintHeight_percent="0.05"
                 app:layout_constraintStart_toEndOf="@+id/iv_close"
                 app:layout_constraintTop_toTopOf="parent" />
 

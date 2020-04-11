@@ -38,7 +38,7 @@ public class AgoraManager {
     public void initializeAgoraEngine(Context context, String agoraAppId, IRtcEngineEventHandler rtcHandler) {
         try {
             rtcEngine = RtcEngine.create(context, agoraAppId, rtcHandler);
-            LogUtils.i("getSdkVersion", RtcEngine.getSdkVersion());
+            LogUtils.i("getAgoraSdkVersion", RtcEngine.getSdkVersion());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class AgoraManager {
      */
     public void enableAudioVolumeIndication(int interval) {
         if (rtcEngine == null) return;
-        rtcEngine.enableAudioVolumeIndication(interval, 3);
+        rtcEngine.enableAudioVolumeIndication(interval, 3, true);
     }
 
     /**

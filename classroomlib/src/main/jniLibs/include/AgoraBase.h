@@ -736,11 +736,12 @@ enum ERROR_CODE_TYPE
     ERR_ADM_NO_PLAYOUT_DEVICE = 1360,
 
     // VDM error code starts from 1500
+    /** 1500: Video Device Module: There is no camera device.
+     */
+    ERR_VDM_CAMERA_NO_DEVICE = 1500,
     /** 1501: Video Device Module: The camera is unauthorized.
      */
     ERR_VDM_CAMERA_NOT_AUTHORIZED = 1501,
-
-	// VDM error code starts from 1500
 	/** **DEPRECATED** 1502: Video Device Module: The camera in use.
      
      Deprecated as of v2.4.1. Use LOCAL_VIDEO_STREAM_ERROR_DEVICE_BUSY(3) in the \ref agora::rtc::IRtcEngineEventHandler::onConnectionStateChanged "onConnectionStateChanged" callback instead.

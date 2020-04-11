@@ -317,6 +317,7 @@ public class RoomApplication extends MultiDexApplication {
                         super.onAvailable(network);
                         if (ActivityUtils.getTopActivity() != null) {
                             EventBus.getDefault().post(new NetWorkEvent(RoomConstant.NET_WORK_CONNECTED));
+                            if (!isInClassRoom()) return;
                             TipUtils.warningShow(ActivityUtils.getTopActivity(), getString(NetworkUtils.isWifiConnected() ?
                                     R.string.common_current_network_wifi : R.string.common_current_network_not_wifi));
                         }
@@ -330,6 +331,7 @@ public class RoomApplication extends MultiDexApplication {
                         super.onLost(network);
                         if (ActivityUtils.getTopActivity() != null) {
                             EventBus.getDefault().post(new NetWorkEvent(RoomConstant.NET_WORK_INCONNECTED));
+                            if (!isInClassRoom()) return;
                             TipUtils.warningShow(ActivityUtils.getTopActivity(), getString(R.string.common_current_network_connect_fail));
                         }
                     }
@@ -458,7 +460,7 @@ public class RoomApplication extends MultiDexApplication {
         public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
             @SuppressLint("UseSparseArrays")
             HashMap<Integer, Integer> map = new HashMap<>();
-            map.put(uid, txQuality > rxQuality ? txQuality : rxQuality);
+            map.put(uid, Math.max(txQuality, rxQuality));
             RtcMsgEvent rtcMsgEvent = new RtcMsgEvent(RoomConstant.ROOM_NET, map);
             EventBus.getDefault().post(rtcMsgEvent);
         }

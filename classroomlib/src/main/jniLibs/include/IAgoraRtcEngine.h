@@ -246,7 +246,9 @@ enum LOCAL_VIDEO_STREAM_ERROR {
     /** The local video capture fails. Check whether the capturer is working properly. */
     LOCAL_VIDEO_STREAM_ERROR_CAPTURE_FAILURE = 4,
     /** The local video encoding fails. */
-    LOCAL_VIDEO_STREAM_ERROR_ENCODE_FAILURE = 5
+    LOCAL_VIDEO_STREAM_ERROR_ENCODE_FAILURE = 5,
+    /** No camera device. */
+    LOCAL_VIDEO_STREAM_ERROR_DEVICE_NOT_FOUND = 6
 };
 
 /** Local audio state types.
@@ -289,7 +291,13 @@ enum LOCAL_AUDIO_STREAM_ERROR
     LOCAL_AUDIO_STREAM_ERROR_RECORD_FAILURE = 4,
     /** 5: The local audio encoding fails.
      */
-    LOCAL_AUDIO_STREAM_ERROR_ENCODE_FAILURE = 5
+    LOCAL_AUDIO_STREAM_ERROR_ENCODE_FAILURE = 5,
+    /** 6: No recording audio device.
+    */
+    LOCAL_AUDIO_STREAM_ERROR_NO_RECORDING_DEVICE = 6,
+    /** 7: No playout audio device.
+    */
+    LOCAL_AUDIO_STREAM_ERROR_NO_PLAYOUT_DEVICE = 7
 };
 
 /** Audio recording qualities.
@@ -1292,6 +1300,12 @@ struct AudioVolumeInfo
     /** The volume of the speaker. The volume ranges between 0 (lowest volume) and 255 (highest volume).
  */
     unsigned int volume;
+    /** Whether current signal contains human voice.
+ */
+    unsigned int vad;
+    /** The channel ID, which indicates which channel the speaker is in.
+     */
+    const char * channelId;
 };
 
 /** Statistics of the channel.
@@ -1625,6 +1639,10 @@ struct RemoteVideoStats
    The total video freeze time as a percentage (%) of the total time when the video is available.
    */
     int frozenRate;
+    /**
+     * The total active time (ms) of the remote video stream after the remote user joins the channel.
+     */
+    int totalActiveTime;
 };
 
 /** Audio statistics of the local user */
@@ -1676,6 +1694,10 @@ struct RemoteAudioStats
     int totalFrozenTime;
     /** The total audio freeze time as a percentage (%) of the total time when the audio is available. */
     int frozenRate;
+    /**
+     * The total active time (ms) of the remote audio stream after the remote user joins the channel.
+     */
+    int totalActiveTime;
 };
 
 /**
@@ -4737,7 +4759,7 @@ public:
      - 0: Success.
      - < 0: Failure.
      */
-	virtual int enableAudioVolumeIndication(int interval, int smooth) = 0;
+	virtual int enableAudioVolumeIndication(int interval, int smooth, bool report_vad) = 0;
     /** Starts an audio recording.
 
      The SDK allows recording during a call. Supported formats:
@@ -7155,10 +7177,10 @@ public:
      - 0: Success.
      - < 0: Failure.
      */
-    int enableAudioVolumeIndication(int interval, int smooth) { // in ms: <= 0: disable, > 0: enable, interval in ms
+    int enableAudioVolumeIndication(int interval, int smooth, bool report_vad) { // in ms: <= 0: disable, > 0: enable, interval in ms
         if (interval < 0)
             interval = 0;
-        return setObject("che.audio.volume_indication", "{\"interval\":%d,\"smooth\":%d}", interval, smooth);
+        return setObject("che.audio.volume_indication", "{\"interval\":%d,\"smooth\":%d,\"vad\":%d}", interval, smooth, (int)report_vad);
     }
 
     /** Stops/Resumes sending the local audio stream.

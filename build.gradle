@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:3.6.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         classpath 'com.apollographql.apollo:apollo-gradle-plugin:1.0.0'

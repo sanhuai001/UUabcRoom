@@ -4,7 +4,7 @@ import android.content.Context
 import com.blankj.utilcode.util.ScreenUtils
 import com.uuabc.classroomlib.R
 import com.uuabc.classroomlib.widget.CaptainDialog
-import kotlinx.android.synthetic.main.dialog_class_tips.view.*
+import kotlinx.android.synthetic.main.dialog_room_sdk_class_tips_tv.view.*
 import kotlinx.coroutines.*
 
 class InteractClassTipsDialog(context: Context) : BaseDialog(context) {
@@ -16,7 +16,7 @@ class InteractClassTipsDialog(context: Context) : BaseDialog(context) {
         this.context = context
         builder = CaptainDialog.Builder(context)
         dialog = builder.cancelTouchout(false)
-                .view(R.layout.dialog_class_tips)
+                .view(R.layout.dialog_room_sdk_class_tips_tv)
                 .widthpx((ScreenUtils.getScreenWidth() * 0.65f).toInt())
                 .heightpx((ScreenUtils.getScreenHeight() * 0.7f).toInt())
                 .style(R.style.Dialog_No_Title)

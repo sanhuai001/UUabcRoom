@@ -12,15 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.databinding.DataBindingUtil;
-
 import com.blankj.utilcode.util.NetworkUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.analytics.MobclickAgent;
 import com.uuabc.classroomlib.R;
 import com.uuabc.classroomlib.RoomApplication;
-import com.uuabc.classroomlib.databinding.ActivityBaseCommonBinding;
+import com.uuabc.classroomlib.databinding.ActivityRoomSdkBaseCommonBinding;
 import com.uuabc.classroomlib.utils.TipUtils;
+
+import androidx.databinding.DataBindingUtil;
 
 
 /**
@@ -32,13 +32,13 @@ import com.uuabc.classroomlib.utils.TipUtils;
 public class BaseCommonActivity extends BaseAdapterScreenActivity {
     protected Handler mMainHandler = new Handler(Looper.getMainLooper());
     protected View mChildView;
-    ActivityBaseCommonBinding mBaseBinding;
+    ActivityRoomSdkBaseCommonBinding mBaseBinding;
     protected RxPermissions mRxPermissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_common);
+        mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_room_sdk_base_common);
         mBaseBinding.setPresenter(this);
     }
 

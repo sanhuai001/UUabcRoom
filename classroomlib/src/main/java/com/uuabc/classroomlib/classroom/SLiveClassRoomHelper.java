@@ -193,8 +193,8 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
             if (courseCaseLoaded) {
                 mBinding.wvCourseware.reload();
             } else {
-                mBinding.wvCourseware.setUrl(result.getCourseware());
-                mBinding.wvCourseware.loadUrl(result.getCourseware());
+                mBinding.wvCourseware.setUrl(result.getCoursewareUrl());
+                mBinding.wvCourseware.loadUrl(result.getCoursewareUrl());
                 mBinding.wvCourseware.loadUrl("javascript:PageMgr.hasAuthority(true)");
             }
         } else {

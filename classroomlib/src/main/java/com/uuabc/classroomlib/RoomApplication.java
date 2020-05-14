@@ -26,6 +26,7 @@ import com.liulishuo.okdownload.core.cause.EndCause;
 import com.liulishuo.okdownload.core.listener.DownloadListener4WithSpeed;
 import com.liulishuo.okdownload.core.listener.assist.Listener4SpeedAssistExtend;
 import com.uuabc.classroomlib.builder.SocketIoBuild;
+import com.uuabc.classroomlib.classroom.MonitorRoomActivity;
 import com.uuabc.classroomlib.classroom.SLiveClassRoomActivity;
 import com.uuabc.classroomlib.classroom.SOneToFourClassRoomActivity;
 import com.uuabc.classroomlib.classroom.SOneToOneClassRoomActivity;
@@ -584,7 +585,8 @@ public class RoomApplication extends MultiDexApplication {
         if (topActivity == null) return false;
         return topActivity instanceof SOneToFourClassRoomActivity
                 || topActivity instanceof SOneToOneClassRoomActivity
-                || topActivity instanceof SLiveClassRoomActivity;
+                || topActivity instanceof SLiveClassRoomActivity
+                || topActivity instanceof MonitorRoomActivity;
     }
 
     public void doComment(Context context, RoomType roomType, SOverClassModel model) {

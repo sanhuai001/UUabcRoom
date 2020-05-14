@@ -5,13 +5,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
+
+import com.uuabc.classroomlib.RoomApplication;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewConfigurationCompat;
-
-import com.uuabc.classroomlib.RoomApplication;
 
 /**
  * Created by user on 2018/4/3.
@@ -19,7 +18,7 @@ import com.uuabc.classroomlib.RoomApplication;
 
 public class FlowFingerView extends ConstraintLayout {
 
-    private ViewGroup.MarginLayoutParams marginLayoutParams;
+    private MarginLayoutParams marginLayoutParams;
     private int screenWidth;
     private int screenHeight;
 //    private Scroller scroller;
@@ -85,7 +84,7 @@ public class FlowFingerView extends ConstraintLayout {
                 int offsetX = x - mLastX;
                 int offsetY = y - mLastY;
                 if ((Math.abs(offsetX) > 2 && Math.abs(offsetY) > 2)) {
-                    marginLayoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
+                    marginLayoutParams = (MarginLayoutParams) getLayoutParams();
                     //判断下次移动会不会超过屏幕
                     if (getLeft() + offsetX >= 0 && getRight() + offsetX < ((View) getParent()).getWidth() - offsetX) {
                         marginLayoutParams.leftMargin = getLeft() + offsetX;
@@ -198,7 +197,7 @@ public class FlowFingerView extends ConstraintLayout {
 //    }
 
     public void setMove(int offsetX, int offsetY) {
-        marginLayoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
+        marginLayoutParams = (MarginLayoutParams) getLayoutParams();
         //判断下次移动会不会超过屏幕
         if (getLeft() + offsetX >= 0 && getRight() + offsetX < ((View) getParent()).getWidth() - offsetX) {
             marginLayoutParams.leftMargin = getLeft() + offsetX;

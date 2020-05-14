@@ -7,8 +7,6 @@ import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.databinding.ViewDataBinding;
-
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -41,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import androidx.databinding.ViewDataBinding;
 import io.agora.rtc.Constants;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -143,6 +142,14 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     }
 
                     roomId = result.getRoom_id();
+                    String courseWare = result.getCourseware();
+                    if (!TextUtils.isEmpty(courseWare)) {
+                        result.setCoursewareUrl(courseWare + "?app_id=" + result.getApp_id() +
+                                "&user_type=" + RoomConstant.STUDENT_TYPE +
+                                "&user_id=" + SPUtils.getInstance().getInt(RoomConstant.USER_ID) +
+                                "&room_id=" + roomId);
+                    }
+
                     List<SUserModel> users = result.getUsers();
                     if (users == null) return;
                     skuId = ObjectUtil.getLongValue(result.getCourse_num());
@@ -263,14 +270,14 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                         }
                     }
 
-                    if (TextUtils.isEmpty(infoResult.getCourseware())) {
+                    if (TextUtils.isEmpty(infoResult.getCoursewareUrl())) {
                         ExceptionUtil.sendException("getRoomCoursewareEmptyError", classType, "");
                         doSCourseLoadFail();
                         return;
                     }
 
                     settingBean = infoResult.getSetting();
-                    mCurrentUrl = infoResult.getCourseware();
+                    mCurrentUrl = infoResult.getCoursewareUrl();
                     boolean isLoadedReply = true;/*SPUtils.getInstance().getBoolean(RoomConstant.SP_LOADED_REPLY, false);*/
                     if (isLoadedReply) {
                         ioSocketListener();
@@ -350,6 +357,8 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
      * @param wvCourseware ProgressWebView
      * @param tvPageNum    显示当前页码view
      */
+    private boolean isNewCourse;
+
     void setNewWebViewListener(ProgressWebView wvCourseware, TextView tvPageNum) {
         wvCourseware.addJavascriptInterface(
                 new Object() {
@@ -364,6 +373,11 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     }
 
                     @JavascriptInterface
+                    public void autoMode(boolean autoMode) {
+                        isNewCourse = autoMode;
+                    }
+
+                    @JavascriptInterface
                     public void callbackResLoaded(String allPageCount) {
                         LogUtils.i("AndroidtoJs", "callbackResLoaded:" + allPageCount);
                         mMainHandler.post(() -> {
@@ -372,8 +386,21 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                             wvCourseware.loadUrl("javascript:GlobalData.userType = 1");
                             wvCourseware.loadUrl("javascript:GlobalData.hasAuthority(true)");
 
-                            wvCourseware.loadUrl("javascript:PageMgr.turnPage (" + mCurrentCoursewarePage + ")");
                             totlePage = Integer.parseInt(allPageCount);
+                            if (isNewCourse) {
+                                wvCourseware.evaluateJavascript("javascript:ucPlugin.autoMode", autoMode ->
+                                        isNewCourse = TextUtils.equals(autoMode, "true")
+                                );
+
+                                wvCourseware.evaluateJavascript("javascript:PageMgr.curPage()", value -> {
+                                    mCurrentCoursewarePage = ObjectUtil.getIntValue(value);
+                                    if (tvPageNum != null)
+                                        tvPageNum.setText(mCurrentCoursewarePage + "/" + allPageCount);
+                                });
+                                return;
+                            }
+
+                            wvCourseware.loadUrl("javascript:PageMgr.turnPage (" + mCurrentCoursewarePage + ")");
                             if (tvPageNum != null)
                                 tvPageNum.setText(mCurrentCoursewarePage + "/" + allPageCount);
                             showAnimateLog();
@@ -390,9 +417,9 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     public void callbackSendMsg(String msg) {
                         LogUtils.i("AndroidtoJs", "callbackSendMsg:" + msg);
                         mMainHandler.post(() -> {
+                            if (isNewCourse) return;
                             wvCourseware.loadUrl("javascript:PageMgr.receiveMsg('" + msg + "')");
                             sendNewAction(msg);
-
                             record(RoomConstant.RECORD_ANIMATE_INFO, msg);
                         });
                     }

@@ -5,6 +5,7 @@ import com.uuabc.classroomlib.utils.ObjectUtil;
 import java.util.List;
 
 public class SClassRoomResult {
+    private Object app_id;
     private Object room_id;
     private Object start_time;
     private Object end_time;
@@ -16,6 +17,15 @@ public class SClassRoomResult {
     private SettingBean setting;
     private List<SUserModel> users;
     private Object courseware_name;
+    private String courseWareUrl;
+
+    public String getApp_id() {
+        return ObjectUtil.getString(app_id);
+    }
+
+    public void setApp_id(Object app_id) {
+        this.app_id = app_id;
+    }
 
     public int getRoom_id() {
         return ObjectUtil.getIntValue(room_id);
@@ -47,6 +57,14 @@ public class SClassRoomResult {
 
     public void setCourseware(Object courseware) {
         this.courseware = courseware;
+    }
+
+    public String getCoursewareUrl() {
+        return courseWareUrl;
+    }
+
+    public void setCoursewareUrl(String courseWareUrl) {
+        this.courseWareUrl = courseWareUrl;
     }
 
     public int getType() {

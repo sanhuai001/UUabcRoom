@@ -13,9 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.FileUtils;
@@ -69,6 +66,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -589,13 +588,6 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     }
 
     /**
-     * 声网 | talkCloud 切换,刷新教室
-     */
-    void doSwithVideo() {
-        refreshRoom();
-    }
-
-    /**
      * 用户进入教室 分配画笔，画板,上台view
      */
     void interRoom(OnlineUserModel userEnterModel) {
@@ -684,8 +676,8 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
             if (courseCaseLoaded) {
                 mBinding.wvCourseware.reload();
             } else {
-                mBinding.wvCourseware.setUrl(result.getCourseware());
-                mBinding.wvCourseware.loadUrl(result.getCourseware());
+                mBinding.wvCourseware.setUrl(result.getCoursewareUrl());
+                mBinding.wvCourseware.loadUrl(result.getCoursewareUrl());
                 mBinding.wvCourseware.loadUrl("javascript:PageMgr.hasAuthority(true)");
             }
         } else {
@@ -766,8 +758,8 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
             String point = studentModel.getPoint();
             if (isStage) {
                 String[] position = point.split(",");
-                x = Float.valueOf(position[0]) / mScale;
-                y = Float.valueOf(position[1]) / mScale;
+                x = Float.parseFloat(position[0]) / mScale;
+                y = Float.parseFloat(position[1]) / mScale;
             }
             String uid = "1" + studentId;
             //学生为自己时处理
@@ -957,8 +949,8 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
             if (isStage && isOnline) {
                 String point = studentModel.getPoint();
                 String[] position = point.split(",");
-                float x = Float.valueOf(position[0]) / mScale;
-                float y = Float.valueOf(position[1]) / mScale;
+                float x = Float.parseFloat(position[0]) / mScale;
+                float y = Float.parseFloat(position[1]) / mScale;
                 doRostumStudent(studentId, x, y, true);
             }
 
@@ -1094,7 +1086,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
                 continue;
             }
 
-            int otherStudent = Integer.valueOf("1" + uId);
+            int otherStudent = Integer.parseInt("1" + uId);
             if (map.containsKey(otherStudent)) {
                 mBinding.rlRostrum.setSignal(uId, map.get(otherStudent));
             }
@@ -1109,7 +1101,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
                 updateStudent(mUid, map.get(0));
                 mBinding.rlRostrum.setVolumeLevel(mUid, map.get(0));
             } else {
-                int otherStudent = Integer.valueOf("1" + uId);
+                int otherStudent = Integer.parseInt("1" + uId);
                 if (map.containsKey(otherStudent)) {
                     updateStudent(uId, map.get(otherStudent));
                     mBinding.rlRostrum.setVolumeLevel(uId, map.get(otherStudent));

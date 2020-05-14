@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -52,6 +49,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -391,8 +390,8 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
             if (courseCaseLoaded) {
                 mBinding.wvCourseware.reload();
             } else {
-                mBinding.wvCourseware.setUrl(result.getCourseware());
-                mBinding.wvCourseware.loadUrl(result.getCourseware());
+                mBinding.wvCourseware.setUrl(result.getCoursewareUrl());
+                mBinding.wvCourseware.loadUrl(result.getCoursewareUrl());
                 mBinding.wvCourseware.loadUrl("javascript:PageMgr.hasAuthority(true)");
             }
         } else {

@@ -388,6 +388,10 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
 
                             totlePage = Integer.parseInt(allPageCount);
                             if (isNewCourse) {
+                                wvCourseware.evaluateJavascript("javascript:ucPlugin.autoMode", autoMode ->
+                                        isNewCourse = TextUtils.equals(autoMode, "true")
+                                );
+
                                 wvCourseware.evaluateJavascript("javascript:PageMgr.curPage()", value -> {
                                     mCurrentCoursewarePage = ObjectUtil.getIntValue(value);
                                     if (tvPageNum != null)
@@ -413,8 +417,8 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     public void callbackSendMsg(String msg) {
                         LogUtils.i("AndroidtoJs", "callbackSendMsg:" + msg);
                         mMainHandler.post(() -> {
-                            wvCourseware.loadUrl("javascript:PageMgr.receiveMsg('" + msg + "')");
                             if (isNewCourse) return;
+                            wvCourseware.loadUrl("javascript:PageMgr.receiveMsg('" + msg + "')");
                             sendNewAction(msg);
                             record(RoomConstant.RECORD_ANIMATE_INFO, msg);
                         });

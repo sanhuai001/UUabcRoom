@@ -379,7 +379,7 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     /**
      * 清空画板的方法
      */
-    void clearBoard() {
+    public void clearBoard() {
         mBinding.blBoard.clearAllBoard();
         PointUtil.onEvent(mContext, RoomConstant.LIVE_CLICK_CLEAN);
     }

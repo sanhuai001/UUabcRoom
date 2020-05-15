@@ -387,23 +387,17 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                             wvCourseware.loadUrl("javascript:GlobalData.hasAuthority(true)");
 
                             totlePage = Integer.parseInt(allPageCount);
-                            if (isNewCourse) {
-                                wvCourseware.evaluateJavascript("javascript:ucPlugin.autoMode", autoMode ->
-                                        isNewCourse = TextUtils.equals(autoMode, "true")
-                                );
 
-                                wvCourseware.evaluateJavascript("javascript:PageMgr.curPage()", value -> {
-                                    mCurrentCoursewarePage = ObjectUtil.getIntValue(value);
-                                    if (tvPageNum != null)
-                                        tvPageNum.setText(mCurrentCoursewarePage + "/" + allPageCount);
-                                });
-                                return;
-                            }
+                            wvCourseware.evaluateJavascript("javascript:ucPlugin.autoMode", autoMode -> {
+                                        isNewCourse = TextUtils.equals(autoMode, "true");
+                                        if (isNewCourse) return;
 
-                            wvCourseware.loadUrl("javascript:PageMgr.turnPage (" + mCurrentCoursewarePage + ")");
-                            if (tvPageNum != null)
-                                tvPageNum.setText(mCurrentCoursewarePage + "/" + allPageCount);
-                            showAnimateLog();
+                                        wvCourseware.loadUrl("javascript:PageMgr.turnPage (" + mCurrentCoursewarePage + ")");
+                                        if (tvPageNum != null)
+                                            tvPageNum.setText(mCurrentCoursewarePage + "/" + allPageCount);
+                                        showAnimateLog();
+                                    }
+                            );
                         });
                     }
 
@@ -411,6 +405,17 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     public void callbackPageLoaded(boolean isSingle, boolean isInteraction) {
                         LogUtils.i("AndroidtoJs", "callbackPageLoaded:" + (isSingle ? "isSingle:true," : "isSingle:false,")
                                 + (isInteraction ? "isInteraction true" : "isInteraction false"));
+
+                        mMainHandler.post(() -> {
+                            if (isNewCourse) {
+                                wvCourseware.evaluateJavascript("javascript:PageMgr.cur_page", value -> {
+                                    mCurrentCoursewarePage = ObjectUtil.getIntValue(value);
+                                    if (tvPageNum != null)
+                                        tvPageNum.setText(mCurrentCoursewarePage + "/" + totlePage);
+                                });
+                                clearBoard();
+                            }
+                        });
                     }
 
                     @JavascriptInterface
@@ -537,5 +542,8 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
     }
 
     public void checkRoomResultSuccess(SClassRoomResult result, int srvTime, boolean isLoadedReply) {
+    }
+
+    public void clearBoard() {
     }
 }

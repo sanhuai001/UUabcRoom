@@ -19,8 +19,8 @@ public class SClassRoomResult {
     private Object courseware_name;
     private String courseWareUrl;
 
-    public String getApp_id() {
-        return ObjectUtil.getString(app_id);
+    public int getApp_id() {
+        return ObjectUtil.getIntValue(app_id);
     }
 
     public void setApp_id(Object app_id) {

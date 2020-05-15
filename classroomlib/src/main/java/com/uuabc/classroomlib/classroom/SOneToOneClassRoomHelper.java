@@ -176,7 +176,7 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
     /**
      * 清空画板的方法
      */
-    void clearBoard() {
+    public void clearBoard() {
         mBinding.boardView.clearAllBoard();
     }
 

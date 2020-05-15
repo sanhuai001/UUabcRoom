@@ -282,7 +282,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     /**
      * 清空画板的方法
      */
-    void clearBoard() {
+    public void clearBoard() {
         mBinding.boardView.clearAllBoard();
     }
 

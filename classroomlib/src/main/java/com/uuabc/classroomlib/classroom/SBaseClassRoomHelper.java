@@ -144,10 +144,12 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     roomId = result.getRoom_id();
                     String courseWare = result.getCourseware();
                     if (!TextUtils.isEmpty(courseWare)) {
-                        result.setCoursewareUrl(courseWare + "?app_id=" + result.getApp_id() +
+                        result.setCoursewareUrl(courseWare + (courseWare.contains("?") ? "&app_id=" : "?app_id=") + result.getApp_id() +
                                 "&user_type=" + RoomConstant.STUDENT_TYPE +
                                 "&user_id=" + SPUtils.getInstance().getInt(RoomConstant.USER_ID) +
-                                "&room_id=" + roomId);
+                                "&room_id=" + roomId +
+                                "&avatar=" + (sMyselfModel == null ? "" : sMyselfModel.getAvatar()) +
+                                "&name=" + (sMyselfModel == null ? "" : sMyselfModel.getNickname()));
                     }
 
                     List<SUserModel> users = result.getUsers();

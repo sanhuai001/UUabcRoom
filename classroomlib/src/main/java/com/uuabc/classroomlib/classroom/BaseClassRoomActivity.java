@@ -141,6 +141,7 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
 
     @SuppressLint("CheckResult")
     public void requestPermissions() {
+        if (isDestroyed()) return;
         mRxPermissions = mRxPermissions == null ? new RxPermissions(this) : mRxPermissions;
 
         mRxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS)

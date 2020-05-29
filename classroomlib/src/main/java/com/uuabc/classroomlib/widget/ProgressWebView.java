@@ -12,11 +12,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
-import androidx.annotation.Nullable;
-
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.CleanUtils;
 
+import androidx.annotation.Nullable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -74,6 +73,7 @@ public class ProgressWebView extends CacheWebView {
         setWebViewClient(new WebViewClient());
         setDownloadListener(new WebViewDownLoadListener());
         String ua = getSettings().getUserAgentString();
+        getSettings().setMediaPlaybackRequiresUserGesture(false);
         getSettings().setUserAgentString(ua + "; uuabcAndroid");
         getSettings().setSavePassword(false);
     }

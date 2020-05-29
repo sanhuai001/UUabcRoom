@@ -96,7 +96,7 @@ dependencies {
     //https://github.com/yale8848/CacheWebView
     api 'ren.yale.android:cachewebviewlib:1.4.0'
     //https://github.com/GcsSloop/rclayout
-    api 'com.gcssloop.widget:rclayout:1.8.1'
+    api 'com.gcssloop.widget.jcenter:rclayout:1.8.1'
     api 'com.airbnb.android:lottie:3.3.0'
     api files('libs/pldroid-player-2.1.7.jar')
     //https://github.com/lingochamp/okdownload

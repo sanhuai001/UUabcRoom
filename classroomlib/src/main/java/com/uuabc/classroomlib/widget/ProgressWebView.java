@@ -197,6 +197,10 @@ public class ProgressWebView extends CacheWebView {
                     clearCache();
                     destroy();
                 }, throwable -> {
+                    try {
+                        destroy();
+                    } catch (Exception ignored) {
+                    }
                 });
     }
 

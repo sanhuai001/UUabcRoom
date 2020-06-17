@@ -18,10 +18,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_room_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="52:39"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"
@@ -282,14 +285,15 @@
                 android:layout_marginTop="@dimen/mid_gap_margin"
                 android:layout_marginEnd="@dimen/mid_gap_margin"
                 app:layout_constraintBottom_toTopOf="@+id/guideline7"
+                app:layout_constraintDimensionRatio="52:39"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline1"
                 app:layout_constraintTop_toTopOf="@+id/guideline4">
 
                 <com.uuabc.classroomlib.widget.ProgressWebView
                     android:id="@+id/wv_courseware"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -298,8 +302,8 @@
 
                 <com.uuabc.classroomlib.classroom.BitmapBoardLayout
                     android:id="@+id/bl_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -312,7 +316,7 @@
                     android:layout_marginStart="@dimen/max_x_gap_margin"
                     android:src="@drawable/ic_room_sdk_course_pre_page"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintHeight_percent="0.08"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -325,7 +329,7 @@
                     android:layout_marginEnd="@dimen/max_x_gap_margin"
                     android:src="@drawable/ic_room_sdk_course_next_page"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent="0.08"
                     app:layout_constraintTop_toTopOf="parent"
@@ -342,7 +346,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_xx_large"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="H,127:59"
+                    app:layout_constraintDimensionRatio="127:59"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintWidth_percent="0.12" />
 
@@ -359,18 +363,6 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/ic_room_sdk_live_class_answer_bg"
                     android:visibility="gone" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-
-                    <com.uuabc.classroomlib.widget.FlowFingerView
-                        android:id="@+id/flow_view"
-                        android:layout_width="67dp"
-                        android:layout_height="75dp"
-                        android:background="@drawable/ic_room_sdk_answer_rank" />
-                </RelativeLayout>
 
                 <com.uuabc.classroomlib.widget.TopThreeView
                     android:id="@+id/top_view"
@@ -398,7 +390,7 @@
                 android:layout_height="0dp"
                 android:background="@drawable/room_sdk_shape_white_translucent_two"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H,390:45"
+                app:layout_constraintDimensionRatio="390:45"
                 app:layout_constraintLeft_toRightOf="@+id/ll_chart_msg"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline7"
@@ -579,36 +571,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cl_paint"
                 app:layout_constraintTop_toTopOf="@+id/guideline7" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lav_loading"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/guideline7"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.4"
-                app:layout_constraintStart_toStartOf="@+id/guideline1"
-                app:layout_constraintTop_toTopOf="@+id/guideline4"
-                app:layout_constraintVertical_bias="0.4"
-                app:lottie_fileName="class_loading.json"
-                app:lottie_loop="true" />
-
-            <TextView
-                android:id="@+id/tv_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/min_x_gap_margin"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="@dimen/min_gap_margin"
-                android:text="@string/classroom_loading_course_str"
-                android:textColor="#0168B9"
-                android:textSize="@dimen/common_text_size_xx_large"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline1"
-                app:layout_constraintTop_toBottomOf="@+id/lav_loading" />
 
             <com.uuabc.classroomlib.classroom.AnimationImageView
                 android:id="@+id/iv_gif"

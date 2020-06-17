@@ -290,7 +290,7 @@ public class SOneToFourClassRoomActivity extends BaseClassRoomActivity {
     @Override
     public void onSetWifiLevel(int level) {
         super.onSetWifiLevel(level);
-        if (mBinding.ivWifi == null) return;
+        if (mBinding == null) return;
         roomHelper.setWifiIcon(mBinding.ivWifi, level);
     }
 

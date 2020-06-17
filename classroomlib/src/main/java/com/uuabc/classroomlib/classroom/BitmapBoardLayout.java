@@ -90,28 +90,6 @@ public class BitmapBoardLayout extends FrameLayout {
         mBoardViewList.get(0).setUserId(SPUtils.getInstance().getInt(RoomConstant.USER_ID));
     }
 
-    public void setLayoutParams(int width, int height, int containerWidth, int containerHeight) {
-        for (int i = 0; i < mBoardViewList.size(); i++) {
-            LayoutParams parentParams = (LayoutParams) mBoardViewList.get(i).getLayoutParams();
-            parentParams.width = width;
-            parentParams.height = height;
-            mBoardViewList.get(i).requestLayout();
-        }
-
-        //设置画笔默认位置
-        int paintTopMargin = 0, paintLeftMargin = 0;
-        if (containerWidth == width) {
-            paintTopMargin = (containerHeight - height) / 2;
-        } else {
-            paintLeftMargin = (containerWidth - width) / 2;
-        }
-        for (int i = 0; i < mMouseViewList.size(); i++) {
-            mLpPaintList.get(i).topMargin = paintTopMargin;
-            mLpPaintList.get(i).leftMargin = paintLeftMargin;
-            mMouseViewList.get(i).requestLayout();
-        }
-    }
-
     public void setPaintColor(String colorStr) {
         mBoardViewList.get(0).setColor(colorStr);
     }

@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -32,7 +34,6 @@ import com.uuabc.classroomlib.model.SocketModel.SShareModel;
 import com.uuabc.classroomlib.model.SocketModel.SwitchModel;
 import com.uuabc.classroomlib.model.SocketModel.UserModel;
 import com.uuabc.classroomlib.retrofit.ApiRetrofit;
-import com.uuabc.classroomlib.utils.CompatUtil;
 import com.uuabc.classroomlib.utils.ExceptionUtil;
 import com.uuabc.classroomlib.utils.JsonUtils;
 import com.uuabc.classroomlib.utils.MediaPlayerUtil;
@@ -43,14 +44,11 @@ import com.uuabc.classroomlib.utils.SocketIoUtils;
 import com.uuabc.roomvideo.model.EnterRoomModel;
 import com.uuabc.roomvideo.model.RoomVideoType;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -78,43 +76,18 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
 
         initMsgAdapter();
 
-        setClassRoomLayout(mBinding.clRoomContent);
-
-        ViewTreeObserver vto = mBinding.clRoomContent.getViewTreeObserver();
+        ViewTreeObserver vto = mBinding.wvCourseware.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int containerWidth = mBinding.clCoursewareContainer.getWidth();
-                int containerHeight = mBinding.clCoursewareContainer.getHeight();
-                mBinding.clRoomContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                double coursewareProportion = new BigDecimal(RoomApplication.getInstance().PC_WIDTH / RoomApplication.getInstance().PC_HEIGHT)
-                        .setScale(4, BigDecimal.ROUND_HALF_UP)
-                        .doubleValue();
-                double containerProportion = new BigDecimal((double) containerWidth / containerHeight)
-                        .setScale(4, BigDecimal.ROUND_HALF_UP)
-                        .doubleValue();
-                //课件
-                ViewGroup.LayoutParams courseWareLp = mBinding.wvCourseware.getLayoutParams();
-                if (coursewareProportion > containerProportion) {
-                    courseWareLp.width = containerWidth;
-                    courseWareLp.height = (int) (containerWidth / coursewareProportion);
-                } else {
-                    courseWareLp.height = containerHeight;
-                    courseWareLp.width = (int) (containerHeight * coursewareProportion);
-                    mBinding.clCoursewareContainer.setBackgroundColor(CompatUtil.getColor(mContext, R.color.white));
-                }
-                mBinding.wvCourseware.setLayoutParams(courseWareLp);
-                mBinding.wvCourseware.requestLayout();
-                //画板，画笔
-                mBinding.boardView.setLayoutParams(courseWareLp.width, courseWareLp.height, containerWidth, containerHeight);
+                int courseWidth = mBinding.wvCourseware.getWidth();
+                mBinding.wvCourseware.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                mScale = RoomApplication.getInstance().getScale(courseWareLp.width);
+                mScale = RoomApplication.getInstance().getScale(courseWidth);
                 mBinding.boardView.setPaintSize(2 / mScale);
 
                 onNetWorkMsgReceived(NetworkUtils.isConnected() ? RoomConstant.NET_WORK_CONNECTED : RoomConstant.NET_WORK_INCONNECTED);
-
                 ((BaseWifiListenerActivity) mContext).refreshWifiState();
-
                 mBinding.boardView.setCanDraw(true);
             }
         });

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -36,7 +35,6 @@ import com.uuabc.classroomlib.model.SocketModel.UserModel;
 import com.uuabc.classroomlib.model.TopModel;
 import com.uuabc.classroomlib.retrofit.ApiRetrofit;
 import com.uuabc.classroomlib.retrofit.RequestBuilder;
-import com.uuabc.classroomlib.utils.CompatUtil;
 import com.uuabc.classroomlib.utils.ExceptionUtil;
 import com.uuabc.classroomlib.utils.MediaPlayerUtil;
 import com.uuabc.classroomlib.utils.ObjectUtil;
@@ -45,7 +43,6 @@ import com.uuabc.classroomlib.utils.SocketIoUtils;
 import com.uuabc.roomvideo.model.EnterRoomModel;
 import com.uuabc.roomvideo.model.RoomVideoType;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,8 +75,6 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     }
 
     private void initView() {
-        mBinding.flowView.setOnClickListener(v -> showAnswerRankDialog(topRank));
-
 //        mBinding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
 //        mBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 //        mBinding.tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
@@ -127,43 +122,15 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
 
         setClassRoomLayout(mBinding.clRoomContent);
 
-        ViewTreeObserver vto = mBinding.clRoomContent.getViewTreeObserver();
+        ViewTreeObserver vto = mBinding.wvCourseware.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int containerWidth = mBinding.clCoursewareContainer.getWidth();
-                int containerHeight = mBinding.clCoursewareContainer.getHeight();
-                mBinding.clRoomContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                double coursewareProportion = new BigDecimal(RoomApplication.getInstance().PC_WIDTH / RoomApplication.getInstance().PC_HEIGHT)
-                        .setScale(4, BigDecimal.ROUND_HALF_UP)
-                        .doubleValue();
-                double containerProportion = new BigDecimal((double) containerWidth / containerHeight)
-                        .setScale(4, BigDecimal.ROUND_HALF_UP)
-                        .doubleValue();
-                //课件
-                ViewGroup.LayoutParams courseWareLp = mBinding.wvCourseware.getLayoutParams();
-                if (coursewareProportion > containerProportion) {
-                    courseWareLp.width = containerWidth;
-                    courseWareLp.height = (int) (containerWidth / coursewareProportion);
-                } else {
-                    courseWareLp.height = containerHeight;
-                    courseWareLp.width = (int) (containerHeight * coursewareProportion);
-                    mBinding.clCoursewareContainer.setBackgroundColor(CompatUtil.getColor(mContext, R.color.white));
-                }
-                mBinding.wvCourseware.setLayoutParams(courseWareLp);
-                mBinding.wvCourseware.requestLayout();
-                //画板，画笔
-                mBinding.blBoard.setLayoutParams(courseWareLp.width, courseWareLp.height, containerWidth, containerHeight);
+                int courseWidth = mBinding.wvCourseware.getWidth();
+                mBinding.wvCourseware.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                mScale = new BigDecimal(RoomApplication.getInstance().PC_WIDTH / courseWareLp.width)
-                        .setScale(4, BigDecimal.ROUND_HALF_UP)
-                        .floatValue();
+                mScale = RoomApplication.getInstance().getScale(courseWidth);
                 mBinding.blBoard.setPaintSize(2 / mScale);
-
-                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) mBinding.flowView.getLayoutParams();
-                marginLayoutParams.leftMargin = (int) (mBinding.clCoursewareContainer.getWidth() - mBinding.flowView.getWidth() / 0.8);
-                marginLayoutParams.topMargin = mBinding.flowView.getHeight();
-                mBinding.flowView.setLayoutParams(marginLayoutParams);
 
                 onNetWorkMsgReceived(NetworkUtils.isConnected() ? RoomConstant.NET_WORK_CONNECTED : RoomConstant.NET_WORK_INCONNECTED);
                 mBinding.blBoard.setCanDraw(true);
@@ -173,7 +140,6 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
         setViewRadius(mBinding.clCoursewareContainer, 25);
         setViewRadius(mBinding.ivGif, 25);
         setViewRadius(mBinding.flTeacher, 17);
-        mBinding.lavLoading.setImageAssetsFolder("images/");
     }
 
     void onColorCheckedChanged(int checkedId) {

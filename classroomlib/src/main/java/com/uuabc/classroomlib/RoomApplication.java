@@ -8,6 +8,10 @@ import android.net.Network;
 import android.net.NetworkRequest;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.multidex.MultiDexApplication;
+
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.DeviceUtils;
@@ -54,9 +58,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.multidex.MultiDexApplication;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -290,6 +291,7 @@ public class RoomApplication extends MultiDexApplication {
                 LogUtils.d("LifecycleManager", "onForeground");
                 SPUtils.getInstance().put(RoomConstant.IS_FOREGROUND, true);
                 onForeGround();
+                onRoomForeGround();
             }
         });
     }
@@ -298,6 +300,24 @@ public class RoomApplication extends MultiDexApplication {
     }
 
     public void onForeGround() {
+    }
+
+    private void onRoomForeGround() {
+        Activity topActivity = ActivityUtils.getTopActivity();
+        if (topActivity == null) return;
+        if (topActivity instanceof SOneToFourClassRoomActivity) {
+            topActivity.finish();
+            ActivityUtils.startActivity(SOneToFourClassRoomActivity.class);
+            topActivity.overridePendingTransition(0, 0);
+        } else if (topActivity instanceof SOneToOneClassRoomActivity) {
+            topActivity.finish();
+            ActivityUtils.startActivity(SOneToOneClassRoomActivity.class);
+            topActivity.overridePendingTransition(0, 0);
+        } else if (topActivity instanceof SLiveClassRoomActivity) {
+            topActivity.finish();
+            ActivityUtils.startActivity(SLiveClassRoomActivity.class);
+            topActivity.overridePendingTransition(0, 0);
+        }
     }
 
     /**

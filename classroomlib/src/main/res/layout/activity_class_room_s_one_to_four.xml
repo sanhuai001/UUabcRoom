@@ -11,16 +11,20 @@
             type="com.uuabc.classroomlib.classroom.SOneToFourRoomHelper" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/room_sdk_room_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_room_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="52:39"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline1"
@@ -173,7 +177,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/mid_gap_margin"
                 android:background="@drawable/ic_room_sdk_class_room_teacher_default_s"
-                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline2" />
@@ -185,7 +189,7 @@
                 android:background="@drawable/room_sdk_shape_left_bottom_translucent"
                 android:src="@drawable/icon_signal_3"
                 android:visibility="gone"
-                app:layout_constraintDimensionRatio="H,2:1"
+                app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintRight_toRightOf="@id/fl_teacher"
                 app:layout_constraintTop_toTopOf="@id/fl_teacher"
                 app:layout_constraintWidth_percent="0.0416" />
@@ -199,7 +203,7 @@
                 android:src="@drawable/icon_volume_level_0"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/fl_teacher"
-                app:layout_constraintDimensionRatio="W,5:57"
+                app:layout_constraintDimensionRatio="5:57"
                 app:layout_constraintEnd_toEndOf="@id/fl_student"
                 app:layout_constraintHeight_percent="0.1"
                 app:layout_constraintStart_toStartOf="@id/iv_my_mic" />
@@ -227,7 +231,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/mid_gap_margin"
                 android:background="@drawable/ic_room_sdk_class_room_loading_s"
-                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fl_teacher" />
@@ -280,7 +284,7 @@
                 android:src="@drawable/icon_volume_level_0"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/iv_my_mic"
-                app:layout_constraintDimensionRatio="W,5:57"
+                app:layout_constraintDimensionRatio="5:57"
                 app:layout_constraintEnd_toEndOf="@id/fl_student"
                 app:layout_constraintHeight_percent="0.1"
                 app:layout_constraintStart_toStartOf="@id/iv_my_mic" />
@@ -317,14 +321,15 @@
                 android:layout_marginTop="@dimen/mid_gap_margin"
                 android:layout_marginEnd="@dimen/mid_gap_margin"
                 app:layout_constraintBottom_toTopOf="@+id/guideline7"
+                app:layout_constraintDimensionRatio="52:39"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline1"
                 app:layout_constraintTop_toTopOf="@+id/guideline2">
 
                 <com.uuabc.classroomlib.widget.ProgressWebView
                     android:id="@+id/wv_courseware"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -332,8 +337,8 @@
 
                 <com.uuabc.classroomlib.widget.BoardViewLayout
                     android:id="@+id/boardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -341,8 +346,8 @@
 
                 <com.uuabc.classroomlib.classroom.RostrumLayouts
                     android:id="@+id/rl_rostrum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -428,7 +433,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/room_sdk_shape_white_translucent_two"
-                app:layout_constraintDimensionRatio="H,390:45"
+                app:layout_constraintDimensionRatio="390:45"
                 app:layout_constraintLeft_toRightOf="@+id/rv_chat_list"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline7"
@@ -600,5 +605,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center" />
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

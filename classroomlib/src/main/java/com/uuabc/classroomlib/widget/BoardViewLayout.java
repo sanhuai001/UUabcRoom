@@ -82,26 +82,6 @@ public class BoardViewLayout extends FrameLayout {
         boardView.getList().get(0).setUserId(SPUtils.getInstance().getInt(RoomConstant.USER_ID));
     }
 
-    public void setLayoutParams(int width, int height, int containerWidth, int containerHeight) {
-        LayoutParams parentParams = (LayoutParams) boardView.getLayoutParams();
-        parentParams.width = width;
-        parentParams.height = height;
-        boardView.requestLayout();
-
-        //设置画笔默认位置
-        int paintTopMargin = 0, paintLeftMargin = 0;
-        if (containerWidth == width) {
-            paintTopMargin = (containerHeight - height) / 2;
-        } else {
-            paintLeftMargin = (containerWidth - width) / 2;
-        }
-        for (int i = 0; i < mMouseViewList.size(); i++) {
-            mLpPaintList.get(i).topMargin = paintTopMargin;
-            mLpPaintList.get(i).leftMargin = paintLeftMargin;
-            mMouseViewList.get(i).requestLayout();
-        }
-    }
-
     public void setPaintColor(String colorStr) {
         boardView.setMyColor(colorStr);
     }

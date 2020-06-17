@@ -100,49 +100,11 @@ public class RostrumLayouts extends FrameLayout {
     }
 
     /**
-     * 上台 老教室
-     */
-    public void doUpState(int userId, String value, float mScale, UpStageCallBack callBack) {
-        if (TextUtils.isEmpty(value)) return;
-        String[] points = value.split(",");
-
-        RostrumLayout rostrumLayout;
-        if (rostrumLayoutMap.containsKey(userId)) {
-            rostrumLayout = rostrumLayoutMap.get(userId);
-        } else {
-            rostrumLayout = new RostrumLayout(getContext(), isNewRoom);
-            UserModel student = getStudentById(userId);
-            if (student != null) {
-                rostrumLayout.setTvStuName(student.getName());
-                rostrumLayout.setTvDiamondCount(student.getDia());
-                rostrumLayout.isTv(student.getChannel() == 1);
-            }
-            addView(rostrumLayout);
-            rostrumLayoutMap.put(userId, rostrumLayout);
-        }
-
-        if (rostrumLayout == null) return;
-        FrameLayout flStuRostrum = rostrumLayout.getFlStuRostrum();
-        ConstraintLayout clStuRostrum = rostrumLayout.getClStuRostrum();
-        float x = Float.valueOf(points[0]) / mScale;
-        float y = Float.valueOf(points[1]) / mScale;
-
-        callBack.goUpStageCallBack(flStuRostrum, userId);
-
-        LayoutParams layoutParams = (LayoutParams) clStuRostrum.getLayoutParams();
-        layoutParams.leftMargin = (int) x;
-        layoutParams.topMargin = (int) y;
-        layoutParams.width = width;
-        layoutParams.height = height;
-        clStuRostrum.requestLayout();
-    }
-
-    /**
      * 上台
      */
     public void doNewUpState(int userId, RostrumModel value, float mScale, UpStageCallBack callBack) {
-        float x = Float.valueOf(value.getX()) / mScale;
-        float y = Float.valueOf(value.getY()) / mScale;
+        float x = Float.parseFloat(value.getX()) / mScale;
+        float y = Float.parseFloat(value.getY()) / mScale;
         doNewUpState(userId, x, y, TextUtils.equals(value.getType(), RoomConstant.START), callBack);
     }
 

@@ -75,6 +75,14 @@ class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.Volume
         hangup()
     }
 
+    override fun isBaseOnWidth(): Boolean {
+        return true
+    }
+
+    override fun getSizeInDp(): Float {
+        return 667f
+    }
+
     override fun onVolumeChanged(volume: Int) {
         super.onVolumeChanged(volume)
         setVolume()

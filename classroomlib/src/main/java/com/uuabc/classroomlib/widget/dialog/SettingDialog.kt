@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -78,6 +79,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
                 return Holder(LayoutInflater.from(context).inflate(R.layout.item_adjust_voice, parent, false)).apply {
                     itemView.ivAdd.setOnClickListener {
+                        if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
                         if (data[adapterPosition].volumeLevel + 10 >= 100) {
                             data[adapterPosition].volumeLevel = 100
                         } else {
@@ -91,6 +93,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
                     }
 
                     itemView.ivMinus.setOnClickListener {
+                        if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
                         if (data[adapterPosition].volumeLevel - 10 <= 0) {
                             data[adapterPosition].volumeLevel = 0
                         } else {

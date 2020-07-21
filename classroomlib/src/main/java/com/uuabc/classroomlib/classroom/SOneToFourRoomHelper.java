@@ -824,6 +824,8 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
 
         dialog.setRoomID(roomId);
 
+        if (students == null)
+            return;
         if (needRefreshUI || dialog.isShowing()) {
             dialog.setUserModel(students);
         } else {

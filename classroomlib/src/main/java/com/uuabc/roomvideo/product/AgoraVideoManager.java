@@ -213,25 +213,10 @@ public class AgoraVideoManager implements VideoManagerObserver {
         }
 
         @Override
-        public void onUserEnableVideo(int uid, boolean enabled) {
-            super.onUserEnableVideo(uid, enabled);
-        }
-
-        @Override
-        public void onUserMuteVideo(int uid, boolean muted) {
-            super.onUserMuteVideo(uid, muted);
-        }
-
-
-        @Override
         public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
             if (observer != null) {
                 observer.onNetworkQuality(uid, txQuality, rxQuality);
             }
-        }
-
-        @Override
-        public void onUserEnableLocalVideo(int uid, boolean enabled) {
         }
 
         @Override

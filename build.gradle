@@ -35,6 +35,7 @@ allprojects {
         maven { url 'file://D://myaar/repository/' }
         //jpush
         maven { url 'http://developer.huawei.com/repo/' }
+        maven { url 'http://git.baijiashilian.com/open-android/maven/raw/master/' }
     }
 }
 

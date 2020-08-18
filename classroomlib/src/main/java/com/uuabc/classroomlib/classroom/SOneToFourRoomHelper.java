@@ -1072,6 +1072,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     }
 
     void doVolumeEvent(HashMap<Integer, Integer> map) {
+        if (map == null) return;
         int mUid = SPUtils.getInstance().getInt(RoomConstant.USER_ID);
         for (Integer uId : onlineStudentIds) {
             if (map.containsKey(0) && uId == mUid) {

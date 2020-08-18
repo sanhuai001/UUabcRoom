@@ -42,6 +42,15 @@ class TestActivity : AppCompatActivity() {
                     RoomApplication.getInstance().jumpToClassRoom(roomToken, RoomType.LIVE)
                 }
             }
+
+//            AutoSizeConfig.getInstance().unitsManager
+//                    .setSupportDP(false)
+//                    .setSupportSP(false).supportSubunits = Subunits.MM
+//            LiveSDK.customEnvironmentPrefix = "b54152889"
+//            LiveSDK.deployType = LPConstants.LPDeployType.Product
+//            InteractiveClassUI.enterRoom(this, "9cjfzn", "Test666") { LogUtil.d("enterRoomTest", "进入课堂失败 : $it") }
+//            LiveSDKWithUI.enterRoom(this, "9cjfzn", "Test666") {}
+//            LiveSDKWithUI.enterRoomWithVerticalTemplate(this, "scm6rpk7", "张十实") { msg -> LogUtil.d("课表", "进入课堂失败 : $msg") }
         }
     }
 }

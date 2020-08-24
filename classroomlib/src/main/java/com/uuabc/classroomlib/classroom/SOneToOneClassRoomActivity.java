@@ -45,7 +45,7 @@ public class SOneToOneClassRoomActivity extends BaseClassRoomActivity {
         mBinding.ivClose.setOnClickListener(v -> roomHelper.loginOutNewClassRoom());
         mBinding.ivRefresh.setOnClickListener(v -> roomHelper.showNewRefreshTipDialog());
         mBinding.ibTechnicalSupport.setOnClickListener(v -> roomHelper.showNewSupportDialog());
-        if (RoomApplication.getInstance().isFirstInterOneToOne) {
+        if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterOneToOne) {
             RoomApplication.getInstance().isFirstInterOneToOne = false;
             finish();
             ActivityUtils.startActivity(SOneToOneClassRoomActivity.class);

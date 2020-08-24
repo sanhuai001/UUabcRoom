@@ -86,6 +86,10 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
 
     @Override
     protected void onDestroy() {
+        View currentFocus = getCurrentFocus();
+        if (currentFocus != null) {
+            currentFocus.clearFocus();
+        }
         loginOut();
         doDestory();
         super.onDestroy();

@@ -61,7 +61,7 @@ public class SOneToFourClassRoomActivity extends BaseClassRoomActivity {
             }
         });
 
-        if (RoomApplication.getInstance().isFirstInterOneToFour) {
+        if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterOneToFour) {
             RoomApplication.getInstance().isFirstInterOneToFour = false;
             finish();
             ActivityUtils.startActivity(SOneToFourClassRoomActivity.class);

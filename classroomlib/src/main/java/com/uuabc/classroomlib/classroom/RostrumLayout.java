@@ -1,5 +1,6 @@
 package com.uuabc.classroomlib.classroom;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -38,6 +39,7 @@ public class RostrumLayout extends FrameLayout {
         this(context, attrs, 0);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public RostrumLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View root = LayoutInflater.from(context).inflate(R.layout.room_sdk_rostrum, this, true);
@@ -50,7 +52,6 @@ public class RostrumLayout extends FrameLayout {
         tvDiamondCount = root.findViewById(R.id.tv_stu_diamond_count);
         ivNoCamera = root.findViewById(R.id.iv_no_camera);
         ivVolume = root.findViewById(R.id.iv_volume);
-
 
         volumesList = new Drawable[]{
                 getResources().getDrawable(R.drawable.icon_volume_level_0),

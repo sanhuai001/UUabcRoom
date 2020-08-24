@@ -1,5 +1,6 @@
 package com.uuabc.classroomlib.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -61,6 +62,7 @@ public final class CompatUtil {
      * @param theme      主题
      * @return 图片
      */
+    @SuppressLint("UseCompatLoadingForDrawables")
     public static Drawable getDrawable(Context context, int drawableId, Resources.Theme theme) {
         if (Build.VERSION.SDK_INT >= 21) {
             return context.getResources().getDrawable(drawableId, theme);

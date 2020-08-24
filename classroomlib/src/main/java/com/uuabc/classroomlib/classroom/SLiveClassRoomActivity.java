@@ -56,7 +56,7 @@ public class SLiveClassRoomActivity extends BaseClassRoomActivity {
         setListener();
         initAnimator();
 
-        if (RoomApplication.getInstance().isFirstInterLive) {
+        if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterLive) {
             RoomApplication.getInstance().isFirstInterLive = false;
             finish();
             ActivityUtils.startActivity(SLiveClassRoomActivity.class);

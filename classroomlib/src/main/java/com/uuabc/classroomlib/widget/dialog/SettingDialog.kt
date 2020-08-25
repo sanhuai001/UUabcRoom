@@ -16,6 +16,7 @@ import com.uuabc.classroomlib.R
 import com.uuabc.classroomlib.RoomApplication
 import com.uuabc.classroomlib.RoomConstant
 import com.uuabc.classroomlib.model.SocketModel.UserModel
+import com.uuabc.classroomlib.utils.CompatUtil
 import com.uuabc.classroomlib.utils.ObjectUtil
 import com.uuabc.classroomlib.widget.AlphaAdapter
 import com.uuabc.classroomlib.widget.CaptainDialog
@@ -29,33 +30,28 @@ import kotlin.collections.set
 
 open class SettingDialog(context: Context) : BaseDialog(context) {
 
-    var voiceJsonObj: com.alibaba.fastjson.JSONObject? = null
-    var clickListener: OnClickListener? = null
+    private var voiceJsonObj: com.alibaba.fastjson.JSONObject? = null
     var adapter: AlphaAdapter<UserModel, AlphaAdapter.Holder>? = null
     var volumeMap = HashMap<String, Int>()
-    var studentList = ArrayList<UserModel>()
+    private var studentList = ArrayList<UserModel>()
     private var volumes: Array<Drawable>? = null
     private var roomId = 0
-
-    interface OnClickListener {
-        fun onClick()
-    }
 
     init {
         this.context = context
 
         volumes = arrayOf(
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_0, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_1, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_2, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_3, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_4, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_5, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_6, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_7, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_8, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_9, null),
-                context.resources.getDrawable(R.drawable.ic_setting_volume_level_10, null)
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_0),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_1),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_2),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_3),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_4),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_5),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_6),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_7),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_8),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_9),
+                CompatUtil.getDrawable(context, R.drawable.ic_setting_volume_level_10)
         )
 
         builder = CaptainDialog.Builder(context)
@@ -67,7 +63,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
                 .heightpx(dialogHeight.toInt())
                 .style(R.style.Dialog_No_Title)
                 .build()
-        dialog.window!!.setBackgroundDrawableResource(R.color.transparent)
+        dialog.window?.setBackgroundDrawableResource(R.color.transparent)
         adapter = object : AlphaAdapter<UserModel, AlphaAdapter.Holder>(context) {
             override fun bindView(holder: Holder, position: Int, data: MutableList<UserModel>) {
                 val student = data[position]
@@ -87,8 +83,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
                         }
                         changeVoiceUpdateView(
                                 adapterPosition,
-                                data[adapterPosition].volumeLevel,
-                                data[adapterPosition].token
+                                data[adapterPosition].volumeLevel
                         )
                     }
 
@@ -101,8 +96,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
                         }
                         changeVoiceUpdateView(
                                 adapterPosition,
-                                data[adapterPosition].volumeLevel,
-                                data[adapterPosition].token
+                                data[adapterPosition].volumeLevel
                         )
                     }
                 }
@@ -129,7 +123,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
         }
     }
 
-    private fun changeVoiceUpdateView(position: Int, volumeLevel: Int, token: String) {
+    private fun changeVoiceUpdateView(position: Int, volumeLevel: Int) {
         val itemView = builder.rootView.rvUserList.getChildAt(position)
         setVoiceLevel(itemView.ivVolume, volumeLevel)
         adapter?.getList()?.forEach {
@@ -140,18 +134,20 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
     }
 
     private fun setVoiceLevel(imageView: ImageView, volumeLevel: Int) {
-        when {
-            volumeLevel > 90 -> imageView.setImageDrawable(volumes!![10])
-            volumeLevel > 80 -> imageView.setImageDrawable(volumes!![9])
-            volumeLevel > 70 -> imageView.setImageDrawable(volumes!![8])
-            volumeLevel > 60 -> imageView.setImageDrawable(volumes!![7])
-            volumeLevel > 50 -> imageView.setImageDrawable(volumes!![6])
-            volumeLevel > 40 -> imageView.setImageDrawable(volumes!![5])
-            volumeLevel > 30 -> imageView.setImageDrawable(volumes!![4])
-            volumeLevel > 20 -> imageView.setImageDrawable(volumes!![3])
-            volumeLevel > 10 -> imageView.setImageDrawable(volumes!![2])
-            volumeLevel > 0 -> imageView.setImageDrawable(volumes!![1])
-            else -> imageView.setImageDrawable(volumes!![0])
+        volumes?.let {
+            when {
+                volumeLevel > 90 -> imageView.setImageDrawable(it[10])
+                volumeLevel > 80 -> imageView.setImageDrawable(it[9])
+                volumeLevel > 70 -> imageView.setImageDrawable(it[8])
+                volumeLevel > 60 -> imageView.setImageDrawable(it[7])
+                volumeLevel > 50 -> imageView.setImageDrawable(it[6])
+                volumeLevel > 40 -> imageView.setImageDrawable(it[5])
+                volumeLevel > 30 -> imageView.setImageDrawable(it[4])
+                volumeLevel > 20 -> imageView.setImageDrawable(it[3])
+                volumeLevel > 10 -> imageView.setImageDrawable(it[2])
+                volumeLevel > 0 -> imageView.setImageDrawable(it[1])
+                else -> imageView.setImageDrawable(it[0])
+            }
         }
     }
 
@@ -169,8 +165,8 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
 
     fun setUserModel(students: MutableList<UserModel>) {
         setList(students)
-        when {
-            studentList.size == 0 -> {
+        when (studentList.size) {
+            0 -> {
                 when {
                     isShowing() -> dismiss()
                 }
@@ -221,10 +217,6 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
 
     fun isShowing(): Boolean {
         return dialog.isShowing
-    }
-
-    fun setOnClickListener(clickListener: OnClickListener) {
-        this.clickListener = clickListener
     }
 
     fun ImageView.loadImage(url: String) {

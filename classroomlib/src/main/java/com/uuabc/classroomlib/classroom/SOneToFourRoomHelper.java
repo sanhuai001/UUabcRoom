@@ -1106,4 +1106,11 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
         }
         mStudentAdapter.notifyDataSetChanged();
     }
+
+    public void dismissAllDialog() {
+        dismissBaseDialog();
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+    }
 }

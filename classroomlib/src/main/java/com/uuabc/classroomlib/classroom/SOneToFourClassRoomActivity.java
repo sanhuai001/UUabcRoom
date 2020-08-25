@@ -61,7 +61,7 @@ public class SOneToFourClassRoomActivity extends BaseClassRoomActivity {
             }
         });
 
-        if (RoomApplication.getInstance().isFirstInterOneToFour) {
+        if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterOneToFour) {
             RoomApplication.getInstance().isFirstInterOneToFour = false;
             finish();
             ActivityUtils.startActivity(SOneToFourClassRoomActivity.class);
@@ -77,6 +77,7 @@ public class SOneToFourClassRoomActivity extends BaseClassRoomActivity {
         mBinding.rlRostrum.removeAllView();
         roomHelper.record(RoomConstant.RECORD_VIDEO_STOP, "");
         roomHelper.record(RoomConstant.RECORD_EXIT, "");
+        roomHelper.dismissAllDialog();
         mBinding.clCoursewareContainer.removeAllViews();
         mBinding.wvCourseware.destoryWebView();
         super.onDestroy();

@@ -56,7 +56,7 @@ public class SLiveClassRoomActivity extends BaseClassRoomActivity {
         setListener();
         initAnimator();
 
-        if (RoomApplication.getInstance().isFirstInterLive) {
+        if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterLive) {
             RoomApplication.getInstance().isFirstInterLive = false;
             finish();
             ActivityUtils.startActivity(SLiveClassRoomActivity.class);
@@ -74,6 +74,7 @@ public class SLiveClassRoomActivity extends BaseClassRoomActivity {
     protected void onDestroy() {
         super.onDestroy();
         roomHelper.record(RoomConstant.RECORD_EXIT, "");
+        roomHelper.dismissBaseDialog();
         mBinding.clCoursewareContainer.removeAllViews();
         mBinding.wvCourseware.destoryWebView();
         mBinding.answerView.stopPlayVideo();

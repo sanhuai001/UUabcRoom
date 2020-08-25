@@ -7,6 +7,8 @@ import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.databinding.ViewDataBinding;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -39,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import androidx.databinding.ViewDataBinding;
 import io.agora.rtc.Constants;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -464,6 +465,7 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
         });
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     void setVolumeDrawables() {
         volumesOneList = new Drawable[]{
                 mContext.getResources().getDrawable(R.drawable.icon_volume_level_0_l),
@@ -487,6 +489,7 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
         };
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     void setSingalDrawables() {
         mSingalList = new Drawable[]{
                 mContext.getResources().getDrawable(R.drawable.icon_signal_3),
@@ -528,6 +531,16 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
             case Constants.QUALITY_VBAD:
                 ivSignal.setImageDrawable(mSingalList[2]);
                 break;
+        }
+    }
+
+    void dismissBaseDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+
+        if (classTipsDialog != null) {
+            classTipsDialog.dismiss();
         }
     }
 

@@ -23,10 +23,8 @@ import kotlinx.android.synthetic.main.activity_monitor_room.*
 import org.webrtc.AudioTrack
 import org.webrtc.MediaStream
 import org.webrtc.PeerConnection
-import org.webrtc.VideoRenderer
 
 class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.VolumeChangeListener {
-    private var remoteRenderer: VideoRenderer? = null
     private var peersManager: PeersManager? = null
     private var webSocketTask: WebSocketTask? = null
     private var stayInDualTimer = RxTimer()
@@ -128,7 +126,7 @@ class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.Volume
     }
 
     private fun startPlay() {
-        peersManager!!.start()
+        peersManager?.start()
         createLocalSocket()
     }
 
@@ -156,10 +154,8 @@ class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.Volume
         if (stream.videoTracks != null && stream.videoTracks.size > 0) {
             val videoTrack = stream.videoTracks[0]
             runOnUiThread {
-                remoteRenderer = VideoRenderer(remoteParticipant.videoView)
-
-                videoTrack.addRenderer(remoteRenderer!!)
-                val mediaStream = peersManager!!.peerConnectionFactory.createLocalMediaStream("105")
+                videoTrack.addSink(remoteParticipant.videoView)
+                val mediaStream = peersManager?.peerConnectionFactory?.createLocalMediaStream("105")
                 remoteParticipant.mediaStream = mediaStream
                 remoteParticipant.peerConnection.removeStream(mediaStream)
                 remoteParticipant.peerConnection.addStream(mediaStream)

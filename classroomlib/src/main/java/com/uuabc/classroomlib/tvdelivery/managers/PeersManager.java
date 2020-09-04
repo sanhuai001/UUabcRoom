@@ -1,5 +1,7 @@
 package com.uuabc.classroomlib.tvdelivery.managers;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.neovisionaries.ws.client.WebSocket;
 import com.uuabc.classroomlib.RoomApplication;
 import com.uuabc.classroomlib.classroom.MonitorRoomActivity;
@@ -12,12 +14,15 @@ import org.webrtc.MediaConstraints;
 import org.webrtc.MediaStream;
 import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnectionFactory;
+import org.webrtc.RtpReceiver;
+import org.webrtc.SoftwareVideoDecoderFactory;
+import org.webrtc.SoftwareVideoEncoderFactory;
+import org.webrtc.VideoDecoderFactory;
+import org.webrtc.VideoEncoderFactory;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class PeersManager {
     private PeerConnectionFactory peerConnectionFactory;
@@ -50,13 +55,23 @@ public class PeersManager {
     }
 
     public void start() {
-        PeerConnectionFactory.initialize(
-                PeerConnectionFactory.InitializationOptions.builder(activity)
-                        .setEnableVideoHwAcceleration(true)
-                        .setEnableInternalTracer(true)
-                        .createInitializationOptions());
+        PeerConnectionFactory.InitializationOptions.Builder optionsBuilder =
+                PeerConnectionFactory.InitializationOptions.builder(activity.getApplicationContext());
+        optionsBuilder.setEnableInternalTracer(true);
+        PeerConnectionFactory.InitializationOptions opt = optionsBuilder.createInitializationOptions();
+        PeerConnectionFactory.initialize(opt);
+        PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
 
-        peerConnectionFactory = PeerConnectionFactory.builder().createPeerConnectionFactory();
+        final VideoEncoderFactory encoderFactory;
+        final VideoDecoderFactory decoderFactory;
+        encoderFactory = new SoftwareVideoEncoderFactory();
+        decoderFactory = new SoftwareVideoDecoderFactory();
+
+        peerConnectionFactory = PeerConnectionFactory.builder()
+                .setVideoEncoderFactory(encoderFactory)
+                .setVideoDecoderFactory(decoderFactory)
+                .setOptions(options)
+                .createPeerConnectionFactory();
     }
 
     public void createRemotePeerConnection(RemoteParticipant remoteParticipant) {
@@ -95,10 +110,10 @@ public class PeersManager {
             }
 
             @Override
-            public void onAddStream(MediaStream mediaStream) {
-                super.onAddStream(mediaStream);
-                if (activity instanceof MonitorRoomActivity) {
-                    ((MonitorRoomActivity) activity).gotRemoteStream(mediaStream, getRemoteParticipant());
+            public void onAddTrack(RtpReceiver rtpReceiver, MediaStream[] mediaStreams) {
+                super.onAddTrack(rtpReceiver, mediaStreams);
+                if (activity instanceof MonitorRoomActivity && mediaStreams.length > 0) {
+                    ((MonitorRoomActivity) activity).gotRemoteStream(mediaStreams[0], getRemoteParticipant());
                 }
             }
 

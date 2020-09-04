@@ -41,19 +41,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".classroom.SLiveClassRoomActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".classroom.SOneToFourClassRoomActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".classroom.SOneToOneClassRoomActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />

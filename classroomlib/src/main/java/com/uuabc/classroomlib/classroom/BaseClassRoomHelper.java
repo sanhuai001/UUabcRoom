@@ -17,6 +17,9 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.ViewDataBinding;
+
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -49,8 +52,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.ViewDataBinding;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifDrawable;
@@ -378,6 +379,7 @@ public class BaseClassRoomHelper<T extends ViewDataBinding> {
                 case RoomConstant.NET_WORK_INCONNECTED:
                     PointUtil.onEvent(mContext, classErrorType);
                     viewNetworkTips.doNetWorkInconnect();
+                    ((BaseClassRoomActivity) mContext).requestPermissions();
                     break;
             }
         });

@@ -92,8 +92,8 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
      */
     private void getUserInfo() {
         if (!((BaseCommonActivity) mContext).checkInitNetWork()) {
+            ((BaseCommonActivity) mContext).dismissProgress();
             doNetWorkConnectFail();
-            return;
         }
 
         ApiRetrofit.getInstance().getUserInfo()

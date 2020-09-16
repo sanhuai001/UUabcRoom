@@ -187,4 +187,10 @@ public class RoomConstant {
     public static final String ENTER_DESTORY_AROTE_VIEW = "eventFinishAgoreView";
 
     public static final String SP_EMOTICON_UPDATED_TIME = "spEmoticonUpdatedTime";
+
+    /************************阿里云日志***********************/
+    public static final String SP_ALIYUN_LOG_URL = "spAliyunLogUrl";
+    public static final String SP_ALIYUN_LOG_SWITCH = "spAliyunLogSwitch";
+
+
 }

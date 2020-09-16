@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Objects;
 
@@ -23,10 +26,13 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.Buffer;
 
 /**
  * 配置Retrofit（配置网络缓存cache、配置持久cookie免登录）
@@ -105,10 +111,35 @@ class BaseRetrofitApi {
         @NotNull
         @Override
         public Response intercept(@NotNull Chain chain) throws IOException {
+            Response response;
             Request request = chain.request();
-            Response response = chain.proceed(request);
-            ResponseBody responseBody = response.peekBody(1024 * 1024);
-            LogUtils.i("NetRequest", "发送请求:" + request.url() + "\n 接收响应:" + responseBody.string());
+            String headers = request.headers().toString();
+            String requestStr = "";
+            String responseStr = null;
+            try {
+                response = chain.proceed(request);
+                ResponseBody responseBody = response.peekBody(1024 * 1024);
+                responseStr = responseBody.string();
+                LogUtils.i("NetRequest", "发送请求:" + request.url() + "\n 接收响应:" + responseStr);
+                if (TextUtils.isEmpty(responseStr) || !responseStr.contains("\"isSuccess\":true")) {
+                    RequestBody requestBody = request.body();
+                    if (requestBody != null) {
+                        Buffer buffer = new Buffer();
+                        requestBody.writeTo(buffer);
+
+                        Charset charset = StandardCharsets.UTF_8;
+                        MediaType contentType = requestBody.contentType();
+                        if (contentType != null) {
+                            charset = contentType.charset(StandardCharsets.UTF_8);
+                        }
+                        requestStr = buffer.readString(Objects.requireNonNull(charset));
+                    }
+                    RoomApplication.getInstance().asyncUploadLog(request.url().toString(), requestStr, responseStr, headers);
+                }
+            } catch (Exception e) {
+                RoomApplication.getInstance().asyncUploadLog(request.url().toString(), requestStr, responseStr, NetworkUtils.isConnected() ? e.getMessage() : "network not connected", headers);
+                throw e;
+            }
             return response;
         }
     }

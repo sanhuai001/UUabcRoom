@@ -6,7 +6,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkRequest;
+import android.os.Build;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.multidex.MultiDexApplication;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
@@ -25,6 +30,15 @@ import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo;
 import com.liulishuo.okdownload.core.cause.EndCause;
 import com.liulishuo.okdownload.core.listener.DownloadListener4WithSpeed;
 import com.liulishuo.okdownload.core.listener.assist.Listener4SpeedAssistExtend;
+import com.sdk.ClientConfiguration;
+import com.sdk.LOGClient;
+import com.sdk.LogException;
+import com.sdk.SLSLog;
+import com.sdk.core.callback.CompletedCallback;
+import com.sdk.model.Log;
+import com.sdk.model.LogGroup;
+import com.sdk.request.PostLogRequest;
+import com.sdk.result.PostLogResult;
 import com.uuabc.classroomlib.builder.SocketIoBuild;
 import com.uuabc.classroomlib.classroom.MonitorRoomActivity;
 import com.uuabc.classroomlib.classroom.SLiveClassRoomActivity;
@@ -33,6 +47,7 @@ import com.uuabc.classroomlib.classroom.SOneToOneClassRoomActivity;
 import com.uuabc.classroomlib.model.Event.MessageEvent;
 import com.uuabc.classroomlib.model.Event.NetWorkEvent;
 import com.uuabc.classroomlib.model.Event.RtcMsgEvent;
+import com.uuabc.classroomlib.model.MicrospotModel;
 import com.uuabc.classroomlib.model.RoomType;
 import com.uuabc.classroomlib.model.SOverClassModel;
 import com.uuabc.classroomlib.model.db.DaoMaster;
@@ -48,6 +63,7 @@ import com.uuabc.roomvideo.observer.VideoManagerObserver;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.greendao.database.Database;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -55,9 +71,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.multidex.MultiDexApplication;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -84,6 +97,8 @@ public class RoomApplication extends MultiDexApplication {
     private VideoFactory factory = new RoomVideoFactory();
     private VideoManagerObserver videoManager;
     public String roomToken;
+    public String phone;
+    public String uuid;
     public float PC_WIDTH = RoomConstant.PC_WIDTH;//PC课件宽
     public float PC_HEIGHT = RoomConstant.PC_HEIGHT;//PC课件高
     private DaoSession daoSession;
@@ -105,6 +120,9 @@ public class RoomApplication extends MultiDexApplication {
     public boolean isFirstInterOneToOne = true;
     public boolean isFirstInterOneToFour = true;
     public boolean isFirstInterLive = true;
+
+    //aliyun log
+    public LOGClient logClient;
 
     @Override
     public void onCreate() {
@@ -580,6 +598,11 @@ public class RoomApplication extends MultiDexApplication {
         }
     }
 
+    public void setUserInfo(String phone, String uuid) {
+        this.phone = phone;
+        this.uuid = uuid;
+    }
+
     public boolean isInClassRoom() {
         Activity topActivity = ActivityUtils.getTopActivity();
         if (topActivity == null) return false;
@@ -599,5 +622,101 @@ public class RoomApplication extends MultiDexApplication {
     public boolean isCameraEnable() {
         if (cameraEnable) return true;
         return cameraEnable = CameraUtil.checkCameraEnable();
+    }
+
+    public void initAliyunLog(String endpoint) {
+        if (TextUtils.isEmpty(endpoint)) return;
+        if (logClient == null) {
+            android.util.Log.i("aliyunLog", "Log SDK init, endpoint:" + endpoint);
+            ClientConfiguration conf = new ClientConfiguration();
+            conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+            conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+            conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
+            conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+            conf.setCachable(true);
+            conf.setConnectType(ClientConfiguration.NetworkPolicy.WWAN_OR_WIFI);
+            SLSLog.enableLog(); // log打印在控制台
+            logClient = new LOGClient(this, endpoint, conf);
+        }
+    }
+
+    private String project = "prd-android-log";
+    private String logStore = "prd-android-log";
+
+    public void asyncUploadLog(String requestUrl, String requestParams, String response, String headers) {
+        asyncUploadLog(phone, uuid, requestUrl, requestParams, response, "", headers);
+    }
+
+    public void asyncUploadLog(String requestUrl, String requestParams, String response, String errorMsg, String headers) {
+        asyncUploadLog(phone, uuid, requestUrl, requestParams, response, errorMsg, headers);
+    }
+
+    public void asyncUploadLog(String phone, String uuid, String requestUrl, String requestParams, String response, String errorMsg, String headers) {
+        String logSwitch = SPUtils.getInstance().getString(RoomConstant.SP_ALIYUN_LOG_SWITCH);
+        if (!TextUtils.equals("1", logSwitch)) return;
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("appVersion", AppUtils.getAppVersionName());
+            jsonObj.put("phone", phone); //用户手机号
+            jsonObj.put("uuid", uuid); //用户手机号
+            jsonObj.put("isWifi", NetworkUtils.isWifiConnected());//是否为wifi环境
+            jsonObj.put("deviceModel", Build.MODEL); //设备型号
+            jsonObj.put("system", "android"); //设备系统 IOS/Android
+            jsonObj.put("systemVersion", DeviceUtils.getSDKVersionName()); //设备系统版本
+            jsonObj.put("requestUrl", requestUrl); //接口地址
+            jsonObj.put("requestParams", requestParams); //请求参数
+            jsonObj.put("response", response); //返回结果
+            jsonObj.put("errorMsg", errorMsg); //无法收到服务端响应错误信息
+            jsonObj.put("headers", headers);
+            jsonObj.put("timestamp", System.currentTimeMillis()); //调用接口时的时间戳
+
+            asyncUploadLog(jsonObj);
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    public void asyncUploadSocketLog(MicrospotModel model) {
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("appVersion", AppUtils.getAppVersionName());
+            jsonObj.put("phone", phone); //用户手机号
+            jsonObj.put("uuid", uuid); //用户手机号
+            jsonObj.put("isWifi", NetworkUtils.isWifiConnected());//是否为wifi环境
+            jsonObj.put("deviceModel", Build.MODEL); //设备型号
+            jsonObj.put("system", "android"); //设备系统 IOS/Android
+            jsonObj.put("systemVersion", DeviceUtils.getSDKVersionName()); //设备系统版本
+            jsonObj.put("errorMsg", model.getMessage()); //错误信息
+            jsonObj.put("classType", model.getClassType());
+            jsonObj.put("event", model.getEvent());
+            jsonObj.put("userId", model.getId());
+            jsonObj.put("userName", model.getUserName());
+            jsonObj.put("timestamp", System.currentTimeMillis()); //调用接口时的时间戳
+            asyncUploadLog(jsonObj);
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    private void asyncUploadLog(JSONObject jsonObj) throws Exception {
+        LogGroup logGroup = new LogGroup();
+        Log log = new Log();
+        log.PutContent("content", jsonObj.toString());
+        logGroup.PutLog(log);
+
+        android.util.Log.i("aliyunLog", "upload:" + jsonObj);
+        PostLogRequest request = new PostLogRequest(project, logStore, logGroup);
+        if (logClient == null) return;
+        logClient.asyncPostLog(request, new CompletedCallback<PostLogRequest, PostLogResult>() {
+            @Override
+            public void onSuccess(PostLogRequest request, PostLogResult result) {
+                android.util.Log.i("aliyunLog", "asyncPostLog onSuccess");
+            }
+
+            @Override
+            public void onFailure(PostLogRequest request, LogException exception) {
+                android.util.Log.i("aliyunLog", "asyncPostLog onFailure");
+            }
+        });
     }
 }

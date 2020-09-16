@@ -6,7 +6,6 @@ public class MicrospotModel {
     private int id;
     private String userName;
     private String message;
-    private boolean isOldRoom;
 
     public String getEvent() {
         return event;
@@ -46,13 +45,5 @@ public class MicrospotModel {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public boolean isOldRoom() {
-        return isOldRoom;
-    }
-
-    public void setOldRoom(boolean oldRoom) {
-        isOldRoom = oldRoom;
     }
 }

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -55,7 +54,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
         )
 
         builder = CaptainDialog.Builder(context)
-        val dialogHeight = ScreenUtils.getScreenHeight() * 0.7
+        val dialogHeight = RoomApplication.getInstance().getScreenHeight() * 0.7
         val dialogWidth = dialogHeight * 1.365
         dialog = builder.cancelTouchout(false)
                 .view(R.layout.dialog_room_sdk_setting)

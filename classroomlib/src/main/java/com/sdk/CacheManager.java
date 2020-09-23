@@ -70,6 +70,7 @@ public class CacheManager {
 
     private void fetchDataFromDBAndPost() {
         List<LogEntity> list = SLSDatabaseManager.getInstance().queryRecordFromDB();
+        if (list == null) return;
         Log.i("aliyunLog", "上传本地缓存日志条数:" + list.size());
         for (final LogEntity item : list) {
             try {

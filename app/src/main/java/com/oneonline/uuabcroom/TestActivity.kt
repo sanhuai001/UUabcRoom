@@ -31,6 +31,7 @@ class TestActivity : AppCompatActivity() {
                 return@subscribe
             }
 
+            RoomApplication.getInstance().setUserInfo("12020042206", "303878952827548723")
             when (currentId) {
                 R.id.rbOneToFour -> {
                     RoomApplication.getInstance().jumpToClassRoom(roomToken, RoomType.ONETOFOUR)

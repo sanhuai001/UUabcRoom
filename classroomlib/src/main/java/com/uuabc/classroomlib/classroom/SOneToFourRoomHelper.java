@@ -550,6 +550,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
                 });
 
         mBinding.rvStudents.setItemWidth(studentRecycleViewWidth / 4);
+        if (students == null) return;
         for (UserModel studentModel : students) {
             studentModel.setOnline(onlineStudentIds.contains(studentModel.getId()));
             mBinding.rvStudents.addStudent(mStudentAdapter, studentModel);

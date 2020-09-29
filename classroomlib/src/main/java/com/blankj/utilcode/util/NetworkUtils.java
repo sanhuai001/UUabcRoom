@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -222,6 +225,25 @@ public final class NetworkUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+
+    public static boolean getMobileDataEnabled() {
+        try {
+            TelephonyManager tm =
+                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+            if (tm == null) return false;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return tm.isDataEnabled();
+            }
+            @SuppressLint("PrivateApi")
+            Method getMobileDataEnabledMethod =
+                    tm.getClass().getDeclaredMethod("getDataEnabled");
+            return (boolean) getMobileDataEnabledMethod.invoke(tm);
+        } catch (Exception e) {
+            Log.e("NetworkUtils", "getMobileDataEnabled: ", e);
+        }
+        return false;
     }
 
     /**

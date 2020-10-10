@@ -95,7 +95,8 @@
     <string name="live_class_room_answer_result_ub_str">获得%1$dU币</string>
     <string name="dialog_room_phone" tools:ignore="TypographyDashes">400-163-6161</string>
 
-    <string name="network_connect_fail_title_tips_str">网络连接失败,请检查网络设置</string>
+    <string name="network_connect_fail_title_tips_str">网络连接失败，请检查网络设置</string>
+    <string name="network_connect_bad_title_tips_str">检测到您的网络质量较差，可能造成课件卡顿、音视频不同步等问题</string>
     <string name="socket_ice_connect_fail_title_tips_str">检查到您的设备有回声，临时关闭麦克风，正在自动调整…</string>
     <string name="socket_connect_fail_title_tips_str">网速慢?画笔、课件等不同步了?尝试重连中…</string>
     <string name="socket_connect_fail_title_tips_str_1">与服务器断开连接，正在重连…</string>

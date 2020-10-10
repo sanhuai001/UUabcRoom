@@ -704,18 +704,18 @@ public class RoomApplication extends MultiDexApplication {
         log.PutContent("content", jsonObj.toString());
         logGroup.PutLog(log);
 
-        android.util.Log.i("aliyunLog", "upload:" + jsonObj);
+        LogUtils.i("aliyunLog", "upload:" + jsonObj);
         PostLogRequest request = new PostLogRequest(project, logStore, logGroup);
         if (logClient == null) return;
         logClient.asyncPostLog(request, new CompletedCallback<PostLogRequest, PostLogResult>() {
             @Override
             public void onSuccess(PostLogRequest request, PostLogResult result) {
-                android.util.Log.i("aliyunLog", "asyncPostLog onSuccess");
+                LogUtils.i("aliyunLog", "asyncPostLog onSuccess");
             }
 
             @Override
             public void onFailure(PostLogRequest request, LogException exception) {
-                android.util.Log.i("aliyunLog", "asyncPostLog onFailure");
+                LogUtils.i("aliyunLog", "asyncPostLog onFailure");
             }
         });
     }

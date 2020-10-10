@@ -38,6 +38,7 @@ import com.uuabc.classroomlib.model.SocketModel.PageModel;
 import com.uuabc.classroomlib.model.SocketModel.SShareModel;
 import com.uuabc.classroomlib.retrofit.ApiRetrofit;
 import com.uuabc.classroomlib.retrofit.RequestBuilder;
+import com.uuabc.classroomlib.utils.CompatUtil;
 import com.uuabc.classroomlib.utils.ExceptionUtil;
 import com.uuabc.classroomlib.utils.JsonUtils;
 import com.uuabc.classroomlib.utils.MediaPlayerUtil;
@@ -507,29 +508,29 @@ public class BaseClassRoomHelper<T extends ViewDataBinding> {
     void setWifiIcon(ImageView ivWifi, int level) {
         if (ivWifi == null) return;
         switch (level) {
-            case RoomConstant.WIFI_LEVEL_STRONG:
+            case 1:
                 ivWifi.setImageResource(R.drawable.ic_room_sdk_wifi_three);
                 break;
-            case RoomConstant.WIFI_LEVEL_MID:
+            case 2:
                 ivWifi.setImageResource(R.drawable.ic_room_sdk_wifi_two);
-                break;
-            case RoomConstant.WIFI_LEVEL_WEEK:
+            case 3:
+            case 4:
                 ivWifi.setImageResource(R.drawable.ic_room_sdk_wifi_one);
                 break;
-            case RoomConstant.WIFI_LEVEL_NULL:
+            default:
                 ivWifi.setImageResource(R.drawable.ic_room_sdk_wifi_zero);
                 break;
         }
     }
 
     void setDrawLeftImg(int drawableId, TextView textView) {
-        Drawable drawable = mContext.getResources().getDrawable(drawableId);
+        Drawable drawable = CompatUtil.getDrawable(mContext, drawableId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         textView.setCompoundDrawables(drawable, null, null, null);
     }
 
     void setDrawTopImg(int drawableId, TextView textView) {
-        Drawable drawable = mContext.getResources().getDrawable(drawableId);
+        Drawable drawable = CompatUtil.getDrawable(mContext, drawableId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         textView.setCompoundDrawables(null, drawable, null, null);
     }

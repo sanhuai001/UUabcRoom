@@ -19,7 +19,7 @@ public class BaseDialog {
             if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
             }
-        } catch (final Exception ignored) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -28,7 +28,7 @@ public class BaseDialog {
             if (dialog != null) {
                 dialog.show();
             }
-        } catch (final Exception ignored) {
+        } catch (Exception ignored) {
         }
     }
 }

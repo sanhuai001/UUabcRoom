@@ -219,7 +219,6 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
     }
 
     fun ImageView.loadImage(url: String) {
-        val default = R.drawable.ic_avatar
-        Glide.with(context).load(url).apply(RequestOptions().placeholder(default)).into(this)
+        Glide.with(context).load(url).apply(RequestOptions().placeholder(R.drawable.ic_avatar)).into(this)
     }
 }

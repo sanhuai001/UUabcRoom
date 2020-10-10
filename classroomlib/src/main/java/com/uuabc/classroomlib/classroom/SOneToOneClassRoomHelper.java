@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.JsonSyntaxException;
@@ -517,6 +518,14 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
     }
 
     void doNetEvent(HashMap<Integer, Integer> map) {
+        if (map == null) return;
+        if (map.containsKey(0)) {
+            int networkQuality = map.get(0);
+            LogUtils.i("networkQuality", "networkQuality:" + networkQuality);
+            mBinding.viewNetworkTips.setNetQuality(networkQuality < 3);
+            setWifiIcon(mBinding.ivWifi, networkQuality);
+        }
+
         if (!ObjectUtil.isEmpty(teacherId)) {
             int teacher = Float.valueOf("2" + teacherId).intValue();
             if (map.containsKey(teacher)) {

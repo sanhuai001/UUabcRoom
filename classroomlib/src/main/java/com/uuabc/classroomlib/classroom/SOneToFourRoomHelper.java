@@ -1052,6 +1052,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
     }
 
     void doNetEvent(HashMap<Integer, Integer> map) {
+        if (map == null) return;
         int mUid = SPUtils.getInstance().getInt(RoomConstant.USER_ID);
         if (!ObjectUtil.isEmpty(teacherId)) {
             int teacher = Float.valueOf("2" + teacherId).intValue();
@@ -1062,6 +1063,10 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
 
         for (Integer uId : onlineStudentIds) {
             if (map.containsKey(0) && uId == mUid) {
+                int networkQuality = map.get(0);
+                LogUtils.i("networkQuality", "networkQuality:" + networkQuality);
+                mBinding.viewNetworkTips.setNetQuality(networkQuality < 3);
+                setWifiIcon(mBinding.ivWifi, networkQuality);
                 continue;
             }
 

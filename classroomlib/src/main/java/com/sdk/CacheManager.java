@@ -1,7 +1,6 @@
 package com.sdk;
 
-import android.util.Log;
-
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.sdk.core.callback.CompletedCallback;
 import com.sdk.request.PostCachedLogRequest;
@@ -46,12 +45,12 @@ public class CacheManager {
                 return;
             }
 
-            Log.i("aliyunLog", "---定时任务，开始处理本地缓存日志---");
+            LogUtils.i("aliyunLog", "---定时任务，开始处理本地缓存日志---");
             SLSDatabaseManager.getInstance().deleteTwoDaysRecords();
             SLSDatabaseManager.getInstance().deleteSurpassRecords();
 
             if (!NetworkUtils.isConnected()) {
-                Log.i("aliyunLog", "Network connection failed, timed task processing cache ended");
+                LogUtils.i("aliyunLog", "Network connection failed, timed task processing cache ended");
                 return;
             }
 
@@ -71,20 +70,20 @@ public class CacheManager {
     private void fetchDataFromDBAndPost() {
         List<LogEntity> list = SLSDatabaseManager.getInstance().queryRecordFromDB();
         if (list == null) return;
-        Log.i("aliyunLog", "上传本地缓存日志条数:" + list.size());
+        LogUtils.i("aliyunLog", "上传本地缓存日志条数:" + list.size());
         for (final LogEntity item : list) {
             try {
                 PostCachedLogRequest request = new PostCachedLogRequest(item.getProject(), item.getStore(), item.getJsonString());
                 this.mClient.asyncPostCachedLog(request, new CompletedCallback<PostCachedLogRequest, PostCachedLogResult>() {
                     @Override
                     public void onSuccess(PostCachedLogRequest request, PostCachedLogResult result) {
-                        Log.i("aliyunLog", "send cached log success");
+                        LogUtils.i("aliyunLog", "send cached log success");
                         SLSDatabaseManager.getInstance().deleteRecordFromDB(item);
                     }
 
                     @Override
                     public void onFailure(PostCachedLogRequest request, LogException exception) {
-                        Log.i("aliyunLog", "send cached log failed");
+                        LogUtils.i("aliyunLog", "send cached log failed");
                     }
                 });
             } catch (LogException e) {
@@ -97,6 +96,6 @@ public class CacheManager {
     protected void finalize() throws Throwable {
         super.finalize();
         stopTimer();
-        Log.d(TAG, "CacheManager finalize");
+        LogUtils.d(TAG, "CacheManager finalize");
     }
 }

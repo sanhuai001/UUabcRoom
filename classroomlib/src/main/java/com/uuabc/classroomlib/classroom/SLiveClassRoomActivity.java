@@ -9,7 +9,6 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -58,9 +57,14 @@ public class SLiveClassRoomActivity extends BaseClassRoomActivity {
 
         if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterLive) {
             RoomApplication.getInstance().isFirstInterLive = false;
-            finish();
-            ActivityUtils.startActivity(SLiveClassRoomActivity.class);
-            overridePendingTransition(0, 0);
+            restartClassRoom(this);
+        }
+    }
+
+    @Override
+    public void onCustomResume() {
+        if (!RoomApplication.getInstance().isTable) {
+            restartClassRoom(this);
         }
     }
 

@@ -29,7 +29,7 @@ class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.Volume
     private var webSocketTask: WebSocketTask? = null
     private var stayInDualTimer = RxTimer()
     private var isIceConnect: Boolean = false
-    private var firstOnResume = true
+    private var isFirstOnResume = true
     private var audioTrack: AudioTrack? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +50,8 @@ class MonitorRoomActivity : BaseClassRoomActivity(), VolumeChangeObserver.Volume
     override fun onResume() {
         super.onResume()
         interval()
-        if (firstOnResume) {
-            firstOnResume = false
+        if (isFirstOnResume) {
+            isFirstOnResume = false
             return
         }
         doIceDisConnet()

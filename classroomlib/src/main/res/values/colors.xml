@@ -8,9 +8,9 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="translucent">#b3000000</color>
+    <color name="translucent_30">#4d000000</color>
     <color name="light_translucent">#99000000</color>
     <color name="shadow_translucent">#99666666</color>
-
     <color name="transparent">@android:color/transparent</color>
 
     <!--浅灰-->

@@ -8,12 +8,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.uuabc.classroomlib.R;
 import com.uuabc.classroomlib.RoomApplication;
 import com.uuabc.classroomlib.RoomConstant;
 import com.uuabc.classroomlib.common.BaseIoSocketActivity;
@@ -22,9 +22,7 @@ import com.uuabc.classroomlib.model.Event.OutRoomEvent;
 import com.uuabc.classroomlib.model.Event.RtcMsgEvent;
 import com.uuabc.classroomlib.observer.VolumeChangeObserver;
 import com.uuabc.classroomlib.utils.ObjectUtil;
-import com.uuabc.classroomlib.utils.SConfirmDialogUtils;
 import com.uuabc.classroomlib.widget.dialog.ConfirmDialog;
-import com.uuabc.classroomlib.widget.dialog.SConfirmDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,7 +31,7 @@ import java.util.HashMap;
 
 @SuppressLint("Registered")
 public class BaseClassRoomActivity extends BaseIoSocketActivity implements VolumeChangeObserver.VolumeChangeListener {
-    private boolean isFirstResume = true;
+    protected boolean firstOnResume = true;
     private ConfirmDialog dialog;
     private VolumeChangeObserver mVolumeChangeObserver;
     public int musicVoiceMax = 1;
@@ -60,15 +58,15 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
     @Override
     protected void onResume() {
         super.onResume();
-        if (isFirstResume) {
-            isFirstResume = false;
-            SConfirmDialog confirmDialog = SConfirmDialogUtils.show(this, R.drawable.ic_room_sdk_dialog_confirm_exit, getString(R.string.dialog_msg_exit_str), getString(R.string.fragment_check_exit_str), (dialog, which) -> dialog.dismiss(), getString(R.string.dialog_cancel_str), (dialog, which) -> dialog.dismiss());
-            confirmDialog.dismiss();
+        musicVoiceCurrent = ObjectUtil.getIntValue(mVolumeChangeObserver.getCurrentMusicVolume());
+        onNetWorkMsgReceived(NetworkUtils.isConnected() ? RoomConstant.NET_WORK_CONNECTED : RoomConstant.NET_WORK_INCONNECTED);
+
+        if (firstOnResume) {
+            firstOnResume = false;
             return;
         }
 
-        musicVoiceCurrent = ObjectUtil.getIntValue(mVolumeChangeObserver.getCurrentMusicVolume());
-        onNetWorkMsgReceived(NetworkUtils.isConnected() ? RoomConstant.NET_WORK_CONNECTED : RoomConstant.NET_WORK_INCONNECTED);
+        onCustomResume();
     }
 
     @Override
@@ -170,6 +168,21 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
                 });
     }
 
+    public void restartClassRoom(BaseClassRoomActivity activity) {
+        if (!RoomApplication.getInstance().isTable) {
+            finish();
+            if (activity instanceof SOneToFourClassRoomActivity)
+                ActivityUtils.startActivity(SOneToFourClassRoomActivity.class);
+            else if (activity instanceof SOneToOneClassRoomActivity)
+                ActivityUtils.startActivity(SOneToOneClassRoomActivity.class);
+            else if (activity instanceof SLiveClassRoomActivity)
+                ActivityUtils.startActivity(SLiveClassRoomActivity.class);
+            else
+                return;
+            overridePendingTransition(0, 0);
+        }
+    }
+
     public void permissionsGranted() {
 
     }
@@ -197,5 +210,8 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
     @Override
     public void onVolumeChanged(int volume) {
         musicVoiceCurrent = volume;
+    }
+
+    public void onCustomResume() {
     }
 }

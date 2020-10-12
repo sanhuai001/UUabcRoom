@@ -169,7 +169,7 @@ public class NetworkTipsView extends LinearLayout {
 
     private void doDisconnect(boolean isSocket) {
         ivRightArrow.setVisibility(GONE);
-        rlTitle.setBackgroundResource(R.color.color_socket_tips_orange);
+        rlTitle.setBackgroundResource(isSocket ? R.color.color_socket_tips_orange : R.color.translucent_30);
         tvTipsSocketTitle.setText(isSocket ? R.string.socket_connect_fail_title_tips_str : R.string.network_connect_bad_title_tips_str);
         tvTipsSocketTitle.setVisibility(VISIBLE);
         tvTipsNetWorkTitle.setVisibility(GONE);

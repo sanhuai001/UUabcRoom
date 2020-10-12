@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
 import com.google.gson.JsonSyntaxException;
 import com.uuabc.classroomlib.R;
 import com.uuabc.classroomlib.RoomApplication;
@@ -47,12 +46,17 @@ public class SOneToOneClassRoomActivity extends BaseClassRoomActivity {
         mBinding.ibTechnicalSupport.setOnClickListener(v -> roomHelper.showNewSupportDialog());
         if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterOneToOne) {
             RoomApplication.getInstance().isFirstInterOneToOne = false;
-            finish();
-            ActivityUtils.startActivity(SOneToOneClassRoomActivity.class);
-            overridePendingTransition(0, 0);
+            restartClassRoom(this);
             return;
         }
         PointUtil.onEvent(this, RoomConstant.ONE_TO_ONE_TO_CLASS);
+    }
+
+    @Override
+    public void onCustomResume() {
+        if (!RoomApplication.getInstance().isTable) {
+            restartClassRoom(this);
+        }
     }
 
     @Override

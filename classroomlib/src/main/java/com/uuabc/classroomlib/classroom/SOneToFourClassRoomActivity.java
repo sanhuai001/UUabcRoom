@@ -7,7 +7,6 @@ import android.view.WindowManager;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.JsonSyntaxException;
 import com.uuabc.classroomlib.R;
@@ -63,13 +62,18 @@ public class SOneToFourClassRoomActivity extends BaseClassRoomActivity {
 
         if (!RoomApplication.getInstance().isTable && RoomApplication.getInstance().isFirstInterOneToFour) {
             RoomApplication.getInstance().isFirstInterOneToFour = false;
-            finish();
-            ActivityUtils.startActivity(SOneToFourClassRoomActivity.class);
-            overridePendingTransition(0, 0);
+            restartClassRoom(this);
             return;
         }
 
         PointUtil.onEvent(this, RoomConstant.ONE_TO_FOUR_TO_CLASS);
+    }
+
+    @Override
+    public void onCustomResume() {
+        if (!RoomApplication.getInstance().isTable) {
+            restartClassRoom(this);
+        }
     }
 
     @Override

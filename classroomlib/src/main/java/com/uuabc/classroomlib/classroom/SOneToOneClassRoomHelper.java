@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.agora.rtc.Constants;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -522,7 +523,8 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
         if (map.containsKey(0)) {
             int networkQuality = map.get(0);
             LogUtils.i("networkQuality", "networkQuality:" + networkQuality);
-            mBinding.viewNetworkTips.setNetQuality(networkQuality < 3);
+            if (networkQuality == Constants.QUALITY_DETECTING) return;
+            mBinding.viewNetworkTips.setNetQuality(networkQuality < Constants.QUALITY_POOR);
             setWifiIcon(mBinding.ivWifi, networkQuality);
         }
 

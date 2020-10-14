@@ -23,6 +23,7 @@ import com.uuabc.classroomlib.model.RSocketModel;
 import com.uuabc.classroomlib.model.RoomType;
 import com.uuabc.classroomlib.model.SClassRoomResult;
 import com.uuabc.classroomlib.model.SOverClassModel;
+import com.uuabc.classroomlib.model.SRCommonResult;
 import com.uuabc.classroomlib.model.SRSwitchModel;
 import com.uuabc.classroomlib.model.SUserModel;
 import com.uuabc.classroomlib.model.SocketModel.UserModel;
@@ -43,7 +44,9 @@ import java.util.Map;
 
 import io.agora.rtc.Constants;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint({"CheckResult", "SetTextI18n"})
@@ -63,6 +66,8 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
     private Drawable[] volumesTwoList;
     private Drawable[] mSingalList;
     private InteractClassTipsDialog classTipsDialog;
+    private SClassRoomResult infoResult;
+    private int nowTime;
 
     SBaseClassRoomHelper(T ViewDataBinding) {
         super(ViewDataBinding);
@@ -84,221 +89,277 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                     RoomApplication.getInstance().getVideoManager().leaveRoom();
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((response) -> getUserInfo(), throwable -> ((BaseCommonActivity) mContext).dismissProgress());
+                .subscribe((response) -> getRoomInfo(), throwable -> ((BaseCommonActivity) mContext).dismissProgress());
     }
 
-    /**
-     * 获取用户信息
-     */
-    private void getUserInfo() {
+    public void getRoomInfo() {
         if (!((BaseCommonActivity) mContext).checkInitNetWork()) {
             ((BaseCommonActivity) mContext).dismissProgress();
             doNetWorkConnectFail();
+            return;
         }
 
-        ApiRetrofit.getInstance().getUserInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resultModel -> {
-                    if (((BaseCommonActivity) mContext).isDestroyed()) return;
+        Observable<SRCommonResult<SUserModel>> userObservable = ApiRetrofit.getInstance().getUserInfo().subscribeOn(Schedulers.io());
+        Observable<SRCommonResult<SClassRoomResult>> roomInfoObservable = ApiRetrofit.getInstance().getClassRoomInfo().subscribeOn(Schedulers.io());
+        Observable<SRCommonResult<StateToolResult>> switchObservable = ApiRetrofit.getInstance().getStudentSwitchState().subscribeOn(Schedulers.io());
 
-                    if (!resultModel.isSuccess()) {
-                        responseErrorToast(resultModel.getCode());
+        Observable.zip(userObservable, roomInfoObservable, switchObservable, (userResult, classRoomReult, stateToolResult) -> {
+            //请求完成对3个结果进行组装
+            List<SRCommonResult> results = new ArrayList<>();
+            results.add(userResult);
+            results.add(classRoomReult);
+            results.add(stateToolResult);
+            return results;
+        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<SRCommonResult>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(List<SRCommonResult> results) {
+                if (((BaseCommonActivity) mContext).isDestroyed()) return;
+
+                for (int i = 0; i < results.size(); i++) {
+                    SRCommonResult<Object> commonResult = results.get(i);
+                    if (commonResult == null) {
+                        requestLoadFail(true);
                         return;
                     }
 
-                    sMyselfModel = resultModel.getResult();
-                    if (sMyselfModel != null) {
+                    if (!commonResult.isSuccess()) {
+                        requestLoadFail(false);
+                        return;
+                    }
+
+                    Object resultObj = commonResult.getResult();
+                    if (resultObj instanceof SUserModel) {
+                        sMyselfModel = (SUserModel) commonResult.getResult();
                         SPUtils.getInstance().put(RoomConstant.USER_ID, ObjectUtil.getIntValue(sMyselfModel.getUser_id()));
                         SPUtils.getInstance().put(RoomConstant.USER_CHILD_ID, sMyselfModel.getChild_id());
+                    } else if (resultObj instanceof SClassRoomResult) {
+                        infoResult = (SClassRoomResult) resultObj;
+                        doRoomInfo();
+                    } else if (resultObj instanceof StateToolResult) {
+                        StateToolResult result = (StateToolResult) resultObj;
+                        doStateToolResult(result);
+                        nowTime = commonResult.getNow();
                     }
-                    getRoomInfo();
-                }, throwable -> {
-                    ExceptionUtil.sendException("getRoomUserInfoError", classType, throwable.getMessage());
-                    responseErrorToast();
-                });
-    }
+                }
+            }
 
-    private void getRoomInfo() {
-        if (!((BaseCommonActivity) mContext).checkNetWork()) {
-            doNetWorkConnectFail();
-            return;
-        }
+            @Override
+            public void onError(Throwable e) {
+                if (((BaseCommonActivity) mContext).isDestroyed()) return;
+                ExceptionUtil.sendException("getRoomUserInfoError", classType, e.getMessage());
+                requestLoadFail(true);
+            }
 
-        ApiRetrofit.getInstance().getClassRoomInfo()
+            @Override
+            public void onComplete() {
+                if (((BaseCommonActivity) mContext).isDestroyed()) return;
+                ((BaseCommonActivity) mContext).dismissProgress();
+
+                if (infoResult == null || TextUtils.isEmpty(infoResult.getCoursewareUrl())) {
+                    ExceptionUtil.sendException("getRoomCoursewareEmptyError", classType, "");
+                    doSCourseLoadFail();
+                    return;
+                }
+
+                settingBean = infoResult.getSetting();
+                mCurrentUrl = infoResult.getCoursewareUrl();
+                boolean isLoadedReply = true;//SPUtils.getInstance().getBoolean(RoomConstant.SP_LOADED_REPLY, false);
+                if (isLoadedReply) {
+                    ioSocketListener();
+                }
+
+                if (nowTime == 0) {
+                    ExceptionUtil.sendException("getRoomSrvtimeError", classType, "");
+                }
+
+                if (infoResult.getSetting() == null || TextUtils.isEmpty(infoResult.getSetting().getAgora_key())) {
+                    ExceptionUtil.sendException("getRoomAgorakeyError", classType, "");
+                }
+
+                checkRoomResultSuccess(infoResult, nowTime, isLoadedReply);
+            }
+        });
+
+        /*Observable.meger(userObservable, roomInfoObservable, switchObservable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resultModel -> {
-                    if (((BaseCommonActivity) mContext).isDestroyed()) return;
-
-                    if (!resultModel.isSuccess()) {
-                        responseErrorToast(resultModel.getCode());
-                        return;
-                    }
-
-                    SClassRoomResult result = resultModel.getResult();
-                    if (result == null) {
+                .subscribe(new Observer<SRCommonResult>() {
+                    @Override
+                    public void onComplete() {
+                        if (((BaseCommonActivity) mContext).isDestroyed()) return;
                         ((BaseCommonActivity) mContext).dismissProgress();
-                        return;
+
+                        if (infoResult == null || TextUtils.isEmpty(infoResult.getCoursewareUrl())) {
+                            ExceptionUtil.sendException("getRoomCoursewareEmptyError", classType, "");
+                            doSCourseLoadFail();
+                            return;
+                        }
+
+                        settingBean = infoResult.getSetting();
+                        mCurrentUrl = infoResult.getCoursewareUrl();
+                        boolean isLoadedReply = true;*//*SPUtils.getInstance().getBoolean(RoomConstant.SP_LOADED_REPLY, false);*//*
+                        if (isLoadedReply) {
+                            ioSocketListener();
+                        }
+
+                        if (nowTime == 0) {
+                            ExceptionUtil.sendException("getRoomSrvtimeError", classType, "");
+                        }
+
+                        if (infoResult.getSetting() == null || TextUtils.isEmpty(infoResult.getSetting().getAgora_key())) {
+                            ExceptionUtil.sendException("getRoomAgorakeyError", classType, "");
+                        }
+
+                        checkRoomResultSuccess(infoResult, nowTime, isLoadedReply);
                     }
 
-                    roomId = result.getRoom_id();
-                    String courseWare = result.getCourseware();
-                    if (!TextUtils.isEmpty(courseWare)) {
-                        result.setCoursewareUrl(courseWare + (courseWare.contains("?") ? "&app_id=" : "?app_id=") + result.getApp_id() +
-                                "&user_type=" + RoomConstant.STUDENT_TYPE +
-                                "&user_id=" + SPUtils.getInstance().getInt(RoomConstant.USER_ID) +
-                                "&room_id=" + roomId +
-                                "&avatar=" + (sMyselfModel == null ? "" : sMyselfModel.getAvatar()) +
-                                "&name=" + (sMyselfModel == null ? "" : sMyselfModel.getNickname()));
+                    @Override
+                    public void onError(Throwable e) {
+                        if (((BaseCommonActivity) mContext).isDestroyed()) return;
+                        ExceptionUtil.sendException("getRoomUserInfoError", classType, e.getMessage());
+                        requestLoadFail(true);
                     }
 
-                    List<SUserModel> users = result.getUsers();
-                    if (users == null) return;
-                    skuId = ObjectUtil.getLongValue(result.getCourse_num());
-                    SUserModel userModel;
-                    students = students == null ? new ArrayList<>() : students;
-                    students.clear();
-                    String myselfId = String.valueOf(SPUtils.getInstance().getInt(RoomConstant.USER_ID));
-                    for (int i = 0; i < users.size(); i++) {
-                        userModel = users.get(i);
-                        switch (userModel.getUser_type()) {
-                            case RoomConstant.STUDENT_TYPE:
-                                if (TextUtils.equals(userModel.getUser_id(), myselfId)) {
-                                    diamondCount = userModel.getDiamond();
-                                }
+                    @Override
+                    public void onNext(SRCommonResult commonResult) {
+                        if (((BaseCommonActivity) mContext).isDestroyed()) return;
 
-                                UserModel student = new UserModel();
-                                student.setId(userModel.getUser_id());
-                                student.setType(userModel.getUser_type());
-                                student.setName(userModel.getNickname());
-                                student.setPhoto(userModel.getAvatar());
-                                student.setDia(userModel.getDiamond());
-                                student.setDiamond(userModel.getDiamond());
-                                student.setEntryTime(userModel.getEntry_time());
-                                student.setLeaveTime(userModel.getLeave_time());
-                                student.setUuid(userModel.getExternal_id());
-                                students.add(student);
-                                break;
-                            case RoomConstant.TEACHER_TYPE:
-                                String teacherName = userModel.getNickname();
-                                if (showClassTipsDialog && dialog == null) {
-                                    dialog = new ClassTipsDialog(mContext);
-                                    dialog.setData(teacherName, result.getCourseware_name(), classType).show();
-                                } else if (!showClassTipsDialog) {
-                                    if (classTipsDialog == null) {
-                                        classTipsDialog = new InteractClassTipsDialog(mContext);
-                                        classTipsDialog.show();
-                                    }
-                                }
-                                setTeacherInfo(ObjectUtil.getIntValue(teacherId = userModel.getUser_id()), teacherName);
-                                break;
+                        Object resultObj = commonResult.getResult();
+                        if (resultObj == null) {
+                            requestLoadFail(true);
+                            return;
+                        }
+
+                        if (!commonResult.isSuccess()) {
+                            requestLoadFail(false);
+                            return;
+                        }
+
+                        if (resultObj instanceof SUserModel) {
+                            sMyselfModel = (SUserModel) resultObj;
+                            SPUtils.getInstance().put(RoomConstant.USER_ID, ObjectUtil.getIntValue(sMyselfModel.getUser_id()));
+                            SPUtils.getInstance().put(RoomConstant.USER_CHILD_ID, sMyselfModel.getChild_id());
+                        } else if (resultObj instanceof SClassRoomResult) {
+                            infoResult = (SClassRoomResult) resultObj;
+                            doRoomInfo();
+                        } else if (resultObj instanceof StateToolResult) {
+                            StateToolResult result = (StateToolResult) resultObj;
+                            doStateToolResult(result);
+                            nowTime = commonResult.getNow();
                         }
                     }
 
-                    getStudentSwitchState(result);
-                }, throwable -> {
-                    ExceptionUtil.sendException("getRoomMessageError", classType, throwable.getMessage());
-                    responseErrorToast();
-                });
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });*/
     }
 
-
-    /**
-     * 获取学生的开关状态
-     */
-    private void getStudentSwitchState(SClassRoomResult infoResult) {
-        if (!((BaseCommonActivity) mContext).checkNetWork()) {
-            doNetWorkConnectFail();
-            return;
+    private void doRoomInfo() {
+        roomId = infoResult.getRoom_id();
+        String courseWare = infoResult.getCourseware();
+        if (!TextUtils.isEmpty(courseWare)) {
+            infoResult.setCoursewareUrl(courseWare + (courseWare.contains("?") ? "&app_id=" : "?app_id=") + infoResult.getApp_id() +
+                    "&user_type=" + RoomConstant.STUDENT_TYPE +
+                    "&user_id=" + SPUtils.getInstance().getInt(RoomConstant.USER_ID) +
+                    "&room_id=" + roomId +
+                    "&avatar=" + (sMyselfModel == null ? "" : sMyselfModel.getAvatar()) +
+                    "&name=" + (sMyselfModel == null ? "" : sMyselfModel.getNickname()));
         }
-        ApiRetrofit.getInstance().getStudentSwitchState()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resultModel -> {
-                    if (((BaseCommonActivity) mContext).isDestroyed()) return;
-                    ((BaseCommonActivity) mContext).dismissProgress();
 
-                    if (!resultModel.isSuccess()) {
-                        responseErrorToast(resultModel.getCode());
-                        return;
+        List<SUserModel> users = infoResult.getUsers();
+        if (users == null) return;
+        skuId = ObjectUtil.getLongValue(infoResult.getCourse_num());
+        SUserModel userModel;
+        students = students == null ? new ArrayList<>() : students;
+        students.clear();
+        String myselfId = String.valueOf(SPUtils.getInstance().getInt(RoomConstant.USER_ID));
+        for (int i = 0; i < users.size(); i++) {
+            userModel = users.get(i);
+            switch (userModel.getUser_type()) {
+                case RoomConstant.STUDENT_TYPE:
+                    if (TextUtils.equals(userModel.getUser_id(), myselfId)) {
+                        diamondCount = userModel.getDiamond();
                     }
 
-                    StateToolResult result = resultModel.getResult();
-                    if (result == null) {
-                        ExceptionUtil.sendException("getRoomToolStatusError", classType, "");
-                        return;
-                    }
-
-                    mCurrentCoursewarePage = result.getPageSetting();
-                    Map studentMap = (Map) result.getToolSetting();
-                    List<SRSwitchModel> switchModels;
-                    SRSwitchModel switchModel;
-                    for (int i = 0; i < students.size(); i++) {
-                        String modelStr = JsonUtils.entityToJsonString(studentMap.get(students.get(i).getIdStr()));
-                        switchModels = JsonUtils.parseArray(modelStr, SRSwitchModel.class);
-                        if (switchModels == null) continue;
-                        for (int j = 0; j < switchModels.size(); j++) {
-                            switchModel = switchModels.get(j);
-                            if (switchModel == null) continue;
-                            switch (switchModel.getType()) {
-                                case 4:
-                                    students.get(i).setMuted(switchModel.getState() == 2);
-                                    break;
-                                case 5:
-                                    students.get(i).setDrawing(switchModel.getState() == 1);
-                                    break;
-                                case 6:
-                                    students.get(i).setAnimate(switchModel.getState() == 1);
-                                    break;
-                                case 15:
-                                    students.get(i).setStage(switchModel.getState() == 1);
-                                    students.get(i).setPoint(TextUtils.isEmpty(switchModel.getExtend()) ? "0,0" : switchModel.getExtend());
-                                    break;
-                            }
+                    UserModel student = new UserModel();
+                    student.setId(userModel.getUser_id());
+                    student.setType(userModel.getUser_type());
+                    student.setName(userModel.getNickname());
+                    student.setPhoto(userModel.getAvatar());
+                    student.setDia(userModel.getDiamond());
+                    student.setDiamond(userModel.getDiamond());
+                    student.setEntryTime(userModel.getEntry_time());
+                    student.setLeaveTime(userModel.getLeave_time());
+                    student.setUuid(userModel.getExternal_id());
+                    students.add(student);
+                    break;
+                case RoomConstant.TEACHER_TYPE:
+                    String teacherName = userModel.getNickname();
+                    if (showClassTipsDialog && dialog == null) {
+                        dialog = new ClassTipsDialog(mContext);
+                        dialog.setData(teacherName, infoResult.getCourseware_name(), classType).show();
+                    } else if (!showClassTipsDialog) {
+                        if (classTipsDialog == null) {
+                            classTipsDialog = new InteractClassTipsDialog(mContext);
+                            classTipsDialog.show();
                         }
                     }
+                    setTeacherInfo(ObjectUtil.getIntValue(teacherId = userModel.getUser_id()), teacherName);
+                    break;
+            }
+        }
+    }
 
-                    animationLogList = animationLogList == null ? new ArrayList<>() : animationLogList;
-                    animationLogList.clear();
-                    List<Object> animationLogResult = result.getAnimationSetting();
-                    if (animationLogResult != null) {
-                        AnimateLogModel animateLogModel;
-                        for (int i = 0; i < animationLogResult.size(); i++) {
-                            String animationLogStr = JsonUtils.entityToJsonString(animationLogResult.get(i));
-                            animateLogModel = JsonUtils.parseObject(animationLogStr, AnimateLogModel.class);
-                            if (animateLogModel == null) continue;
-                            animateLogModel.setAnimateLog(animationLogStr);
-                            animationLogList.add(animateLogModel);
-                        }
-                    }
+    private void doStateToolResult(StateToolResult result) {
+        mCurrentCoursewarePage = result.getPageSetting();
+        Map studentMap = (Map) result.getToolSetting();
+        List<SRSwitchModel> switchModels;
+        SRSwitchModel switchModel;
+        for (int i = 0; i < students.size(); i++) {
+            String modelStr = JsonUtils.entityToJsonString(studentMap.get(students.get(i).getIdStr()));
+            switchModels = JsonUtils.parseArray(modelStr, SRSwitchModel.class);
+            if (switchModels == null) continue;
+            for (int j = 0; j < switchModels.size(); j++) {
+                switchModel = switchModels.get(j);
+                if (switchModel == null) continue;
+                switch (switchModel.getType()) {
+                    case 4:
+                        students.get(i).setMuted(switchModel.getState() == 2);
+                        break;
+                    case 5:
+                        students.get(i).setDrawing(switchModel.getState() == 1);
+                        break;
+                    case 6:
+                        students.get(i).setAnimate(switchModel.getState() == 1);
+                        break;
+                    case 15:
+                        students.get(i).setStage(switchModel.getState() == 1);
+                        students.get(i).setPoint(TextUtils.isEmpty(switchModel.getExtend()) ? "0,0" : switchModel.getExtend());
+                        break;
+                }
+            }
+        }
 
-                    if (TextUtils.isEmpty(infoResult.getCoursewareUrl())) {
-                        ExceptionUtil.sendException("getRoomCoursewareEmptyError", classType, "");
-                        doSCourseLoadFail();
-                        return;
-                    }
-
-                    settingBean = infoResult.getSetting();
-                    mCurrentUrl = infoResult.getCoursewareUrl();
-                    boolean isLoadedReply = true;/*SPUtils.getInstance().getBoolean(RoomConstant.SP_LOADED_REPLY, false);*/
-                    if (isLoadedReply) {
-                        ioSocketListener();
-                    }
-
-                    if (resultModel.getNow() == 0) {
-                        ExceptionUtil.sendException("getRoomSrvtimeError", classType, "");
-                    }
-
-                    if (infoResult.getSetting() == null || TextUtils.isEmpty(infoResult.getSetting().getAgora_key())) {
-                        ExceptionUtil.sendException("getRoomAgorakeyError", classType, "");
-                    }
-
-                    checkRoomResultSuccess(infoResult, resultModel.getNow(), isLoadedReply);
-                }, throwable -> {
-                    ExceptionUtil.sendException("getRoomToolStatusError", classType, throwable.getMessage());
-                    responseErrorToast();
-                });
+        animationLogList = animationLogList == null ? new ArrayList<>() : animationLogList;
+        animationLogList.clear();
+        List<Object> animationLogResult = result.getAnimationSetting();
+        if (animationLogResult != null) {
+            AnimateLogModel animateLogModel;
+            for (int i = 0; i < animationLogResult.size(); i++) {
+                String animationLogStr = JsonUtils.entityToJsonString(animationLogResult.get(i));
+                animateLogModel = JsonUtils.parseObject(animationLogStr, AnimateLogModel.class);
+                if (animateLogModel == null) continue;
+                animateLogModel.setAnimateLog(animationLogStr);
+                animationLogList.add(animateLogModel);
+            }
+        }
     }
 
     private void ioSocketListener() {
@@ -529,6 +590,7 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
                 break;
             case Constants.QUALITY_BAD:
             case Constants.QUALITY_VBAD:
+            case Constants.QUALITY_DOWN:
                 ivSignal.setImageDrawable(mSingalList[2]);
                 break;
         }

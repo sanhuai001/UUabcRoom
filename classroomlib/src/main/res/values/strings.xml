@@ -7,6 +7,7 @@
     <string name="common_network_connect_notwifi">当前为非wifi环境，会消耗流量哦！</string>
     <string name="common_server_error">加载失败，快联系督导/顾问试试吧</string>
     <string name="common_ss_server_error">(%1$s)加载失败，快联系督导/顾问试试吧</string>
+    <string name="common_network_bad_error">网络出了点小问题，请刷新重试</string>
     <string name="common_token_overdue">当前会话已过期，请重新登录</string>
     <string name="common_submit">提交</string>
     <string name="common_current_network_wifi">当前为WIFI环境~</string>

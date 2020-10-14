@@ -47,6 +47,7 @@ import com.uuabc.classroomlib.utils.SConfirmDialogUtils;
 import com.uuabc.classroomlib.utils.SocketIoUtils;
 import com.uuabc.classroomlib.utils.TipUtils;
 import com.uuabc.classroomlib.widget.BoardViewLayout;
+import com.uuabc.classroomlib.widget.dialog.SConfirmDialog;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -475,6 +476,29 @@ public class BaseClassRoomHelper<T extends ViewDataBinding> {
         if (((BaseCommonActivity) mContext).isDestroyed()) return;
         ((BaseClassRoomActivity) mContext).dismissProgress();
         TipUtils.warningShow(mContext, !TextUtils.isEmpty(code) ? mContext.getString(R.string.common_ss_server_error, code) : mContext.getString(R.string.common_server_error));
+    }
+
+    SConfirmDialog loadFailDialog;
+
+    void requestLoadFail(boolean isNetError) {
+        ((BaseCommonActivity) mContext).dismissProgress();
+        if (loadFailDialog != null) {
+            loadFailDialog.dismiss();
+        }
+        loadFailDialog = SConfirmDialogUtils.show(mContext,
+                R.drawable.ic_room_sdk_dialog_confirm_refresh,
+                mContext.getString(isNetError ? R.string.common_network_bad_error : R.string.common_server_error),
+                mContext.getString(R.string.fragment_check_exit_str),
+                (dialog, which) -> {
+                    dialog.dismiss();
+                    ((BaseIoSocketActivity) mContext).finish();
+                },
+                mContext.getString(R.string.dialog_refresh_str)
+                , (dialog, which) -> {
+                    dialog.dismiss();
+                    ((BaseClassRoomActivity) mContext).showProgress();
+                    ((BaseClassRoomActivity) mContext).onNetWorkMsgReceived(NetworkUtils.isConnected() ? RoomConstant.NET_WORK_CONNECTED : RoomConstant.NET_WORK_INCONNECTED);
+                });
     }
 
     void doNewOffLineClassRoom() {

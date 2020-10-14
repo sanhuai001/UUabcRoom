@@ -23,7 +23,7 @@ class TestActivity : AppCompatActivity() {
             currentId = p1
         }
 
-        etToken.setText("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImRlMzU0ODM2LTYxN2EtNGVjNy04Nzg2LTQ3NzdkMWExYWI4MiI.poBSW2KTyhrt1XhijhbjDQzabhMbkJGPEVc2YKalfa8")
+        etToken.setText("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImIxNTlkOTY2LTcxNzMtNDIxMy05ZGE4LTJmNDc2MWI1ZmQ0ZTQ0NjYi.40T8MV8MLOTOX15-Cs4-LYGKOviwMeHl9J1p_7uMpLk")
         RxView.clicks(btnInter).throttleFirst(3, TimeUnit.SECONDS).subscribe {
             val roomToken = etToken.text.toString()
             if (TextUtils.isEmpty(roomToken)) {

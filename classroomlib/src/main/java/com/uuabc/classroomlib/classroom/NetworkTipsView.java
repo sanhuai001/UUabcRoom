@@ -23,7 +23,7 @@ public class NetworkTipsView extends LinearLayout {
     private ImageView ivRightArrow;
     private RelativeLayout rlTitle;
     private ConstraintLayout clInfo;
-    private boolean netQualityGood;
+    private boolean netQualityGood = true;
 
     public NetworkTipsView(Context context) {
         this(context, null);

@@ -68,6 +68,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.agora.rtc.Constants;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -961,10 +962,6 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
         ImageView ivNoDiamond = ((Activity) mContext).findViewById(R.id.iv_no_diamond);
         LottieAnimationView lavBell = ((Activity) mContext).findViewById(R.id.lav_bell);
         ClassRoomDiamondRankView rvNormal = ((Activity) mContext).findViewById(R.id.rv_normal);
-        btnDoHomework.setText(mContext.getString(R.string.classroom_evaluate_course_str));
-        btnNoDo.setText(mContext.getString(R.string.dialog_exit_title_str));
-        btnDoHomework.setBackgroundResource(R.drawable.room_sdk_selector_dialog_button_red_s);
-        btnNoDo.setBackgroundResource(R.drawable.room_sdk_selector_dialog_button_blue_s);
         int diamondCount = 0;
         List<UserModel> userList = new ArrayList<>();
         for (Object value : usersMap.values()) {
@@ -1065,7 +1062,8 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
             if (map.containsKey(0) && uId == mUid) {
                 int networkQuality = map.get(0);
                 LogUtils.i("networkQuality", "networkQuality:" + networkQuality);
-                mBinding.viewNetworkTips.setNetQuality(networkQuality < 3);
+                if (networkQuality == Constants.QUALITY_DETECTING) return;
+                mBinding.viewNetworkTips.setNetQuality(networkQuality < Constants.QUALITY_POOR);
                 setWifiIcon(mBinding.ivWifi, networkQuality);
                 continue;
             }

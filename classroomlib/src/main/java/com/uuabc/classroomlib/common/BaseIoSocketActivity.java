@@ -29,6 +29,7 @@ public class BaseIoSocketActivity extends BaseWifiListenerActivity {
     public void receiveIoSocketMsg(MessageEvent eventModel) {
         mMainHandler.post(() -> {
             LogUtils.i("receiveIoSocketMsg", eventModel.getEvent() + ":" + eventModel.getData());
+            if (isDestroyed()) return;
             onIoSocketMsgReceived(eventModel.getEvent(), eventModel.getData(), eventModel.getData2());
         });
     }

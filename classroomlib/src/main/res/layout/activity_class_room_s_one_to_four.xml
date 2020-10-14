@@ -69,7 +69,6 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/max_x_gap_margin"
                 android:background="@drawable/room_sdk_shape_white_translucent_two"
-                android:drawableStart="@drawable/ic_room_sdk_diamond_gray_small"
                 android:drawablePadding="@dimen/mid_gap_margin"
                 android:gravity="center"
                 android:paddingStart="@dimen/max_x_gap_margin"
@@ -79,7 +78,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/guideline2"
                 app:layout_constraintHeight_percent="0.05"
                 app:layout_constraintStart_toEndOf="@+id/iv_logo"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:drawableStartCompat="@drawable/ic_room_sdk_diamond_gray_small" />
 
             <com.uuabc.classroomlib.widget.FilterImageView
                 android:id="@+id/iv_refresh"

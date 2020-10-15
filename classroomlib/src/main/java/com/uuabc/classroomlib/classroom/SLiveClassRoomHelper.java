@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.JsonSyntaxException;
@@ -48,6 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.agora.rtc.Constants;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -583,6 +585,24 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
         onNetWorkMsgReceived(mBinding.viewNetworkTips, event, RoomConstant.LIVE_ERROR);
     }
 
+    void doNetEvent(HashMap<Integer, Integer> map) {
+        if (map == null) return;
+        if (map.containsKey(0)) {
+            int networkQuality = map.get(0);
+            LogUtils.i("networkQuality", "networkQuality:" + networkQuality);
+            if (networkQuality == Constants.QUALITY_DETECTING) return;
+            mBinding.viewNetworkTips.setNetQuality(networkQuality < Constants.QUALITY_POOR);
+            setWifiIcon(mBinding.ivWifi, networkQuality);
+        }
+
+        if (!ObjectUtil.isEmpty(teacherId)) {
+            int teacher = Float.valueOf("2" + teacherId).intValue();
+            if (map.containsKey(teacher)) {
+                setSignal(mBinding.ivSignal, map.get(teacher));
+            }
+        }
+    }
+
     void onRtcMsgReceived(String event, String uidStr, String errorMsg) {
         switch (event) {
             case RoomConstant.ROOM_JOINED:
@@ -600,6 +620,7 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
                     mBinding.tvTeacherName.setVisibility(View.VISIBLE);
                     mBinding.ivNextPage.setVisibility(View.GONE);
                     mBinding.ivPrePage.setVisibility(View.GONE);
+                    mBinding.clNet.setVisibility(View.VISIBLE);
                     return;
                 }
                 break;
@@ -607,6 +628,7 @@ public class SLiveClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
                 //老师
                 if (!TextUtils.isEmpty(uidStr) && uidStr.startsWith("2")) {
                     RoomApplication.getInstance().getVideoManager().onRemoveView(mBinding.flTeacher);
+                    mBinding.clNet.setVisibility(View.GONE);
                     return;
                 }
                 break;

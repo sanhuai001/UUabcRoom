@@ -580,15 +580,16 @@ class SBaseClassRoomHelper<T extends ViewDataBinding> extends BaseClassRoomHelpe
     }
 
     void setSignal(ImageView ivSignal, Integer singal) {
+        if (singal == Constants.QUALITY_DETECTING) return;
         switch (singal) {
             case Constants.QUALITY_EXCELLENT:
+            case Constants.QUALITY_GOOD:
                 ivSignal.setImageDrawable(mSingalList[0]);
                 break;
-            case Constants.QUALITY_GOOD:
             case Constants.QUALITY_POOR:
+            case Constants.QUALITY_BAD:
                 ivSignal.setImageDrawable(mSingalList[1]);
                 break;
-            case Constants.QUALITY_BAD:
             case Constants.QUALITY_VBAD:
             case Constants.QUALITY_DOWN:
                 ivSignal.setImageDrawable(mSingalList[2]);

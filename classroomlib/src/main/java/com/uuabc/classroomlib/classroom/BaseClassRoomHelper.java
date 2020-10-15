@@ -537,6 +537,7 @@ public class BaseClassRoomHelper<T extends ViewDataBinding> {
                 break;
             case 2:
                 ivWifi.setImageResource(R.drawable.ic_room_sdk_wifi_two);
+                break;
             case 3:
             case 4:
                 ivWifi.setImageResource(R.drawable.ic_room_sdk_wifi_one);

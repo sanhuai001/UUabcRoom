@@ -32,6 +32,7 @@ import com.uuabc.classroomlib.utils.SConfirmDialogUtils;
 import com.uuabc.classroomlib.utils.SocketIoUtils;
 import com.uuabc.classroomlib.utils.UtilsBigDecimal;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -360,6 +361,11 @@ public class SLiveClassRoomActivity extends BaseClassRoomActivity {
         super.onSetWifiLevel(level);
         if (mBinding == null) return;
         roomHelper.setWifiIcon(mBinding.ivWifi, level);
+    }
+
+    @Override
+    public void onNetWorkCallBack(HashMap<Integer, Integer> map) {
+        roomHelper.doNetEvent(map);
     }
 
     @Override

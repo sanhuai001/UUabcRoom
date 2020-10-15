@@ -55,12 +55,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static io.agora.rtc.Constants.QUALITY_BAD;
-import static io.agora.rtc.Constants.QUALITY_EXCELLENT;
-import static io.agora.rtc.Constants.QUALITY_GOOD;
-import static io.agora.rtc.Constants.QUALITY_POOR;
-import static io.agora.rtc.Constants.QUALITY_VBAD;
-
 @SuppressLint({"CheckResult", "SetTextI18n", "SimpleDateFormat"})
 public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClassRoomSOneToOneBinding> {
     private CommonBaseAdapter<ChartModel> mMsgAdapter;
@@ -469,9 +463,8 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
                 if (uidStr.startsWith("2")) {
                     RoomApplication.getInstance().getVideoManager().setupRemoteVideo(mContext, mBinding.flTeacher, String.valueOf(uid), true);
 
-                    if (!mBinding.ivVolumeTea.isShown())
-                        mBinding.ivVolumeTea.setVisibility(View.VISIBLE);
-                    if (!mBinding.clNet.isShown()) mBinding.clNet.setVisibility(View.VISIBLE);
+                    mBinding.ivVolumeTea.setVisibility(View.VISIBLE);
+                    mBinding.clNet.setVisibility(View.VISIBLE);
 
                     mBinding.tvTeacherName.setVisibility(View.VISIBLE);
                     mBinding.ivNextPage.setVisibility(View.GONE);
@@ -531,19 +524,7 @@ public class SOneToOneClassRoomHelper extends SBaseClassRoomHelper<ActivityClass
         if (!ObjectUtil.isEmpty(teacherId)) {
             int teacher = Float.valueOf("2" + teacherId).intValue();
             if (map.containsKey(teacher)) {
-                switch (map.get(teacher)) {
-                    case QUALITY_EXCELLENT:
-                        mBinding.ivSignal.setImageResource(R.drawable.icon_signal_3);
-                        break;
-                    case QUALITY_GOOD:
-                    case QUALITY_POOR:
-                        mBinding.ivSignal.setImageResource(R.drawable.icon_signal_2);
-                        break;
-                    case QUALITY_BAD:
-                    case QUALITY_VBAD:
-                        mBinding.ivSignal.setImageResource(R.drawable.icon_signal_1);
-                        break;
-                }
+                setSignal(mBinding.ivSignal, map.get(teacher));
             }
         }
     }

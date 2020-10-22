@@ -9,4 +9,10 @@ public class UtilsBigDecimal {
                 .setScale(4, BigDecimal.ROUND_HALF_UP)
                 .doubleValue();
     }
+
+    public static float getDivValue(int a, float b) {
+        return new BigDecimal((float) a / b)
+                .setScale(4, BigDecimal.ROUND_HALF_UP)
+                .floatValue();
+    }
 }

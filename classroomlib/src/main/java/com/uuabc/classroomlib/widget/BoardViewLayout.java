@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import com.uuabc.classroomlib.model.SocketModel.OnlineUserModel;
 import com.uuabc.classroomlib.model.SocketModel.UserModel;
 import com.uuabc.classroomlib.model.UserPathModel;
 import com.uuabc.classroomlib.utils.ObjectUtil;
+import com.uuabc.classroomlib.utils.UtilsBigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,18 +98,18 @@ public class BoardViewLayout extends FrameLayout {
         if (TextUtils.equals(value.getType(), RoomConstant.TEXT_START_TYPE)) {
             textView = new TextView(context);
             textView.setTextColor(Color.parseColor(value.getColor()));
-            textView.setTextSize(value.getFontSize() / mScale);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilsBigDecimal.getDivValue(value.getFontSize(), (float) (mScale * 0.92)));
             textViews.add(textView);
             addView(textView);
             LayoutParams layoutParams = (LayoutParams) textView.getLayoutParams();
-            layoutParams.width = (int) (value.getWidth() == 0 ? 310 : value.getWidth() / mScale);
+            layoutParams.width = (int) UtilsBigDecimal.getDivValue(value.getWidth() == 0 ? 300 : value.getWidth(), mScale);
             layoutParams.height = LayoutParams.WRAP_CONTENT;
             layoutParams.leftMargin = (int) (value.getX() / mScale);
             layoutParams.topMargin = (int) (value.getY() / mScale);
             textView.requestLayout();
         } else if (TextUtils.equals(value.getType(), RoomConstant.TEXT_END_TYPE) && textView != null) {
             textView.setTextColor(Color.parseColor(value.getColor()));
-            textView.setTextSize(value.getFontSize() / mScale);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilsBigDecimal.getDivValue(value.getFontSize(), (float) (mScale * 0.92)));
             textView = null;
         }
 

@@ -66,10 +66,17 @@ public class SOneToOneClassRoomActivity extends BaseClassRoomActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (isFinishing()) {
+            roomHelper.dismissBaseDialog();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         roomHelper.record(RoomConstant.RECORD_VIDEO_STOP, "");
         roomHelper.record(RoomConstant.RECORD_EXIT, "");
-        roomHelper.dismissBaseDialog();
         mBinding.clCoursewareContainer.removeAllViews();
         mBinding.wvCourseware.destoryWebView();
         super.onDestroy();

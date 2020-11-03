@@ -80,6 +80,9 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
         super.onStop();
         mVolumeChangeObserver.unregisterReceiver();
         RoomApplication.getInstance().getVideoManager().leaveRoom();
+        if (isFinishing() && dialog != null) {
+            dialog.dismiss();
+        }
     }
 
     @Override
@@ -91,9 +94,6 @@ public class BaseClassRoomActivity extends BaseIoSocketActivity implements Volum
         loginOut();
         doDestory();
         super.onDestroy();
-        if (dialog != null) {
-            dialog.dismiss();
-        }
     }
 
     @Override

@@ -77,11 +77,18 @@ public class SOneToFourClassRoomActivity extends BaseClassRoomActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (isFinishing()) {
+            roomHelper.dismissAllDialog();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         mBinding.rlRostrum.removeAllView();
         roomHelper.record(RoomConstant.RECORD_VIDEO_STOP, "");
         roomHelper.record(RoomConstant.RECORD_EXIT, "");
-        roomHelper.dismissAllDialog();
         mBinding.clCoursewareContainer.removeAllViews();
         mBinding.wvCourseware.destoryWebView();
         super.onDestroy();

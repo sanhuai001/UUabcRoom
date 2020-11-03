@@ -16,7 +16,7 @@ public class BaseDialog {
 
     public void dismiss() {
         try {
-            if ((dialog != null) && dialog.isShowing()) {
+            if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
             }
         } catch (Exception ignored) {

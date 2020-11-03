@@ -76,10 +76,17 @@ public class SLiveClassRoomActivity extends BaseClassRoomActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (isFinishing()) {
+            roomHelper.dismissBaseDialog();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         roomHelper.record(RoomConstant.RECORD_EXIT, "");
-        roomHelper.dismissBaseDialog();
         mBinding.clCoursewareContainer.removeAllViews();
         mBinding.wvCourseware.destoryWebView();
         mBinding.answerView.stopPlayVideo();

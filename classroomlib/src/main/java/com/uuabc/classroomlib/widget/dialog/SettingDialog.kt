@@ -111,7 +111,7 @@ open class SettingDialog(context: Context) : BaseDialog(context) {
                         .videoManager.setParameters("{\"che.audio.playout.uid.volume\": {\"uid\":${it.key},\"volume\":${it.value}}}")
             }
 
-            val jsonObj = JSONObject(volumeMap)
+            val jsonObj = JSONObject(volumeMap as Map<*, *>)
             jsonObj.put(RoomConstant.ONE_TO_FOUR_ROOM_ID, roomId)
             SPUtils.getInstance().put(RoomConstant.SP_CLASSROOM_VOICE_SETTING, jsonObj.toString())
             dismiss()

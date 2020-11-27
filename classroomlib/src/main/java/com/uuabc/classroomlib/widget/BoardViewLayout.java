@@ -97,19 +97,11 @@ public class BoardViewLayout extends FrameLayout {
 
         if (TextUtils.equals(value.getType(), RoomConstant.TEXT_START_TYPE)) {
             textView = new TextView(context);
-            textView.setTextColor(Color.parseColor(value.getColor()));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilsBigDecimal.getDivValue(value.getFontSize(), (float) (mScale * 0.92)));
             textViews.add(textView);
             addView(textView);
-            LayoutParams layoutParams = (LayoutParams) textView.getLayoutParams();
-            layoutParams.width = (int) UtilsBigDecimal.getDivValue(value.getWidth() == 0 ? 300 : value.getWidth(), mScale);
-            layoutParams.height = LayoutParams.WRAP_CONTENT;
-            layoutParams.leftMargin = (int) (value.getX() / mScale);
-            layoutParams.topMargin = (int) (value.getY() / mScale);
-            textView.requestLayout();
+            drawEditBox(value, mScale);
         } else if (TextUtils.equals(value.getType(), RoomConstant.TEXT_END_TYPE) && textView != null) {
-            textView.setTextColor(Color.parseColor(value.getColor()));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilsBigDecimal.getDivValue(value.getFontSize(), (float) (mScale * 0.92)));
+            drawEditBox(value, mScale);
             textView = null;
         }
 
@@ -124,6 +116,19 @@ public class BoardViewLayout extends FrameLayout {
         }
 
         mMouseViewList.get(1).setVisibility(View.GONE);
+    }
+
+    private void drawEditBox(DrawTextModel value, float mScale) {
+        if (textView != null && textView.getLayoutParams() != null) {
+            textView.setTextColor(Color.parseColor(value.getColor()));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilsBigDecimal.getDivValue(value.getFontSize(), (float) (mScale * 0.92)));
+            LayoutParams layoutParams = (LayoutParams) textView.getLayoutParams();
+            layoutParams.width = (int) UtilsBigDecimal.getDivValue(value.getWidth() == 0 ? 300 : value.getWidth(), mScale);
+            layoutParams.height = LayoutParams.WRAP_CONTENT;
+            layoutParams.leftMargin = (int) (value.getX() / mScale);
+            layoutParams.topMargin = (int) (value.getY() / mScale);
+            textView.requestLayout();
+        }
     }
 
     public void setCanAnimate(boolean canAnimate) {
@@ -204,7 +209,6 @@ public class BoardViewLayout extends FrameLayout {
                         float x = ObjectUtil.getFloat(point.get(0)) / mScale;
                         float y = ObjectUtil.getFloat(point.get(1)) / mScale;
                         if (j == 0) {
-
                             userPathModel.setNewPath();
                             userPathModel.getPathModel().getPaint().setStrokeWidth(valueModel.getWidth() / mScale);
                             userPathModel.getPathModel().getPaint().setColor(Color.parseColor(valueModel.getColor()));

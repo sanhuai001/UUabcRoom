@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">UUabcRoom</string>
+
+    <string name="str_open_green_led">绿灯亮</string>
+    <string name="str_close_green_led">绿灯灭</string>
+    <string name="str_open_red_led">红灯亮</string>
+    <string name="str_close_red_led">红灯灭</string>
+    <string name="str_open_blue_led">蓝灯亮</string>
+    <string name="str_close_blue_led">蓝灯灭</string>
+    <string name="str_open_white_led">白灯亮</string>
+    <string name="str_close_white_led">白灯灭</string>
+    <string name="str_open_relay">继电器开</string>
+    <string name="str_close_relay">继电器关</string>
 </resources>

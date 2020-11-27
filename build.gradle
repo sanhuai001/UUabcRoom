@@ -24,7 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://www.jitpack.io' }
+        maven { url 'https://jitpack.io' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
         maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
         maven { url "http://nexus2.tingyun.com/nexus/content/repositories/snapshots/" }

@@ -4,9 +4,6 @@ import android.text.TextUtils;
 
 public class ObjectUtil {
 
-
-
-
     public static boolean getBoolean(Object value) {
         if (value == null) return false;
 

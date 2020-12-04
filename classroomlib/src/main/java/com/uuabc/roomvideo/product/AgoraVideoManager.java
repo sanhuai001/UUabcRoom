@@ -164,7 +164,7 @@ public class AgoraVideoManager implements VideoManagerObserver {
         }
 
         @Override
-        public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) { // Tutorial Step 5
+        public void onRemoteVideoStateChanged(final int uid, int width, int height, int elapsed) { // Tutorial Step 5
             if (observer != null) {
                 observer.onUserJoined(String.valueOf(uid));
             }
@@ -228,7 +228,7 @@ public class AgoraVideoManager implements VideoManagerObserver {
 
         @Override
         public void onConnectionStateChanged(int state, int reason) {
-            if (observer != null && state == Constants.ERR_TOKEN_EXPIRED) {
+            if (observer != null && state == Constants.CONNECTION_CHANGED_TOKEN_EXPIRED) {
                 observer.onRenewToken();
             }
         }

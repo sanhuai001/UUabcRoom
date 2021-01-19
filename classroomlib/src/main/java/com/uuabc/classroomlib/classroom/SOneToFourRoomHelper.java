@@ -376,15 +376,23 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
         if (shareModel.getData() == null) return;
         try {
             SwitchModel switchModel = SocketIoUtils.parseData(SwitchModel.class, (Map) shareModel.getData());
-            if (switchModel.getId() == SPUtils.getInstance().getInt(RoomConstant.USER_ID) || switchModel.getId() == 0) {
-                muteSLocalAudioStream(ObjectUtil.getBoolean(switchModel.getValue()), "1" + switchModel.getId());
+            boolean switchOpen = switchModel.isOpen();
+            String userId = "1" + switchModel.getId();
+            if (switchModel.getId() == SPUtils.getInstance().getInt(RoomConstant.USER_ID)) {
+                muteSLocalAudioStream(switchOpen, userId);
             } else {
-                muteRemoteAudioStream(ObjectUtil.getBoolean(switchModel.getValue()), "1" + switchModel.getId());
+                muteRemoteAudioStream(switchOpen, userId);
             }
 
             if (switchModel.getId() == 0) {
                 for (int i = 0; i < mStudentAdapter.getDataCount(); i++) {
-                    mStudentAdapter.getData(i).setMuted(switchModel.isOpen());
+                    mStudentAdapter.getData(i).setMuted(switchOpen);
+                    int userID = mStudentAdapter.getData(i).getId();
+                    if (userID == SPUtils.getInstance().getInt(RoomConstant.USER_ID)) {
+                        muteSLocalAudioStream(switchOpen, "1" + userID);
+                    } else {
+                        muteRemoteAudioStream(switchOpen, "1" + userID);
+                    }
                 }
                 mStudentAdapter.notifyDataSetChanged();
                 return;
@@ -392,7 +400,7 @@ public class SOneToFourRoomHelper extends SBaseClassRoomHelper<ActivityClassRoom
 
             for (int i = 0; i < mStudentAdapter.getDataCount(); i++) {
                 if (mStudentAdapter.getData(i).getId() == switchModel.getId()) {
-                    mStudentAdapter.getData(i).setMuted(switchModel.isOpen());
+                    mStudentAdapter.getData(i).setMuted(switchOpen);
                     mStudentAdapter.notifyItemChanged(i);
                     break;
                 }
